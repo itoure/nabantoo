@@ -16,6 +16,9 @@
 //Route::get('home', 'HomeController@index');
 
 Route::controller('home', 'DashboardController');
+Route::controller('user/create', 'UserController');
+Route::controller('user', 'UserController');
+Route::controller('rendezvous', 'RendezvousController');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

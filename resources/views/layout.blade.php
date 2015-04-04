@@ -35,19 +35,21 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">RendezVous</a>
+            <a class="navbar-brand" href="{{action('DashboardController@getIndex')}}">RendezVous</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="{{action('DashboardController@getIndex')}}">Home</a></li>
-                <li><a href="{{action('DashboardController@getIndex')}}">Create a Rendez-Vous</a></li>
-                <li><a href="{{action('DashboardController@getIndex')}}">Settings</a></li>
+                <li><a href="{{action('RendezvousController@getCreate')}}">Create RendezVous</a></li>
+                <li><a href="{{action('UserController@getCreate')}}">Create Account</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
 </nav>
 
-@yield('content')
+<div class="container">
+    @yield('content')
+</div>
 
 
 <!-- Bootstrap core JavaScript
@@ -56,6 +58,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="/bootstrap/js/bootstrap.min.js"></script>
 <script src="/js/app.js"></script>
+<script src="/js/holder.min.js"></script>
 
 </body>
 </html>
