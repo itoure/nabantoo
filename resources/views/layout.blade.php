@@ -12,10 +12,11 @@
     <title>Rendez-Vous in the real life</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    {!! Html::style('bootstrap/css/bootstrap.min.css') !!}
 
     <!-- Custom styles for this website -->
-    <link href="/css/app.css" rel="stylesheet">
+    {!! Html::style('css/app.css') !!}
+    {!! Html::style('css/bootstrap-datetimepicker.min.css') !!}
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -56,9 +57,10 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="/bootstrap/js/bootstrap.min.js"></script>
-<script src="/js/app.js"></script>
-<script src="/js/holder.min.js"></script>
+{!! Html::script('bootstrap/js/bootstrap.min.js') !!}
+{!! Html::script('js/app.js') !!}
+{!! Html::script('js/holder.min.js') !!}
+{!! Html::script('js/bootstrap-datetimepicker.min.js') !!}
 
 </body>
 </html>

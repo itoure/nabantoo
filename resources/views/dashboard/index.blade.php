@@ -69,7 +69,7 @@
     </div>
     <div class="col-md-4">
         <div class="panel panel-info">
-            <div class="panel-heading">???</div>
+            <div class="panel-heading">RendezVous That Might Interest You</div>
             <div class="panel-body">
                 Panel content
             </div>
