@@ -1,10 +1,10 @@
 <?php namespace App\Http\Controllers;
 
-
-//use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
+use App\Models\Interest;
+use App\Models\UserInterest;
 use App\Models\User;
 
 class UserController extends Controller {
@@ -37,24 +37,40 @@ class UserController extends Controller {
      */
     public function getCreate()
     {
-        return view('user/create');
+        // get all interests from db
+        $db_interests = Interest::with('category')->get();
+        $arrInterests = array();
+        foreach($db_interests as $interest){
+            $arrInterests[$interest->category->name][$interest->id] = $interest->name;
+        }
+
+        // params
+        $data = new \stdClass();
+        $data->interests = $arrInterests;
+
+        return view('user/create')->with('data', $data);
     }
 
 
     /**
-     * Valid the form and store datas in the DB
+     * Valid the signup form and store datas in the DB
      *
      * @return Response
      */
     public function postStore()
     {
 
+//        var_dump(Input::all());die;
+
         $rules = array(
             'firstname' => 'required|alpha',
             'sexe' => 'required|alpha|size:1',
-            'birthday' => 'required|date',
+            'month' => 'required|integer',
+            'day' => 'required|integer',
+            'year' => 'required|integer',
             'email' => 'required|email|unique:users',
-            'password' => 'required|string'
+            'password' => 'required|string',
+            'interests' => 'array'
         );
 
         $validator = Validator::make(Input::all(), $rules);
@@ -64,15 +80,29 @@ class UserController extends Controller {
         } else {
             $firstname = Input::get('firstname');
             $sexe = Input::get('sexe');
-            $birthday = Input::get('birthday');
+            $month = Input::get('month');
+            $day = Input::get('day');
+            $year = Input::get('year');
             $email = Input::get('email');
             $password = Input::get('password');
+            $interests = Input::get('interests');
 
-//            User::create(array(
-//                'amount' => $amount,
-//                'planned_at' => $planned_at,
-//                'category_id' => $category,
-//            ));
+            $newUser = User::create(array(
+                'firstname' => $firstname,
+                'sexe' => $sexe,
+                'birthday' => strtotime($month.'-'.$day.'-'.$year),
+                'email' => $email,
+                'password' => $password
+            ));
+
+            if($interests){
+                foreach($interests as $interest){
+                    UserInterest::create(array(
+                        'user_id' => $newUser->id,
+                        'interest_id' => $interest,
+                    ));
+                }
+            }
 
             return Redirect::action('DashboardController@getIndex');
         }

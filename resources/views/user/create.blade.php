@@ -14,9 +14,12 @@
                     <ul>
                     <div>{{ $errors->first('firstname') }}</div>
                     <div>{{ $errors->first('sexe') }}</div>
-                    <div>{{ $errors->first('birthday') }}</div>
+                    <div>{{ $errors->first('month') }}</div>
+                    <div>{{ $errors->first('day') }}</div>
+                    <div>{{ $errors->first('year') }}</div>
                     <div>{{ $errors->first('email') }}</div>
                     <div>{{ $errors->first('password') }}</div>
+                    <div>{{ $errors->first('interests') }}</div>
                     </ul>
                 </div>
                 @endif
@@ -33,22 +36,21 @@
 
                 <div class="form-group">
                     <label class="radio-inline">
-                    {!! Form::radio('sexe', 'F', array('class' => 'form-control input-lg')) !!} Female
+                    {!! Form::radio('sexe', 'F') !!} Female
                     </label>
 
                     <label class="radio-inline">
-                    {!! Form::radio('sexe', 'M', array('class' => 'form-control input-lg')) !!} Male
+                    {!! Form::radio('sexe', 'M') !!} Male
                     </label>
                 </div>
 
+                <h5>Birthday</h5>
                 <div class="form-group">
-                    {!! Form::text('birthday', null, array(
-                    'placeholder' => 'Birthday',
-                    'id' => 'birthday',
-                    'readonly',
-                    'class' => 'form-control input-lg'
-                    )) !!}
+                    {!! Form::select('month', array_combine(range(1,12),range(1,12)), '', array('class' => 'form-inline')) !!}
+                    {!! Form::select('day', array_combine(range(1,31),range(1,31)), '', array('class' => 'form-inline')) !!}
+                    {!! Form::select('year', array_combine(range(2015, 1915),range(2015, 1915)), '', array('class' => 'form-inline')) !!}
                 </div>
+
 
                 <div class="form-group">
                     {!! Form::email('email', null, array(
@@ -64,8 +66,21 @@
                     )) !!}
                 </div>
 
+                <h3>What are your interests ?</h3>
+
+                @foreach ($data->interests as $category => $interests)
                 <div class="form-group">
-                    {!! Form::submit('Let\'s meet people now', array(
+                    <label class="col-md-2">{{$category}}</label>
+                    @foreach ($interests as $value => $name)
+                    <label class="checkbox-inline">
+                        {!! Form::checkbox('interests[]', $value) !!} {{$name}}
+                    </label>
+                    @endforeach
+                </div>
+                @endforeach
+
+                <div class="form-group">
+                    {!! Form::submit('Sign Up', array(
                     'class' => 'btn btn-primary btn-lg btn-block'
                     )); !!}
                 </div>
