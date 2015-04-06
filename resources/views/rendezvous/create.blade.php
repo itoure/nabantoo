@@ -23,7 +23,7 @@
                 </div>
                 @endif
 
-                {!! Form::open(array('action' => 'RendezvousController@postStore')) !!}
+                {!! Form::open(array('action' => 'RendezvousController@postStore', 'files' => true)) !!}
 
                 <div class="form-group">
                     {!! Form::text('title', null, array(
@@ -41,15 +41,17 @@
                 </div>
 
                 <div class="form-group">
-                    {!! Form::text('location', null, array(
-                    'placeholder' => 'Where',
-                    'class' => 'form-control input-lg'
-                    )) !!}
+                    {!! Form::select('category',
+                    $data->interests,
+                    '',
+                    array('class' => 'form-control input-lg')) !!}
                 </div>
 
-                <h5>Add Photo RendezVous</h5>
                 <div class="form-group">
-                    {!! Form::file('image') !!}
+                    {!! Form::select('city',
+                    $data->cities,
+                    '',
+                    array('class' => 'form-control input-lg')) !!}
                 </div>
 
                 <h5>Date RendezVous</h5>
@@ -66,11 +68,9 @@
                     )) !!}
                 </div>
 
+                <h5>Add Photo RendezVous</h5>
                 <div class="form-group">
-                    {!! Form::select('category',
-                    $data->interests,
-                    '',
-                    array('class' => 'form-control input-lg')) !!}
+                    {!! Form::file('photo') !!}
                 </div>
 
                 <div class="form-group">

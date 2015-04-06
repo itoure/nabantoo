@@ -24,7 +24,7 @@
                 </div>
                 @endif
 
-                {!! Form::open(array('action' => 'UserController@postStore')) !!}
+                {!! Form::open(array('action' => 'UserController@postStore', 'files' => true)) !!}
 
                 <div class="form-group">
                     {!! Form::text('firstname', null, array(
@@ -32,6 +32,13 @@
                     'class' => 'form-control input-lg'
                     )) !!}
                     <span class="help-block">Don't forget to put your real name ;-)</span>
+                </div>
+
+                <div class="form-group">
+                    {!! Form::select('city',
+                    $data->cities,
+                    '',
+                    array('class' => 'form-control input-lg')) !!}
                 </div>
 
                 <div class="form-group">
@@ -64,6 +71,11 @@
                     'placeholder' => 'Password',
                     'class' => 'form-control input-lg'
                     )) !!}
+                </div>
+
+                <h5>Your Photo</h5>
+                <div class="form-group">
+                    {!! Form::file('photo') !!}
                 </div>
 
                 <h3>What are your interests ?</h3>

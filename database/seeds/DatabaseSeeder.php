@@ -4,6 +4,8 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
 use App\Models\Interest;
+use App\Models\Country;
+use App\Models\City;
 
 class DatabaseSeeder extends Seeder {
 
@@ -18,6 +20,8 @@ class DatabaseSeeder extends Seeder {
 
 		$this->call('CategoriesTableSeeder');
 		$this->call('InterestsTableSeeder');
+		$this->call('CountriesTableSeeder');
+		$this->call('CitiesTableSeeder');
 	}
 
 }
@@ -53,6 +57,36 @@ class InterestsTableSeeder extends Seeder {
         Interest::create(['name' => 'Video Game', 'category_id' => 3]);
         Interest::create(['name' => 'Shopping', 'category_id' => 4]);
         Interest::create(['name' => 'Cinema', 'category_id' => 4]);
+    }
+
+}
+
+
+class CitiesTableSeeder extends Seeder {
+
+    public function run()
+    {
+        DB::table('cities')->delete();
+
+        City::create(['name' => 'Lyon', 'country_id' => 1]);
+        City::create(['name' => 'New York City', 'country_id' => 1]);
+        City::create(['name' => 'Rio De Janeiro', 'country_id' => 1]);
+        City::create(['name' => 'London', 'country_id' => 1]);
+        City::create(['name' => 'Barcelona', 'country_id' => 1]);
+    }
+
+}
+
+class CountriesTableSeeder extends Seeder {
+
+    public function run()
+    {
+        DB::table('countries')->delete();
+
+        Country::create(['name' => 'France']);
+        Country::create(['name' => 'United States']);
+        Country::create(['name' => 'China']);
+        Country::create(['name' => 'Brazil']);
     }
 
 }

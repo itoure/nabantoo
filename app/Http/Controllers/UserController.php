@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Models\City;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
@@ -44,9 +45,17 @@ class UserController extends Controller {
             $arrInterests[$interest->category->name][$interest->id] = $interest->name;
         }
 
+        // get all cities from db
+        $db_cities = City::where('country_id', '=', 1)->get();
+        $arrCities = array('' => 'Choose Your City');
+        foreach($db_cities as $city){
+            $arrCities[$city->id] = $city->name;
+        }
+
         // params
         $data = new \stdClass();
         $data->interests = $arrInterests;
+        $data->cities = $arrCities;
 
         return view('user/create')->with('data', $data);
     }
@@ -59,8 +68,7 @@ class UserController extends Controller {
      */
     public function postStore()
     {
-
-//        var_dump(Input::all());die;
+        $fileFolder = env('APP_FILE_FOLDER');
 
         $rules = array(
             'firstname' => 'required|alpha',
@@ -84,15 +92,28 @@ class UserController extends Controller {
             $day = Input::get('day');
             $year = Input::get('year');
             $email = Input::get('email');
+            $city = Input::get('city');
             $password = Input::get('password');
             $interests = Input::get('interests');
+            $photo = Input::file('photo');
+
+            // photo
+            $photoName = null;
+            if($photo){
+                if ($photo->isValid()) {
+                    $photo->move($fileFolder.'/user/', $photo->getClientOriginalName());
+                    $photoName = $photo->getClientOriginalName();
+                }
+            }
 
             $newUser = User::create(array(
                 'firstname' => $firstname,
                 'sexe' => $sexe,
                 'birthday' => strtotime($month.'-'.$day.'-'.$year),
                 'email' => $email,
-                'password' => $password
+                'password' => $password,
+                'photo' => $photoName,
+                'city_id' => $city
             ));
 
             if($interests){
