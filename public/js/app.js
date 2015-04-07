@@ -10,4 +10,12 @@ $(function() {
         autoclose: true
     });
 
+    var $container = $('#isotope');
+    // init
+    $container.isotope({
+        // options
+        itemSelector: '.thumbnail',
+        layoutMode: 'fitRows'
+    });
+
 });

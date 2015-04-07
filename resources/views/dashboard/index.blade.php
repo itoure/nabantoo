@@ -4,8 +4,17 @@
 
 <div class="row">
     <div class="col-md-8">
+        <ul class="nav nav-pills nav-justified">
+            <li role="presentation" class="active"><a href="#">My Upcoming RendezVous</a></li>
+            <li role="presentation"><a href="#">Might Be Interesting</a></li>
+            <li role="presentation"><a href="#">Friends RendezVous</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="row top15">
+    <div class="col-md-8">
         <div class="panel panel-info">
-            <div class="panel-heading">Upcoming RendezVous</div>
             <div class="panel-body">
                 <ul class="media-list">
                     @for ($i = 1; $i <= 5; $i++)
@@ -26,55 +35,22 @@
             </div>
         </div>
     </div>
-
-
-    <div class="col-md-4">
-        <div class="panel panel-info">
-            <div class="panel-heading">Friends RendezVous</div>
-            <div class="panel-body">
-                <ul class="media-list">
-                    @for ($i = 1; $i <= 5; $i++)
-                    <li class="media">
-                        <div class="media-left">
-                            <a href="#">
-                                <img class="media-object" src="holder.js/40x40/lava" alt="">
-                            </a>
-                        </div>
-                        <div class="media-body">
-                            <a href="">Nadia</a> is going to <a href="">Soccer 5 @ Parilly</a>
-                            <div><small><a href="">Join</a> - <a href="">Like</a></small></div>
-                        </div>
-                    </li>
-                    @endfor
-                </ul>
-            </div>
-        </div>
-    </div>
 </div>
 
 <div class="row">
-    <div class="col-md-8">
-        <div class="panel panel-info">
-            <div class="panel-heading">Highlights Past RendezVous</div>
-            <div class="panel-body">
-                @for ($i = 1; $i <= 8; $i++)
-                <div class="col-xs-6 col-md-3">
-                <a href="#" class="thumbnail">
-                    <img src="holder.js/171x180/social" alt="">
-                </a>
-                    </div>
-                @endfor
+
+    @for ($i = 1; $i <= 8; $i++)
+    <div class="col-md-3" id="isotope">
+        <div class="thumbnail isotope-item">
+            <img src="holder.js/100%x200" alt="">
+            <div class="caption">
+                <h4>Thumbnail label</h4>
+                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
             </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="panel panel-info">
-            <div class="panel-heading">RendezVous That Might Interest You</div>
-            <div class="panel-body">
-                Panel content
-            </div>
-        </div>
-    </div>
+    @endfor
 </div>
 
 @endsection

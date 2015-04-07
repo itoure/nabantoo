@@ -61,6 +61,7 @@
 {!! Html::script('js/app.js') !!}
 {!! Html::script('js/holder.min.js') !!}
 {!! Html::script('js/bootstrap-datetimepicker.min.js') !!}
+{!! Html::script('js/isotope.pkgd.min.js') !!}
 
 </body>
 </html>
