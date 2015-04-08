@@ -25,7 +25,7 @@
                             </a>
                         </div>
                         <div class="media-body">
-                            <h4 class="media-heading"><a href="">Soccer 5 @ Parilly</a></h4>
+                            <h5 class="media-heading"><a href="">Soccer 5 @ Parilly</a></h5>
                             Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.
                             <div><small><a href="">Join</a> - <a href="">Like</a></small></div>
                         </div>
