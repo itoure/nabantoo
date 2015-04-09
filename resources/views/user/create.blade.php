@@ -35,10 +35,42 @@
                 </div>
 
                 <div class="form-group">
-                    {!! Form::select('city',
-                    $data->cities,
-                    '',
-                    array('class' => 'form-control input-lg')) !!}
+                    {!! Form::text('search', null, array(
+                    'placeholder' => 'Search',
+                    'class' => 'form-control input-lg',
+                    'id' => 'search_autocomplete',
+                    'autocomplete' => 'off'
+
+                    )) !!}
+                </div>
+
+                <div class="form-group">
+                    {!! Form::text('locality', null, array(
+                    'placeholder' => 'City',
+                    'class' => 'form-control input-lg',
+                    'id' => 'locality'
+                    )) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::text('administrative_area_level_1', null, array(
+                    'placeholder' => 'State',
+                    'class' => 'form-control input-lg',
+                    'id' => 'administrative_area_level_1'
+                    )) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::text('postal_code', null, array(
+                    'placeholder' => 'Zip Code',
+                    'class' => 'form-control input-lg',
+                    'id' => 'postal_code'
+                    )) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::text('country', null, array(
+                    'placeholder' => 'Country',
+                    'class' => 'form-control input-lg',
+                    'id' => 'country'
+                    )) !!}
                 </div>
 
                 <div class="form-group">

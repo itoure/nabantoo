@@ -46,16 +46,16 @@ class UserController extends Controller {
         }
 
         // get all cities from db
-        $db_cities = City::where('country_id', '=', 1)->get();
+        /*$db_cities = City::where('country_id', '=', 1)->get();
         $arrCities = array('' => 'Choose Your City');
         foreach($db_cities as $city){
             $arrCities[$city->id] = $city->name;
-        }
+        }*/
 
         // params
         $data = new \stdClass();
         $data->interests = $arrInterests;
-        $data->cities = $arrCities;
+        //$data->cities = $arrCities;
 
         return view('user/create')->with('data', $data);
     }
