@@ -1,12 +1,12 @@
 <?php namespace App\Http\Controllers;
 
-use App\Models\City;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Interest;
 use App\Models\UserInterest;
-use App\Models\User;
+//use App\Models\User;
+use App\User;
 use App\Models\Location;
 Use App\Models\UserLocation;
 
@@ -30,7 +30,7 @@ class UserController extends Controller {
 	 */
 	public function __construct()
 	{
-        //$this->middleware('auth');
+        $this->middleware('auth');
 	}
 
     /**

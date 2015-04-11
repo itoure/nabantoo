@@ -7,4 +7,22 @@ class UserInterest extends Model {
     public $timestamps = false;
     protected $fillable = ['user_id', 'interest_id'];
 
+    public function interest(){
+        return $this->belongsTo('App\Models\Interest');
+    }
+
+
+    public function getUserInterests($user_id) {
+
+        $result = self::where('user_id', '=', $user_id)->with('interest')->get();
+
+        $arrInterests = array();
+        foreach($result as $item){
+            $arrInterests[$item->interest_id] = $item->interest->name;
+        }
+
+        return $arrInterests;
+
+    }
+
 }

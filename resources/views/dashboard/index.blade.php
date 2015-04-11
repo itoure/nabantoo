@@ -13,7 +13,7 @@
         <div class="tab-content top20">
             <div role="tabpanel" class="tab-pane active top20" id="interesting">
                 <ul class="media-list">
-                    @for ($i = 1; $i <= 4; $i++)
+                    @foreach ($data->events as $event)
                     <li class="media">
                         <div class="media-left">
                             <a href="#">
@@ -21,12 +21,12 @@
                             </a>
                         </div>
                         <div class="media-body">
-                            <h5 class="media-heading"><a href="">Soccer 5 @ Parilly</a></h5>
-                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.
+                            <h5 class="media-heading"><a href="">{{ $event->title }} @ {{ $event->location }}</a></h5>
+                            {{ $event->details }}
                             <div><small><a href="">Join</a> - <a href="">Like</a></small></div>
                         </div>
                     </li>
-                    @endfor
+                    @endforeach
                 </ul>
             </div>
             <div role="tabpanel" class="tab-pane top20" id="upcomming">My Upcoming RendezVous</div>

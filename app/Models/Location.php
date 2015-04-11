@@ -43,4 +43,11 @@ class Location extends Model {
 
     }
 
+
+    public function getUserLocation($user_id) {
+
+
+
+    }
+
 }

@@ -4,7 +4,7 @@
 <div class="container">
 
     <div class="row">
-        <div class="col-md-12 text-center" style="margin-top: 50px;color: #FFF">
+        <div class="col-md-12 text-center" style="margin-top: 50px;color: #FFF;">
             <h1>Don't be afraid to meet unknown people</h1>
         </div>
     </div>

@@ -34,7 +34,7 @@ var RdvHome = {
         // When the user selects an address from the dropdown,
         // populate the address fields in the form.
         google.maps.event.addListener(autocomplete, 'place_changed', function() {
-            RdvApp.fillInAddress();
+            RdvHome.fillInAddress();
         });
     },
 

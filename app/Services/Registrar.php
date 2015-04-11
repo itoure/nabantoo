@@ -1,5 +1,7 @@
 <?php namespace App\Services;
 
+use App\Models\Location;
+use App\Models\UserLocation;
 use App\User;
 //Use App\Models\User;
 use Validator;
@@ -35,14 +37,30 @@ class Registrar implements RegistrarContract {
 	 */
 	public function create(array $data)
 	{
-		return User::create([
+
+		$user =  User::create([
             'firstname' => $data['firstname'],
             'sexe' => $data['sexe'],
-            'birthday' => strtotime($data['month'].'-'.$data['day'].'-'.$data['year']),
+            'birthday' => strtotime($data['month'].'/'.$data['day'].'/'.$data['year']),
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'location' => $data['location']
 		]);
+
+        // insert location
+        $modelLocation = new Location();
+        $location_id = $modelLocation->saveLocationsFromUserForm($data);
+
+
+        // insert user_location
+        if($user->id && $location_id){
+            UserLocation::create(array(
+                'user_id' => $user->id,
+                'location_id' => $location_id,
+            ));
+        }
+
+        return $user;
 	}
 
 }
