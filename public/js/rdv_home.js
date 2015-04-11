@@ -6,7 +6,7 @@ var RdvHome = {
     run: function () {
 
         // google maps autocomplete
-        RdvApp.initialize();
+        RdvHome.initialize();
 
         // manage tabs
         $(".home-tabs a").click(function (e) {

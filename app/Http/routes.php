@@ -11,17 +11,11 @@
 |
 */
 
-//Route::get('/', 'WelcomeController@index');
-
-Route::get('/', 'HomeController@index');
-
-Route::controller('home', 'DashboardController');
-Route::controller('user/create', 'UserController');
-Route::controller('user', 'UserController');
-Route::controller('rendezvous', 'RendezvousController');
-Route::controller('utils', 'UtilsController');
-
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
+	'user' => 'UserController',
+	'rendezvous' => 'RendezvousController',
+	'utils' => 'UtilsController',
+    '/' => 'DashboardController',
 ]);

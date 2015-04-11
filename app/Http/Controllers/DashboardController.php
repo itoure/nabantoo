@@ -1,5 +1,7 @@
 <?php namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+
 class DashboardController extends Controller {
 
 	/*
@@ -20,7 +22,7 @@ class DashboardController extends Controller {
 	 */
 	public function __construct()
 	{
-		//$this->middleware('guest');
+		$this->middleware('auth');
 	}
 
 	/**
@@ -28,8 +30,10 @@ class DashboardController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function getIndex()
+	public function getIndex(Request $request)
 	{
+        //var_dump($request->user());die;
+
 		return view('dashboard/index');
 	}
 

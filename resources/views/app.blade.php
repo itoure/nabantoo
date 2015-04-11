@@ -15,7 +15,8 @@
     {!! Html::style('bootstrap/css/bootstrap.min.css') !!}
 
     <!-- Custom styles for this website -->
-    {!! Html::style('css/rdv_home.css') !!}
+    {!! Html::style('css/rdv_app.css') !!}
+    {!! Html::style('css/bootstrap-datetimepicker.min.css') !!}
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -26,7 +27,7 @@
 
 <body>
 
-<nav class="navbar navbar-inverse navbar-fixed-top" style="opacity: 0.85">
+<nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -35,23 +36,22 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Rendez-Vous</a>
+            <a class="navbar-brand" href="{{action('DashboardController@getIndex')}}">Rendez-Vous</a>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <form class="navbar-form navbar-right">
-                <div class="form-group">
-                    <input type="text" placeholder="Email" class="form-control">
-                </div>
-                <div class="form-group">
-                    <input type="password" placeholder="Password" class="form-control">
-                </div>
-                <button type="submit" class="btn btn-success">Sign in</button>
-            </form>
-        </div><!--/.navbar-collapse -->
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="{{action('DashboardController@getIndex')}}">Home</a></li>
+                <li><a href="{{action('RendezvousController@getCreate')}}">Create RendezVous</a></li>
+                <li><a href="{{action('UserController@getCreate')}}">Create Account</a></li>
+                <li><a href="{{action('Auth\AuthController@getLogout')}}">Logout</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
     </div>
 </nav>
 
-@yield('content')
+<div class="container">
+    @yield('content')
+</div>
 
 
 <!-- Bootstrap core JavaScript
@@ -60,7 +60,11 @@
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyaT28hHyLxs-uGcKc_VSy9mHhfxZqBqs&libraries=places"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 {!! Html::script('bootstrap/js/bootstrap.min.js') !!}
-{!! Html::script('js/rdv_home.js') !!}
+{!! Html::script('js/rdv_app.js') !!}
+{!! Html::script('js/rdv_user.js') !!}
+{!! Html::script('js/holder.min.js') !!}
+{!! Html::script('js/bootstrap-datetimepicker.min.js') !!}
+{!! Html::script('js/isotope.pkgd.min.js') !!}
 
 </body>
 </html>

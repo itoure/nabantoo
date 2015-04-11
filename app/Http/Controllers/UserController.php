@@ -30,7 +30,7 @@ class UserController extends Controller {
 	 */
 	public function __construct()
 	{
-		//$this->middleware('guest');
+        //$this->middleware('auth');
 	}
 
     /**
@@ -74,7 +74,6 @@ class UserController extends Controller {
             'password' => 'required|string',
             'interests' => 'array',
             'location' => 'required|string',
-
         );
 
         $validator = Validator::make(Input::all(), $rules);
