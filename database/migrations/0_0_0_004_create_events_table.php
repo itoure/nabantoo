@@ -20,12 +20,13 @@ class CreateEventsTable extends Migration {
             $table->string('photo')->nullable();
             $table->integer('start_date');
             $table->integer('end_date');
+            $table->string('location');
             $table->integer('interest_id')->unsigned();
             $table->foreign('interest_id')->references('id')->on('interests');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->integer('city_id')->unsigned();
-            $table->foreign('city_id')->references('id')->on('cities');
+            $table->integer('location_id')->unsigned();
+            $table->foreign('location_id')->references('id')->on('locations');
             $table->timestamps();
 		});
 	}

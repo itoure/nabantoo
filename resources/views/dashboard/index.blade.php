@@ -4,20 +4,16 @@
 
 <div class="row">
     <div class="col-md-8">
-        <ul class="nav nav-pills nav-justified">
-            <li role="presentation" class="active"><a href="#">My Upcoming RendezVous</a></li>
-            <li role="presentation"><a href="#">Might Be Interesting</a></li>
-            <li role="presentation"><a href="#">Friends RendezVous</a></li>
+        <ul class="nav nav-tabs home-tabs">
+            <li role="presentation" class="active"><a href="#interesting">Might Be Interesting</a></li>
+            <li role="presentation"><a href="#upcomming">My Upcoming RendezVous</a></li>
+            <li role="presentation"><a href="#friends">Friends RendezVous</a></li>
         </ul>
-    </div>
-</div>
 
-<div class="row top15">
-    <div class="col-md-8">
-        <div class="panel panel-info">
-            <div class="panel-body">
+        <div class="tab-content top20">
+            <div role="tabpanel" class="tab-pane active top20" id="interesting">
                 <ul class="media-list">
-                    @for ($i = 1; $i <= 5; $i++)
+                    @for ($i = 1; $i <= 4; $i++)
                     <li class="media">
                         <div class="media-left">
                             <a href="#">
@@ -33,11 +29,15 @@
                     @endfor
                 </ul>
             </div>
+            <div role="tabpanel" class="tab-pane top20" id="upcomming">My Upcoming RendezVous</div>
+            <div role="tabpanel" class="tab-pane top20" id="friends">Friends RendezVous</div>
         </div>
+
     </div>
 </div>
 
-<div class="row">
+
+<div class="row top30">
 
     @for ($i = 1; $i <= 8; $i++)
     <div class="col-md-3" id="isotope">

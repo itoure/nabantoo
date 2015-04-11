@@ -33,14 +33,6 @@
                 </div>
 
                 <div class="form-group">
-                    {!! Form::textarea('details', null, array(
-                    'placeholder' => 'Description',
-                    'class' => 'form-control input-lg',
-                    'rows' => '5'
-                    )) !!}
-                </div>
-
-                <div class="form-group">
                     {!! Form::select('category',
                     $data->interests,
                     '',
@@ -48,13 +40,24 @@
                 </div>
 
                 <div class="form-group">
-                    {!! Form::select('city',
-                    $data->cities,
-                    '',
-                    array('class' => 'form-control input-lg')) !!}
+                    {!! Form::text('location', null, array(
+                    'placeholder' => 'Where ?',
+                    'class' => 'form-control input-lg',
+                    'id' => 'search_autocomplete',
+                    'autocomplete' => 'off'
+
+                    )) !!}
                 </div>
 
-                <h5>Date RendezVous</h5>
+                {!! Form::hidden('sublocality_level_1', null, array('id' => 'sublocality_level_1')) !!}
+                {!! Form::hidden('locality', null, array('id' => 'locality')) !!}
+                {!! Form::hidden('administrative_area_level_2', null, array('id' => 'administrative_area_level_2')) !!}
+                {!! Form::hidden('administrative_area_level_1', null, array('id' => 'administrative_area_level_1')) !!}
+                {!! Form::hidden('postal_code', null, array('id' => 'postal_code')) !!}
+                {!! Form::hidden('postal_code_prefix', null, array('id' => 'postal_code_prefix')) !!}
+                {!! Form::hidden('country', null, array('id' => 'country')) !!}
+
+                <h5>When ?</h5>
                 <div class="form-group form-inline">
                     {!! Form::text('start_date', null, array(
                     'placeholder' => 'Start Date',
@@ -68,7 +71,15 @@
                     )) !!}
                 </div>
 
-                <h5>Add Photo RendezVous</h5>
+                <div class="form-group">
+                    {!! Form::textarea('details', null, array(
+                    'placeholder' => 'Details',
+                    'class' => 'form-control input-lg',
+                    'rows' => '5'
+                    )) !!}
+                </div>
+
+                <h5>Add a Photo</h5>
                 <div class="form-group">
                     {!! Form::file('photo') !!}
                 </div>

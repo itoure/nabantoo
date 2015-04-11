@@ -13,6 +13,7 @@
                 <div class="alert alert-danger" role="alert">
                     <ul>
                     <div>{{ $errors->first('firstname') }}</div>
+                    <div>{{ $errors->first('location') }}</div>
                     <div>{{ $errors->first('sexe') }}</div>
                     <div>{{ $errors->first('month') }}</div>
                     <div>{{ $errors->first('day') }}</div>
@@ -27,16 +28,25 @@
                 {!! Form::open(array('action' => 'UserController@postStore', 'files' => true)) !!}
 
                 <div class="form-group">
-                    {!! Form::text('firstname', null, array(
-                    'placeholder' => 'Firstame',
-                    'class' => 'form-control input-lg'
-                    )) !!}
-                    <span class="help-block">Don't forget to put your real name ;-)</span>
+                    <label class="radio-inline">
+                        {!! Form::radio('sexe', 'F') !!} Female
+                    </label>
+
+                    <label class="radio-inline">
+                        {!! Form::radio('sexe', 'M') !!} Male
+                    </label>
                 </div>
 
                 <div class="form-group">
-                    {!! Form::text('search', null, array(
-                    'placeholder' => 'Search',
+                    {!! Form::text('firstname', null, array(
+                    'placeholder' => 'Your Real Name',
+                    'class' => 'form-control input-lg'
+                    )) !!}
+                </div>
+
+                <div class="form-group">
+                    {!! Form::text('location', null, array(
+                    'placeholder' => 'Your City',
                     'class' => 'form-control input-lg',
                     'id' => 'search_autocomplete',
                     'autocomplete' => 'off'
@@ -44,52 +54,13 @@
                     )) !!}
                 </div>
 
-                <div class="form-group">
-                    {!! Form::text('locality', null, array(
-                    'placeholder' => 'City',
-                    'class' => 'form-control input-lg',
-                    'id' => 'locality'
-                    )) !!}
-                </div>
-                <div class="form-group">
-                    {!! Form::text('administrative_area_level_1', null, array(
-                    'placeholder' => 'State',
-                    'class' => 'form-control input-lg',
-                    'id' => 'administrative_area_level_1'
-                    )) !!}
-                </div>
-                <div class="form-group">
-                    {!! Form::text('postal_code', null, array(
-                    'placeholder' => 'Zip Code',
-                    'class' => 'form-control input-lg',
-                    'id' => 'postal_code'
-                    )) !!}
-                </div>
-                <div class="form-group">
-                    {!! Form::text('country', null, array(
-                    'placeholder' => 'Country',
-                    'class' => 'form-control input-lg',
-                    'id' => 'country'
-                    )) !!}
-                </div>
-
-                <div class="form-group">
-                    <label class="radio-inline">
-                    {!! Form::radio('sexe', 'F') !!} Female
-                    </label>
-
-                    <label class="radio-inline">
-                    {!! Form::radio('sexe', 'M') !!} Male
-                    </label>
-                </div>
-
-                <h5>Birthday</h5>
-                <div class="form-group">
-                    {!! Form::select('month', array_combine(range(1,12),range(1,12)), '', array('class' => 'form-inline')) !!}
-                    {!! Form::select('day', array_combine(range(1,31),range(1,31)), '', array('class' => 'form-inline')) !!}
-                    {!! Form::select('year', array_combine(range(2015, 1915),range(2015, 1915)), '', array('class' => 'form-inline')) !!}
-                </div>
-
+                {!! Form::hidden('sublocality_level_1', null, array('id' => 'sublocality_level_1')) !!}
+                {!! Form::hidden('locality', null, array('id' => 'locality')) !!}
+                {!! Form::hidden('administrative_area_level_2', null, array('id' => 'administrative_area_level_2')) !!}
+                {!! Form::hidden('administrative_area_level_1', null, array('id' => 'administrative_area_level_1')) !!}
+                {!! Form::hidden('postal_code', null, array('id' => 'postal_code')) !!}
+                {!! Form::hidden('postal_code_prefix', null, array('id' => 'postal_code_prefix')) !!}
+                {!! Form::hidden('country', null, array('id' => 'country')) !!}
 
                 <div class="form-group">
                     {!! Form::email('email', null, array(
@@ -103,6 +74,13 @@
                     'placeholder' => 'Password',
                     'class' => 'form-control input-lg'
                     )) !!}
+                </div>
+
+                <h5>Birthday</h5>
+                <div class="form-group">
+                    {!! Form::select('month', array_combine(range(1,12),range(1,12)), '', array('class' => 'form-inline')) !!}
+                    {!! Form::select('day', array_combine(range(1,31),range(1,31)), '', array('class' => 'form-inline')) !!}
+                    {!! Form::select('year', array_combine(range(2015, 1915),range(2015, 1915)), '', array('class' => 'form-inline')) !!}
                 </div>
 
                 <h5>Your Photo</h5>

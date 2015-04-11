@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Event;
 use App\Models\Interest;
-use App\Models\City;
+use App\Models\Location;
 
 class RendezvousController extends Controller {
 
@@ -44,16 +44,8 @@ class RendezvousController extends Controller {
             $arrInterests[$interest->category->name][$interest->id] = $interest->name;
         }
 
-        // get all cities from db
-        $db_cities = City::where('country_id', '=', 1)->get();
-        $arrCities = array('' => 'Where ?');
-        foreach($db_cities as $city){
-            $arrCities[$city->id] = $city->name;
-        }
-
         $data = new \stdClass();
         $data->interests = $arrInterests;
-        $data->cities = $arrCities;
 
 		return view('rendezvous/create')->with('data', $data);
 	}
@@ -70,7 +62,7 @@ class RendezvousController extends Controller {
         $rules = array(
             'title' => 'required|string',
             'details' => 'required|string',
-            'city' => 'required|integer',
+            'location' => 'required|string',
             'photo' => 'image',
             'start_date' => 'required|date',
             'end_date' => 'date',
@@ -84,7 +76,7 @@ class RendezvousController extends Controller {
         } else {
             $title = Input::get('title');
             $details = Input::get('details');
-            $city = Input::get('city');
+            $location = Input::get('location');
             $photo = Input::file('photo');
             $start_date = Input::get('start_date');
             $end_date = Input::get('end_date');
@@ -99,15 +91,20 @@ class RendezvousController extends Controller {
                 }
             }
 
+            // insert location
+            $modelLocation = new Location();
+            $location_id = $modelLocation->saveLocationsFromUserForm(Input::all());
+
             Event::create(array(
                 'title' => $title,
                 'details' => $details,
-                'city_id' => $city,
+                'location' => $location,
                 'photo' => $photoName,
                 'start_date' => strtotime($start_date),
                 'end_date' => strtotime($end_date),
                 'interest_id' => $category,
                 'user_id' => 1,
+                'location_id' => $location_id,
             ));
 
             return Redirect::action('DashboardController@getIndex');

@@ -2,9 +2,9 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class Country extends Model {
+class UserLocation extends Model {
 
     public $timestamps = false;
-    protected $guarded = ['id'];
+    protected $fillable = ['user_id', 'location_id'];
 
 }

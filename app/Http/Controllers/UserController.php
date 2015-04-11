@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Redirect;
 use App\Models\Interest;
 use App\Models\UserInterest;
 use App\Models\User;
+use App\Models\Location;
+Use App\Models\UserLocation;
 
 class UserController extends Controller {
 
@@ -45,17 +47,9 @@ class UserController extends Controller {
             $arrInterests[$interest->category->name][$interest->id] = $interest->name;
         }
 
-        // get all cities from db
-        /*$db_cities = City::where('country_id', '=', 1)->get();
-        $arrCities = array('' => 'Choose Your City');
-        foreach($db_cities as $city){
-            $arrCities[$city->id] = $city->name;
-        }*/
-
         // params
         $data = new \stdClass();
         $data->interests = $arrInterests;
-        //$data->cities = $arrCities;
 
         return view('user/create')->with('data', $data);
     }
@@ -78,7 +72,9 @@ class UserController extends Controller {
             'year' => 'required|integer',
             'email' => 'required|email|unique:users',
             'password' => 'required|string',
-            'interests' => 'array'
+            'interests' => 'array',
+            'location' => 'required|string',
+
         );
 
         $validator = Validator::make(Input::all(), $rules);
@@ -92,7 +88,7 @@ class UserController extends Controller {
             $day = Input::get('day');
             $year = Input::get('year');
             $email = Input::get('email');
-            $city = Input::get('city');
+            $location = Input::get('location');
             $password = Input::get('password');
             $interests = Input::get('interests');
             $photo = Input::file('photo');
@@ -106,6 +102,8 @@ class UserController extends Controller {
                 }
             }
 
+
+            // insert user
             $newUser = User::create(array(
                 'firstname' => $firstname,
                 'sexe' => $sexe,
@@ -113,9 +111,24 @@ class UserController extends Controller {
                 'email' => $email,
                 'password' => $password,
                 'photo' => $photoName,
-                'city_id' => $city
+                'location' => $location
             ));
 
+
+            // insert location
+            $modelLocation = new Location();
+            $location_id = $modelLocation->saveLocationsFromUserForm(Input::all());
+
+
+            // insert user_location
+            if($newUser->id && $location_id){
+                UserLocation::create(array(
+                    'user_id' => $newUser->id,
+                    'location_id' => $location_id,
+                ));
+            }
+
+            // insert interests
             if($interests){
                 foreach($interests as $interest){
                     UserInterest::create(array(

@@ -58,33 +58,3 @@ class InterestsTableSeeder extends Seeder {
     }
 
 }
-
-
-class CitiesTableSeeder extends Seeder {
-
-    public function run()
-    {
-        DB::table('cities')->delete();
-
-        City::create(['name' => 'Lyon', 'country_id' => 1]);
-        City::create(['name' => 'New York City', 'country_id' => 1]);
-        City::create(['name' => 'Rio De Janeiro', 'country_id' => 1]);
-        City::create(['name' => 'London', 'country_id' => 1]);
-        City::create(['name' => 'Barcelona', 'country_id' => 1]);
-    }
-
-}
-
-class CountriesTableSeeder extends Seeder {
-
-    public function run()
-    {
-        DB::table('countries')->delete();
-
-        Country::create(['name' => 'France']);
-        Country::create(['name' => 'United States']);
-        Country::create(['name' => 'China']);
-        Country::create(['name' => 'Brazil']);
-    }
-
-}

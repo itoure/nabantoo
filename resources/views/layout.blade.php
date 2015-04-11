@@ -15,7 +15,7 @@
     {!! Html::style('bootstrap/css/bootstrap.min.css') !!}
 
     <!-- Custom styles for this website -->
-    {!! Html::style('css/app.css') !!}
+    {!! Html::style('css/rdv_app.css') !!}
     {!! Html::style('css/bootstrap-datetimepicker.min.css') !!}
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -36,7 +36,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{action('DashboardController@getIndex')}}">RendezVous</a>
+            <a class="navbar-brand" href="{{action('DashboardController@getIndex')}}">Rendez-Vous</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
@@ -59,7 +59,8 @@
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyaT28hHyLxs-uGcKc_VSy9mHhfxZqBqs&libraries=places"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 {!! Html::script('bootstrap/js/bootstrap.min.js') !!}
-{!! Html::script('js/app.js') !!}
+{!! Html::script('js/rdv_app.js') !!}
+{!! Html::script('js/rdv_user.js') !!}
 {!! Html::script('js/holder.min.js') !!}
 {!! Html::script('js/bootstrap-datetimepicker.min.js') !!}
 {!! Html::script('js/isotope.pkgd.min.js') !!}
