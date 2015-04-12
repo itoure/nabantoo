@@ -4,8 +4,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Interest extends Model {
 
-	//
     public $timestamps = false;
+    public $primaryKey = 'int_id';
 
     public function category()
     {

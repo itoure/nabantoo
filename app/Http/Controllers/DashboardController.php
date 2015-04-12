@@ -23,9 +23,10 @@ class DashboardController extends Controller {
 	 *
 	 * @return void
 	 */
-	public function __construct()
+	public function __construct(Request $request)
 	{
 		$this->middleware('auth');
+        $this->request = $request;
 	}
 
 	/**
@@ -33,10 +34,10 @@ class DashboardController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function getIndex(Request $request)
+	public function getIndex()
 	{
         // get user_id
-        $user_id = $request->user()->id;
+        $user_id = $this->request->user()->usr_id;
 
         // get user interests list
         $modUserInterest = new UserInterest();
@@ -46,23 +47,28 @@ class DashboardController extends Controller {
         $modUserLocation = new UserLocation();
         $arrUserLocations = $modUserLocation->getUserLocation($user_id);
 
-        //var_dump($arrUserInterests, $arrUserLocations);die;
-
-        // get events list
-        $modelEvent = new Event();
-        $eventsList = $modelEvent->getUserEventsByInterestsAndLocation(array_keys($arrUserInterests), $arrUserLocations);
-        //var_dump($eventsList);die;
+        //dd($arrUserInterests, $arrUserLocations);die;
 
         $arrEvents = array();
-        foreach($eventsList as $event) {
-            $objEvent = new \stdClass();
-            $objEvent->title = $event->title;
-            $objEvent->details = $event->details;
-            $objEvent->location = $event->location;
-            $objEvent->start_date = $event->start_date;
+        if($arrUserInterests && $arrUserLocations) {
+            // get events list
+            $modelEvent = new Event();
+            $eventsList = $modelEvent->getUserEventsByInterestsAndLocation(array_keys($arrUserInterests), $arrUserLocations);
+            //dd($eventsList);
 
-            $arrEvents[] = $objEvent;
+            foreach($eventsList as $event) {
+                //dd($event);
+                $objEvent = new \stdClass();
+                $objEvent->id = $event->eve_id;
+                $objEvent->title = $event->eve_title;
+                $objEvent->details = $event->eve_details;
+                $objEvent->location = $event->eve_location;
+                $objEvent->start_date = $event->start_date;
+
+                $arrEvents[] = $objEvent;
+            }
         }
+
 
         $data = new \stdClass();
         $data->events = $arrEvents;

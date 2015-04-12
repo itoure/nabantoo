@@ -5,7 +5,7 @@
 
     <div class="row">
         <div class="col-md-12 text-center" style="margin-top: 50px;color: #FFF;">
-            <h1>Don't be afraid to meet unknown people</h1>
+            <h1>Don't be afraid to meet new people</h1>
         </div>
     </div>
 
@@ -77,6 +77,19 @@
         {!! Form::select('day', array('' => '') + array_combine(range(1,31),range(1,31)), '', array('class' => 'form-inline')) !!}
         {!! Form::select('year', array('' => '') + array_combine(range(2015, 1915),range(2015, 1915)), '', array('class' => 'form-inline')) !!}
     </div>
+
+    <h5>What are your interests ?</h5>
+
+    @foreach ($data->interests as $category => $interests)
+    <div class="form-group">
+        <label class="col-md-3">{{$category}}</label>
+        @foreach ($interests as $value => $name)
+        <label class="checkbox-inline">
+            {!! Form::checkbox('interests[]', $value) !!} {{$name}}
+        </label>
+        @endforeach
+    </div>
+    @endforeach
 
     <div class="form-group">
         {!! Form::submit('Sign Up', array(

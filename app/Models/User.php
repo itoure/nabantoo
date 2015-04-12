@@ -4,6 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class User extends Model {
 
-    protected $guarded = ['id'];
+    protected $guarded = ['usr_id'];
+    public $primaryKey = 'usr_id';
 
 }

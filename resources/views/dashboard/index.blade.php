@@ -5,13 +5,13 @@
 <div class="row">
     <div class="col-md-8">
         <ul class="nav nav-tabs home-tabs">
-            <li role="presentation" class="active"><a href="#interesting">Might Be Interesting</a></li>
-            <li role="presentation"><a href="#upcomming">My Upcoming RendezVous</a></li>
-            <li role="presentation"><a href="#friends">Friends RendezVous</a></li>
+            <li role="presentation" class="active"><a href="#interesting" data-tab="interesting">Might Be Interesting</a></li>
+            <li role="presentation"><a href="#upcomming" data-tab="upcomming">My Upcoming RendezVous</a></li>
+            <li role="presentation"><a href="#friends" data-tab="friends">Friends RendezVous</a></li>
         </ul>
 
         <div class="tab-content top20">
-            <div role="tabpanel" class="tab-pane active top20" id="interesting">
+            <div role="tabpanel" class="tab-pane active" id="interesting">
                 <ul class="media-list">
                     @foreach ($data->events as $event)
                     <li class="media">
@@ -23,7 +23,7 @@
                         <div class="media-body">
                             <h5 class="media-heading"><a href="">{{ $event->title }} @ {{ $event->location }}</a></h5>
                             {{ $event->details }}
-                            <div><small><a href="">Join</a> - <a href="">Like</a></small></div>
+                            <div><small><a href="#" class="join-event" data-event-id="{{ $event->id }}">Join</a> - <a href="">Like</a></small></div>
                         </div>
                     </li>
                     @endforeach

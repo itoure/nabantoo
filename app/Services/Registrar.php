@@ -2,8 +2,9 @@
 
 use App\Models\Location;
 use App\Models\UserLocation;
+//use App\Models\User;
+use App\Models\UserInterest;
 use App\User;
-//Use App\Models\User;
 use Validator;
 use Illuminate\Contracts\Auth\Registrar as RegistrarContract;
 
@@ -37,27 +38,35 @@ class Registrar implements RegistrarContract {
 	 */
 	public function create(array $data)
 	{
-
 		$user =  User::create([
             'firstname' => $data['firstname'],
             'sexe' => $data['sexe'],
             'birthday' => strtotime($data['month'].'/'.$data['day'].'/'.$data['year']),
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'location' => $data['location']
+            'usr_location' => $data['location']
 		]);
 
         // insert location
         $modelLocation = new Location();
         $location_id = $modelLocation->saveLocationsFromUserForm($data);
 
-
         // insert user_location
-        if($user->id && $location_id){
+        if($user->usr_id && $location_id){
             UserLocation::create(array(
-                'user_id' => $user->id,
+                'user_id' => $user->usr_id,
                 'location_id' => $location_id,
             ));
+        }
+
+        // insert interests
+        if($data['interests']){
+            foreach($data['interests'] as $interest){
+                UserInterest::create(array(
+                    'user_id' => $user->usr_id,
+                    'interest_id' => $interest,
+                ));
+            }
         }
 
         return $user;

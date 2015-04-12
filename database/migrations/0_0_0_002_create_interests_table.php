@@ -14,10 +14,10 @@ class CreateInterestsTable extends Migration {
 	{
 		Schema::create('interests', function(Blueprint $table)
 		{
-			$table->increments('id');
-			$table->string('name');
+			$table->increments('int_id');
+			$table->string('int_name');
             $table->integer('category_id')->unsigned();
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->foreign('category_id')->references('cat_id')->on('categories');
 		});
 	}
 

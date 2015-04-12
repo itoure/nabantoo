@@ -5,8 +5,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Interest;
 use App\Models\UserInterest;
-//use App\Models\User;
-use App\User;
+use App\Models\User;
 use App\Models\Location;
 Use App\Models\UserLocation;
 
@@ -44,7 +43,7 @@ class UserController extends Controller {
         $db_interests = Interest::with('category')->get();
         $arrInterests = array();
         foreach($db_interests as $interest){
-            $arrInterests[$interest->category->name][$interest->id] = $interest->name;
+            $arrInterests[$interest->category->cat_name][$interest->int_id] = $interest->int_name;
         }
 
         // params
@@ -109,8 +108,8 @@ class UserController extends Controller {
                 'birthday' => strtotime($month.'-'.$day.'-'.$year),
                 'email' => $email,
                 'password' => $password,
-                'photo' => $photoName,
-                'location' => $location
+                'usr_photo' => $photoName,
+                'usr_location' => $location
             ));
 
 
@@ -122,7 +121,7 @@ class UserController extends Controller {
             // insert user_location
             if($newUser->id && $location_id){
                 UserLocation::create(array(
-                    'user_id' => $newUser->id,
+                    'user_id' => $newUser->usr_id,
                     'location_id' => $location_id,
                 ));
             }
@@ -131,7 +130,7 @@ class UserController extends Controller {
             if($interests){
                 foreach($interests as $interest){
                     UserInterest::create(array(
-                        'user_id' => $newUser->id,
+                        'user_id' => $newUser->usr_id,
                         'interest_id' => $interest,
                     ));
                 }

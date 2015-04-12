@@ -15,9 +15,9 @@ class CreateUserEventsTable extends Migration {
 		Schema::create('user_events', function(Blueprint $table)
 		{
             $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('usr_id')->on('users');
             $table->integer('event_id')->unsigned();
-            $table->foreign('event_id')->references('id')->on('events');
+            $table->foreign('event_id')->references('eve_id')->on('events');
 		});
 	}
 

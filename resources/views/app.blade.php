@@ -54,6 +54,22 @@
 </div>
 
 
+<div id="loading" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content text-center">
+            {!! HTML::image('img/spinner.gif') !!}
+        </div>
+    </div>
+</div>
+
+<div id="confirm-event" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content text-center">
+            {!! HTML::image('img/confirm.jpg') !!}
+        </div>
+    </div>
+</div>
+
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->

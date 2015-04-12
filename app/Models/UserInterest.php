@@ -18,7 +18,7 @@ class UserInterest extends Model {
 
         $arrInterests = array();
         foreach($result as $item){
-            $arrInterests[$item->interest_id] = $item->interest->name;
+            $arrInterests[$item->interest_id] = $item->interest->int_name;
         }
 
         return $arrInterests;

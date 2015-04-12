@@ -5,7 +5,8 @@ use Illuminate\Database\Eloquent\Model;
 class Location extends Model {
 
     public $timestamps = false;
-    protected $guarded = ['id'];
+    protected $guarded = ['loc_id'];
+    public $primaryKey = 'loc_id';
 
 
     /**
@@ -35,8 +36,8 @@ class Location extends Model {
 
         $insertedLocation =  self::create($arrToInsert);
 
-        if($insertedLocation->id){
-            return $insertedLocation->id;
+        if($insertedLocation->loc_id){
+            return $insertedLocation->loc_id;
         }
 
         return false;

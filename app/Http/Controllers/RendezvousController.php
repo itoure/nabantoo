@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Redirect;
 use App\Models\Event;
 use App\Models\Interest;
 use App\Models\Location;
+use Illuminate\Http\Request;
+use App\Models\UserEvent;
 
 class RendezvousController extends Controller {
 
@@ -25,9 +27,10 @@ class RendezvousController extends Controller {
 	 *
 	 * @return void
 	 */
-	public function __construct()
+	public function __construct(Request $request)
 	{
-        //$this->middleware('auth');
+        $this->middleware('auth');
+        $this->request = $request;
 	}
 
 	/**
@@ -41,7 +44,7 @@ class RendezvousController extends Controller {
         $db_interests = Interest::with('category')->get();
         $arrInterests = array('' => 'What is the plan ?');
         foreach($db_interests as $interest){
-            $arrInterests[$interest->category->name][$interest->id] = $interest->name;
+            $arrInterests[$interest->category->cat_name][$interest->int_id] = $interest->int_name;
         }
 
         $data = new \stdClass();
@@ -57,6 +60,9 @@ class RendezvousController extends Controller {
      */
     public function postStore()
     {
+        // get user_id
+        $user_id = $this->request->user()->usr_id;
+
         $fileFolder = env('APP_FILE_FOLDER');
 
         $rules = array(
@@ -96,19 +102,98 @@ class RendezvousController extends Controller {
             $location_id = $modelLocation->saveLocationsFromUserForm(Input::all());
 
             Event::create(array(
-                'title' => $title,
-                'details' => $details,
-                'location' => $location,
-                'photo' => $photoName,
+                'eve_title' => $title,
+                'eve_details' => $details,
+                'eve_location' => $location,
+                'eve_photo' => $photoName,
                 'start_date' => strtotime($start_date),
                 'end_date' => strtotime($end_date),
                 'interest_id' => $category,
-                'user_id' => 1,
+                'user_id' => $user_id,
                 'location_id' => $location_id,
             ));
 
             return Redirect::action('DashboardController@getIndex');
         }
+
+    }
+
+
+    public function getJoinUserToEvent(){
+
+        $params = $this->request->all();
+        $user = $this->request->user();
+
+        if(!empty($params['event_id'])){
+
+            UserEvent::create(array(
+                'user_id' => $user->usr_id,
+                'event_id' => $params['event_id'],
+            ));
+
+            $return = array('response' => true);
+            return response()->json($return);
+        }
+
+        $return = array('response' => false);
+        return response()->json($return);
+
+    }
+
+
+    public function getFetchTabContentUpcomming() {
+
+        // get user_id
+        $user_id = $this->request->user()->usr_id;
+
+        // get upcomming events for the current user
+        $modEvent = new Event();
+        $eventsList = $modEvent->getUpcommingEventsByUser($user_id);
+        //dd($eventsList);
+
+        $arrEvents = array();
+        foreach($eventsList as $event) {
+            //dd($event);
+            $objEvent = new \stdClass();
+            $objEvent->id = $event->eve_id;
+            $objEvent->title = $event->eve_title;
+            $objEvent->details = $event->eve_details;
+            $objEvent->location = $event->eve_location;
+            $objEvent->start_date = $event->start_date;
+
+            $arrEvents[] = $objEvent;
+        }
+
+        $data = new \stdClass();
+        $data->events = $arrEvents;
+
+        $html = view('dashboard/rdvlist')->with('data', $data)->render();
+        $response = array(
+            'html' => $html
+        );
+
+        $return = array(
+            'response' => true,
+            'data' => $response
+        );
+
+        return response()->json($return);
+
+    }
+
+
+    public function getFetchTabContentInteresting() {
+
+        // get user_id
+        $user_id = $this->request->user()->usr_id;
+
+    }
+
+
+    public function getFetchTabContentFriends() {
+
+        // get user_id
+        $user_id = $this->request->user()->usr_id;
 
     }
 

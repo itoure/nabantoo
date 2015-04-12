@@ -14,19 +14,19 @@ class CreateEventsTable extends Migration {
 	{
 		Schema::create('events', function(Blueprint $table)
 		{
-            $table->increments('id');
-            $table->string('title');
-            $table->text('details');
-            $table->string('photo')->nullable();
+            $table->increments('eve_id');
+            $table->string('eve_title');
+            $table->text('eve_details');
+            $table->string('eve_photo')->nullable();
             $table->integer('start_date');
             $table->integer('end_date');
-            $table->string('location');
+            $table->string('eve_location');
             $table->integer('interest_id')->unsigned();
-            $table->foreign('interest_id')->references('id')->on('interests');
+            $table->foreign('interest_id')->references('int_id')->on('interests');
             $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('usr_id')->on('users');
             $table->integer('location_id')->unsigned();
-            $table->foreign('location_id')->references('id')->on('locations');
+            $table->foreign('location_id')->references('loc_id')->on('locations');
             $table->timestamps();
 		});
 	}

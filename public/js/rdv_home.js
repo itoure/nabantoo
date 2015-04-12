@@ -5,6 +5,13 @@ var RdvHome = {
 
     run: function () {
 
+        var images = ["/img/climb.jpg", "/img/runners.jpg", "/img/girls_shopping.jpg"];
+        var index = -1;
+        window.setInterval(function () {
+            index = (index + 1 < images.length) ? index + 1 : 0;
+            $('body').css("background-image", "url('" + images[index] + "')");
+        }, 10000);
+
         // google maps autocomplete
         RdvHome.initialize();
 
@@ -13,14 +20,6 @@ var RdvHome = {
             e.preventDefault();
             $(this).tab('show');
         });
-
-
-        var images = ["/img/climb.jpg", "/img/runners.jpg", "/img/girls_shopping.jpg"];
-        var index = -1;
-        window.setInterval(function () {
-            index = (index + 1 < images.length) ? index + 1 : 0;
-            $('body').css("background-image", "url('" + images[index] + "')");
-        }, 10000);
 
     },
 

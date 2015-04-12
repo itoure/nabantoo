@@ -31,7 +31,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	protected $hidden = ['password', 'remember_token'];
 
-    protected $guarded = ['id'];
+    protected $guarded = ['usr_id'];
+    public $primaryKey = 'usr_id';
 
 
 }

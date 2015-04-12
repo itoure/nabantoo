@@ -15,9 +15,9 @@ class CreateUserLocationsTable extends Migration {
 		Schema::create('user_locations', function(Blueprint $table)
 		{
             $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('usr_id')->on('users');
             $table->integer('location_id')->unsigned();
-            $table->foreign('location_id')->references('id')->on('locations');
+            $table->foreign('location_id')->references('loc_id')->on('locations');
 		});
 	}
 

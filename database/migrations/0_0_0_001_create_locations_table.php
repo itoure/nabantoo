@@ -14,7 +14,7 @@ class CreateLocationsTable extends Migration {
 	{
 		Schema::create('locations', function(Blueprint $table)
 		{
-			$table->increments('id');
+			$table->increments('loc_id');
             $table->string('short_sublocality_level_1')->nullable();
             $table->string('long_sublocality_level_1')->nullable();
             $table->string('short_locality')->nullable();

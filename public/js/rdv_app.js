@@ -31,6 +31,14 @@ var RdvApp = {
         $(".home-tabs a").click(function (e) {
             e.preventDefault();
             $(this).tab('show');
+            RdvApp.getTabContent($(this));
+        });
+
+        // join event
+        $("a.join-event").click(function (e) {
+            e.preventDefault();
+            //$('div#loading').modal('toggle');
+            RdvApp.joinUserToEvent($(this));
         });
 
     },
@@ -81,6 +89,72 @@ var RdvApp = {
                 $("#"+addressType).val(val);
             }
         }
+    },
+
+
+    joinUserToEvent: function (object) {
+
+        var url = "/rendezvous/join-user-to-event";
+        var event_id = object.attr('data-event-id');
+
+        $.ajax(url,{
+            data: {
+                event_id: event_id
+            },
+            context : object,
+            success:function(data){
+                //$('div#loading').modal('toggle');
+                if(data.response){
+
+                } else {
+
+                }
+            },
+            error:function(data){
+
+            }
+        });
+    },
+
+    getTabContent: function (object) {
+
+        var tab = object.attr('href');
+
+        switch (tab) {
+            case '#interesting':
+                var url = "/rendezvous/fetch-tab-content-interesting";
+                break;
+            case '#upcomming':
+                var url = "/rendezvous/fetch-tab-content-upcomming";
+                break;
+            case '#friends':
+                var url = "/rendezvous/fetch-tab-content-friends";
+                break;
+            default:
+                tab = '#interesting';
+                var url = "/rendezvous/fetch-tab-content-interesting";
+                break;
+        }
+
+
+        $.ajax(url,{
+            data: {},
+            context : object,
+            success:function(data){
+                if(data.response){
+                    console.log(data);
+                    $(tab).html(data.data.html);
+                    Holder.run();
+                } else {
+
+                }
+            },
+            error:function(data){
+
+            }
+        });
+
+
     }
 
 }
