@@ -15,11 +15,7 @@ var RdvHome = {
         // google maps autocomplete
         RdvHome.initialize();
 
-        // manage tabs
-        $(".home-tabs a").click(function (e) {
-            e.preventDefault();
-            $(this).tab('show');
-        });
+        $(".multiselect-interests-home").select2();
 
     },
 

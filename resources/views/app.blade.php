@@ -15,6 +15,7 @@
     {!! Html::style('bootstrap/css/bootstrap.min.css') !!}
 
     <!-- Custom styles for this website -->
+    {!! Html::style('css/select2.min.css') !!}
     {!! Html::style('css/rdv_app.css') !!}
     {!! Html::style('css/bootstrap-datetimepicker.min.css') !!}
 
@@ -76,6 +77,7 @@
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyaT28hHyLxs-uGcKc_VSy9mHhfxZqBqs&libraries=places"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 {!! Html::script('bootstrap/js/bootstrap.min.js') !!}
+{!! Html::script('js/select2.min.js') !!}
 {!! Html::script('js/rdv_app.js') !!}
 {!! Html::script('js/rdv_user.js') !!}
 {!! Html::script('js/holder.min.js') !!}

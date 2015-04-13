@@ -64,6 +64,7 @@ class DashboardController extends Controller {
                 $objEvent->details = $event->eve_details;
                 $objEvent->location = $event->eve_location;
                 $objEvent->start_date = $event->start_date;
+                $objEvent->event_owner = $event->firstname;
 
                 $arrEvents[] = $objEvent;
             }

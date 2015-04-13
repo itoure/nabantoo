@@ -21,9 +21,14 @@
                             </a>
                         </div>
                         <div class="media-body">
-                            <h5 class="media-heading"><a href="">{{ $event->title }} @ {{ $event->location }}</a></h5>
+                            <h5 class="media-heading">
+                                <a href="">{{ $event->title }} @ {{ $event->location }}</a>
+                                by <a href="">{{ $event->event_owner }}</a>
+                                <img class="align-with-text" src="holder.js/30x30/social" alt="">
+                            </h5>
                             {{ $event->details }}
-                            <div><small><a href="#" class="join-event" data-event-id="{{ $event->id }}">Join</a> - <a href="">Like</a></small></div>
+                            <div><img id="spinner" class="" src="/img/spinner2.gif" alt="" width="15px" style="display: none"> <small><a href="#" class="join-event" data-event-id="{{ $event->id }}">Join</a> - <a href="">Like</a></small></div>
+                            <span class="hide label label-success">Yep!</span>
                         </div>
                     </li>
                     @endforeach
@@ -38,7 +43,7 @@
 
 
 <div class="row top30">
-
+<h3>Discover photos from previous Rendez-Vous</h3>
     @for ($i = 1; $i <= 8; $i++)
     <div class="col-md-3" id="isotope">
         <div class="thumbnail isotope-item">

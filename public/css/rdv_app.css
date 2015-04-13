@@ -17,4 +17,8 @@ body {
 .top20 { margin-top:20px; }
 .top30 { margin-top:30px; }
 
+.align-with-text {
+    vertical-align: text-bottom;
+}
+
 

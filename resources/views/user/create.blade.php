@@ -90,16 +90,12 @@
 
                 <h3>What are your interests ?</h3>
 
-                @foreach ($data->interests as $category => $interests)
                 <div class="form-group">
-                    <label class="col-md-2">{{$category}}</label>
-                    @foreach ($interests as $value => $name)
-                    <label class="checkbox-inline">
-                        {!! Form::checkbox('interests[]', $value) !!} {{$name}}
-                    </label>
-                    @endforeach
+                    {!! Form::select('interests[]',
+                    $data->interests,
+                    '',
+                    array('class' => 'form-control input-lg multiselect-interests-user', 'multiple' => 'multiple')) !!}
                 </div>
-                @endforeach
 
                 <div class="form-group">
                     {!! Form::submit('Sign Up', array(

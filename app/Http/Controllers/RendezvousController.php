@@ -71,8 +71,7 @@ class RendezvousController extends Controller {
             'location' => 'required|string',
             'photo' => 'image',
             'start_date' => 'required|date',
-            'end_date' => 'date',
-            'category' => 'required|integer',
+            'interest' => 'required|integer',
         );
 
         $validator = Validator::make(Input::all(), $rules);
@@ -85,8 +84,7 @@ class RendezvousController extends Controller {
             $location = Input::get('location');
             $photo = Input::file('photo');
             $start_date = Input::get('start_date');
-            $end_date = Input::get('end_date');
-            $category = Input::get('category');
+            $interest = Input::get('interest');
 
             // photo
             $photoName = null;
@@ -107,8 +105,7 @@ class RendezvousController extends Controller {
                 'eve_location' => $location,
                 'eve_photo' => $photoName,
                 'start_date' => strtotime($start_date),
-                'end_date' => strtotime($end_date),
-                'interest_id' => $category,
+                'interest_id' => $interest,
                 'user_id' => $user_id,
                 'location_id' => $location_id,
             ));
@@ -160,6 +157,7 @@ class RendezvousController extends Controller {
             $objEvent->details = $event->eve_details;
             $objEvent->location = $event->eve_location;
             $objEvent->start_date = $event->start_date;
+            $objEvent->event_owner = $event->firstname;
 
             $arrEvents[] = $objEvent;
         }

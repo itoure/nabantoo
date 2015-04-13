@@ -73,23 +73,18 @@
 
     <h5>Birthday</h5>
     <div class="form-group">
-        {!! Form::select('month', array('' => '') + array_combine(range(1,12),range(1,12)), '', array('class' => 'form-inline')) !!}
-        {!! Form::select('day', array('' => '') + array_combine(range(1,31),range(1,31)), '', array('class' => 'form-inline')) !!}
-        {!! Form::select('year', array('' => '') + array_combine(range(2015, 1915),range(2015, 1915)), '', array('class' => 'form-inline')) !!}
+        Month {!! Form::select('month', array('' => '') + array_combine(range(1,12),range(1,12)), '', array('class' => 'form-inline')) !!}
+        Day {!! Form::select('day', array('' => '') + array_combine(range(1,31),range(1,31)), '', array('class' => 'form-inline')) !!}
+        Year {!! Form::select('year', array('' => '') + array_combine(range(2015, 1915),range(2015, 1915)), '', array('class' => 'form-inline')) !!}
     </div>
 
     <h5>What are your interests ?</h5>
-
-    @foreach ($data->interests as $category => $interests)
     <div class="form-group">
-        <label class="col-md-3">{{$category}}</label>
-        @foreach ($interests as $value => $name)
-        <label class="checkbox-inline">
-            {!! Form::checkbox('interests[]', $value) !!} {{$name}}
-        </label>
-        @endforeach
+        {!! Form::select('interests[]',
+        $data->interests,
+        '',
+        array('class' => 'form-control input-lg multiselect-interests-home', 'multiple' => 'multiple')) !!}
     </div>
-    @endforeach
 
     <div class="form-group">
         {!! Form::submit('Sign Up', array(

@@ -11,11 +11,6 @@ var RdvApp = {
             autoclose: true
         });
 
-        $("#end_date").datetimepicker({
-            format: 'yyyy-mm-dd HH:ii',
-            autoclose: true
-        });
-
         // isotope
         var $container = $('#isotope');
         $container.isotope({
@@ -38,8 +33,13 @@ var RdvApp = {
         $("a.join-event").click(function (e) {
             e.preventDefault();
             //$('div#loading').modal('toggle');
+            //$(this).prev('img#spinner').show();
+            //console.log($(this).first());
             RdvApp.joinUserToEvent($(this));
         });
+
+        $(".select-interests").select2();
+        $(".multiselect-interests-user").select2();
 
     },
 
@@ -142,7 +142,6 @@ var RdvApp = {
             context : object,
             success:function(data){
                 if(data.response){
-                    console.log(data);
                     $(tab).html(data.data.html);
                     Holder.run();
                 } else {

@@ -33,13 +33,6 @@
                 </div>
 
                 <div class="form-group">
-                    {!! Form::select('category',
-                    $data->interests,
-                    '',
-                    array('class' => 'form-control input-lg')) !!}
-                </div>
-
-                <div class="form-group">
                     {!! Form::text('location', null, array(
                     'placeholder' => 'Where ?',
                     'class' => 'form-control input-lg',
@@ -57,18 +50,19 @@
                 {!! Form::hidden('postal_code_prefix', null, array('id' => 'postal_code_prefix')) !!}
                 {!! Form::hidden('country', null, array('id' => 'country')) !!}
 
-                <h5>When ?</h5>
-                <div class="form-group form-inline">
+                <div class="form-group">
                     {!! Form::text('start_date', null, array(
-                    'placeholder' => 'Start Date',
+                    'placeholder' => 'When ?',
                     'class' => 'form-control input-lg',
                     'id' => 'start_date'
                     )) !!}
-                    {!! Form::text('end_date', null, array(
-                    'placeholder' => 'End Date',
-                    'class' => 'form-control input-lg',
-                    'id' => 'end_date'
-                    )) !!}
+                </div>
+
+                <div class="form-group">
+                    {!! Form::select('interest',
+                    $data->interests,
+                    '',
+                    array('class' => 'form-control input-lg select-interests')) !!}
                 </div>
 
                 <div class="form-group">

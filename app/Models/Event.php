@@ -17,6 +17,7 @@ class Event extends Model {
 
         $query = DB::table('events')
             ->join('locations', 'locations.loc_id', '=', 'events.location_id')
+            ->join('users', 'users.usr_id', '=', 'events.user_id')
             ->whereIn('interest_id', $arrUserInterestIds)
             ->where(function($query) use($arrUserLocation)
             {
@@ -37,6 +38,7 @@ class Event extends Model {
 
         $query = DB::table('user_events')
             ->join('events', 'user_events.event_id', '=', 'events.eve_id')
+            ->join('users', 'users.usr_id', '=', 'events.user_id')
             ->where('user_events.user_id', '=', $user_id);
 
         $result = $query->get();
