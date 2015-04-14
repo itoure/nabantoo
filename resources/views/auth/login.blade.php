@@ -49,13 +49,20 @@
         )) !!}
     </div>
 
-    {!! Form::hidden('sublocality_level_1', null, array('id' => 'sublocality_level_1')) !!}
-    {!! Form::hidden('locality', null, array('id' => 'locality')) !!}
-    {!! Form::hidden('administrative_area_level_2', null, array('id' => 'administrative_area_level_2')) !!}
-    {!! Form::hidden('administrative_area_level_1', null, array('id' => 'administrative_area_level_1')) !!}
-    {!! Form::hidden('postal_code', null, array('id' => 'postal_code')) !!}
-    {!! Form::hidden('postal_code_prefix', null, array('id' => 'postal_code_prefix')) !!}
-    {!! Form::hidden('country', null, array('id' => 'country')) !!}
+    {!! Form::hidden('short_sublocality_level_1', null, array('id' => 'short_sublocality_level_1')) !!}
+    {!! Form::hidden('long_sublocality_level_1', null, array('id' => 'long_sublocality_level_1')) !!}
+    {!! Form::hidden('short_locality', null, array('id' => 'short_locality')) !!}
+    {!! Form::hidden('long_locality', null, array('id' => 'long_locality')) !!}
+    {!! Form::hidden('short_administrative_area_level_2', null, array('id' => 'short_administrative_area_level_2')) !!}
+    {!! Form::hidden('long_administrative_area_level_2', null, array('id' => 'long_administrative_area_level_2')) !!}
+    {!! Form::hidden('short_administrative_area_level_1', null, array('id' => 'short_administrative_area_level_1')) !!}
+    {!! Form::hidden('long_administrative_area_level_1', null, array('id' => 'long_administrative_area_level_1')) !!}
+    {!! Form::hidden('short_postal_code', null, array('id' => 'short_postal_code')) !!}
+    {!! Form::hidden('long_postal_code', null, array('id' => 'long_postal_code')) !!}
+    {!! Form::hidden('short_postal_code_prefix', null, array('id' => 'short_postal_code_prefix')) !!}
+    {!! Form::hidden('long_postal_code_prefix', null, array('id' => 'long_postal_code_prefix')) !!}
+    {!! Form::hidden('short_country', null, array('id' => 'short_country')) !!}
+    {!! Form::hidden('long_country', null, array('id' => 'long_country')) !!}
 
     <div class="form-group">
         {!! Form::email('email', null, array(

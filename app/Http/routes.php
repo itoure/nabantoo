@@ -11,6 +11,8 @@
 |
 */
 
+//Route::get('rendezvous/{event_id}/details', 'RendezvousController@getDetails');
+
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',

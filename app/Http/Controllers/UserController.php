@@ -8,6 +8,7 @@ use App\Models\UserInterest;
 use App\Models\User;
 use App\Models\Location;
 Use App\Models\UserLocation;
+use Illuminate\Http\Request;
 
 class UserController extends Controller {
 
@@ -27,9 +28,10 @@ class UserController extends Controller {
 	 *
 	 * @return void
 	 */
-	public function __construct()
+	public function __construct(Request $request)
 	{
         $this->middleware('auth');
+        $this->request = $request;
 	}
 
     /**
@@ -69,27 +71,32 @@ class UserController extends Controller {
             'month' => 'required|integer',
             'day' => 'required|integer',
             'year' => 'required|integer',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|string',
             'interests' => 'array',
-            'location' => 'required|string',
+            'usr_location' => 'required|string',
         );
 
         $validator = Validator::make(Input::all(), $rules);
 
         if ($validator->fails()) {
-            return Redirect::action('UserController@getCreate')->withErrors($validator)->withInput();
+            return Redirect::action('UserController@getAccount')->withErrors($validator)->withInput();
         } else {
             $firstname = Input::get('firstname');
             $sexe = Input::get('sexe');
             $month = Input::get('month');
             $day = Input::get('day');
             $year = Input::get('year');
-            $email = Input::get('email');
-            $location = Input::get('location');
-            $password = Input::get('password');
+            $location = Input::get('usr_location');
             $interests = Input::get('interests');
             $photo = Input::file('photo');
+            $usr_id = Input::get('usr_id');
+            $loc_id = Input::get('loc_id');
+
+            // update user
+            $user = User::findOrFail($usr_id);
+            $user->firstname = $firstname;
+            $user->sexe = $sexe;
+            $user->birthday = strtotime($month.'/'.$day.'/'.$year);
+            $user->usr_location = $location;
 
             // photo
             $photoName = null;
@@ -97,40 +104,35 @@ class UserController extends Controller {
                 if ($photo->isValid()) {
                     $photo->move($fileFolder.'/user/', $photo->getClientOriginalName());
                     $photoName = $photo->getClientOriginalName();
+                    $user->photo = $photoName;
                 }
             }
 
-
-            // insert user
-            $newUser = User::create(array(
-                'firstname' => $firstname,
-                'sexe' => $sexe,
-                'birthday' => strtotime($month.'-'.$day.'-'.$year),
-                'email' => $email,
-                'password' => $password,
-                'usr_photo' => $photoName,
-                'usr_location' => $location
-            ));
+            $user->save();
 
 
-            // insert location
+            // delete the update
+            UserLocation::where('user_id', '=', $usr_id)->delete();
+            Location::findOrFail($loc_id)->delete();
+
+            // update location
             $modelLocation = new Location();
-            $location_id = $modelLocation->saveLocationsFromUserForm(Input::all());
+            $location_id = $modelLocation->saveLocation(Input::all());
 
-
-            // insert user_location
-            if($newUser->id && $location_id){
+            // update user_location
+            if($usr_id && $location_id){
                 UserLocation::create(array(
-                    'user_id' => $newUser->usr_id,
+                    'user_id' => $usr_id,
                     'location_id' => $location_id,
                 ));
             }
 
-            // insert interests
+            // update interests
+            UserInterest::where('user_id', '=', $usr_id)->delete();
             if($interests){
                 foreach($interests as $interest){
                     UserInterest::create(array(
-                        'user_id' => $newUser->usr_id,
+                        'user_id' => $usr_id,
                         'interest_id' => $interest,
                     ));
                 }
@@ -149,7 +151,39 @@ class UserController extends Controller {
 	 */
 	public function getAccount()
 	{
-		return view('user/account');
+        $user = $this->request->user();
+
+        // get location
+        $modUserLocation = new UserLocation();
+        $arrLocations = $modUserLocation->getUserLocation($user->usr_id);
+        //dd($arrLocations);
+
+        // get user interest ids
+        $dbUserInterest = new UserInterest();
+        $arrUserInterestIds = $dbUserInterest->getUserInterestIds($user->usr_id);
+
+        // get all interests
+        $db_interests = Interest::with('category')->get();
+        $arrInterests = array();
+        foreach($db_interests as $interest){
+            $arrInterests[$interest->category->cat_name][$interest->int_id] = $interest->int_name;
+        }
+
+        // get birthday
+        $birthday = new \stdClass();
+        $birthday->month = date('n', $user->birthday);
+        $birthday->day = date('j', $user->birthday);
+        $birthday->year = date('Y', $user->birthday);
+
+        // params
+        $data = new \stdClass();
+        $data->user = $user;
+        $data->interests = $arrInterests;
+        $data->interestIds = $arrUserInterestIds;
+        $data->location = $arrLocations[0];
+        $data->birthday = $birthday;
+
+		return view('user/account')->with('data', $data);
 	}
 
 }

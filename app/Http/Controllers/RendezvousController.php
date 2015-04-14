@@ -97,7 +97,7 @@ class RendezvousController extends Controller {
 
             // insert location
             $modelLocation = new Location();
-            $location_id = $modelLocation->saveLocationsFromUserForm(Input::all());
+            $location_id = $modelLocation->saveLocation(Input::all());
 
             Event::create(array(
                 'eve_title' => $title,
@@ -192,6 +192,17 @@ class RendezvousController extends Controller {
 
         // get user_id
         $user_id = $this->request->user()->usr_id;
+
+    }
+
+
+    public function getDetails($event_id){
+
+        $event = Event::findOrFail($event_id);
+
+        $data = new \stdClass();
+
+        return view('rendezvous/details')->with('data', $data);
 
     }
 

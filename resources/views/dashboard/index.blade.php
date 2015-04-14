@@ -22,7 +22,7 @@
                         </div>
                         <div class="media-body">
                             <h5 class="media-heading">
-                                <a href="">{{ $event->title }} @ {{ $event->location }}</a>
+                                <a href="{{action('RendezvousController@getDetails', array('event_id'=> $event->id))}}">{{ $event->title }} @ {{ $event->location }}</a>
                                 by <a href="">{{ $event->event_owner }}</a>
                                 <img class="align-with-text" src="holder.js/30x30/social" alt="">
                             </h5>

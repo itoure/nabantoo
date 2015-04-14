@@ -49,7 +49,7 @@ class Registrar implements RegistrarContract {
 
         // insert location
         $modelLocation = new Location();
-        $location_id = $modelLocation->saveLocationsFromUserForm($data);
+        $location_id = $modelLocation->saveLocation($data);
 
         // insert user_location
         if($user->usr_id && $location_id){

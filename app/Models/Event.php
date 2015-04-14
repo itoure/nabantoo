@@ -21,9 +21,9 @@ class Event extends Model {
             ->whereIn('interest_id', $arrUserInterestIds)
             ->where(function($query) use($arrUserLocation)
             {
-                $query->orWhere('locations.short_locality', '=', $arrUserLocation[0]['short_locality'])
-                    ->orWhere('locations.short_administrative_area_level_2', '=', $arrUserLocation[0]['short_administrative_area_level_2'])
-                    ->orWhere('locations.short_administrative_area_level_1', '=', $arrUserLocation[0]['short_administrative_area_level_1']);
+                $query->orWhere('locations.short_locality', '=', $arrUserLocation->short_locality)
+                    ->orWhere('locations.short_administrative_area_level_2', '=', $arrUserLocation->short_administrative_area_level_2)
+                    ->orWhere('locations.short_administrative_area_level_1', '=', $arrUserLocation->short_administrative_area_level_1);
             });
 
         $result = $query->get();

@@ -14,27 +14,25 @@ class Location extends Model {
      * @param array $locations
      * @return static
      */
-    public function saveLocationsFromUserForm(array $inputs){
+    public function saveLocation(array $inputs){
 
         $arrLocations = array();
-        $arrLocations['sublocality_level_1'] = $inputs['sublocality_level_1'];
-        $arrLocations['locality'] = $inputs['locality'];
-        $arrLocations['administrative_area_level_2'] = $inputs['administrative_area_level_2'];
-        $arrLocations['administrative_area_level_1'] = $inputs['administrative_area_level_1'];
-        $arrLocations['postal_code'] = $inputs['postal_code'];
-        $arrLocations['postal_code_prefix'] = $inputs['postal_code_prefix'];
-        $arrLocations['country'] = $inputs['country'];
+        $arrLocations['short_sublocality_level_1'] = $inputs['short_sublocality_level_1'];
+        $arrLocations['long_sublocality_level_1'] = $inputs['long_sublocality_level_1'];
+        $arrLocations['short_locality'] = $inputs['short_locality'];
+        $arrLocations['long_locality'] = $inputs['long_locality'];
+        $arrLocations['short_administrative_area_level_2'] = $inputs['short_administrative_area_level_2'];
+        $arrLocations['long_administrative_area_level_2'] = $inputs['long_administrative_area_level_2'];
+        $arrLocations['short_administrative_area_level_1'] = $inputs['short_administrative_area_level_1'];
+        $arrLocations['long_administrative_area_level_1'] = $inputs['long_administrative_area_level_1'];
+        $arrLocations['short_postal_code'] = $inputs['short_postal_code'];
+        $arrLocations['long_postal_code'] = $inputs['long_postal_code'];
+        $arrLocations['short_postal_code_prefix'] = $inputs['short_postal_code_prefix'];
+        $arrLocations['long_postal_code_prefix'] = $inputs['long_postal_code_prefix'];
+        $arrLocations['short_country'] = $inputs['short_country'];
+        $arrLocations['long_country'] = $inputs['long_country'];
 
-        $arrToInsert = array();
-        foreach($arrLocations as $field => $location){
-            if(!empty($location)){
-                $expLocation = explode('|', $location);
-                $arrToInsert['short_'.$field] = $expLocation[0];
-                $arrToInsert['long_'.$field] = $expLocation[1];
-            }
-        }
-
-        $insertedLocation =  self::create($arrToInsert);
+        $insertedLocation =  self::create($arrLocations);
 
         if($insertedLocation->loc_id){
             return $insertedLocation->loc_id;
@@ -44,11 +42,5 @@ class Location extends Model {
 
     }
 
-
-    public function getUserLocation($user_id) {
-
-
-
-    }
 
 }

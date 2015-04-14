@@ -7,4 +7,6 @@ class User extends Model {
     protected $guarded = ['usr_id'];
     public $primaryKey = 'usr_id';
 
+
+
 }

@@ -53,7 +53,7 @@ class DashboardController extends Controller {
         if($arrUserInterests && $arrUserLocations) {
             // get events list
             $modelEvent = new Event();
-            $eventsList = $modelEvent->getUserEventsByInterestsAndLocation(array_keys($arrUserInterests), $arrUserLocations);
+            $eventsList = $modelEvent->getUserEventsByInterestsAndLocation(array_keys($arrUserInterests), $arrUserLocations[0]);
             //dd($eventsList);
 
             foreach($eventsList as $event) {

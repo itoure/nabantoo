@@ -71,6 +71,7 @@
 {!! Html::script('bootstrap/js/bootstrap.min.js') !!}
 {!! Html::script('js/select2.min.js') !!}
 {!! Html::script('js/rdv_home.js') !!}
+{!! Html::script('js/rdv_maps.js') !!}
 
 </body>
 </html>

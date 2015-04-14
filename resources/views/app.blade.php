@@ -44,6 +44,7 @@
                 <li class="active"><a href="{{action('DashboardController@getIndex')}}">Home</a></li>
                 <li><a href="{{action('RendezvousController@getCreate')}}">Create RendezVous</a></li>
                 <li><a href="{{action('UserController@getCreate')}}">Create Account</a></li>
+                <li><a href="{{action('UserController@getAccount')}}">My Account</a></li>
                 <li><a href="{{action('Auth\AuthController@getLogout')}}">Logout</a></li>
             </ul>
         </div><!--/.nav-collapse -->
@@ -79,6 +80,7 @@
 {!! Html::script('bootstrap/js/bootstrap.min.js') !!}
 {!! Html::script('js/select2.min.js') !!}
 {!! Html::script('js/rdv_app.js') !!}
+{!! Html::script('js/rdv_maps.js') !!}
 {!! Html::script('js/rdv_user.js') !!}
 {!! Html::script('js/holder.min.js') !!}
 {!! Html::script('js/bootstrap-datetimepicker.min.js') !!}
