@@ -2,8 +2,51 @@
 
 @section('content')
 
-<div class="row">
-    <div class="col-md-8">
+<div id="filters">
+    <button type="button" class="btn btn-success" data-filter="*">All</button>
+    <button type="button" class="btn btn-info" data-filter=".interesting">Fit To Me</button>
+    <button type="button" class="btn btn-primary" data-filter=".upcoming">My Next Events</button>
+    <button type="button" class="btn btn-warning" data-filter=".friends">Friends</button>
+    @foreach ($data->userInterestsList as $interest)
+        <button type="button" class="btn btn-default" data-filter=".{{$interest}}">{{$interest}}</button>
+    @endforeach
+</div>
+
+<div class="row top30" id="events-container">
+    @foreach ($data->events as $event)
+    <div class="col-xs-6 col-sm-3 col-md-2 col-lg-2 event_id_{{ $event->id }} event-item {{ $event->type }} {{ $event->interest }}">
+        <div class="panel {{ $event->class }}">
+            <div class="panel-heading txt13">
+                <a style="color: black" href="{{action('RendezvousController@getDetails', array('event_id'=> $event->id))}}">{{ $event->title }}</a>
+            </div>
+                <img src="holder.js/100%x100" alt="">
+            <div class="panel-body" style="padding: 10px">
+                <p class="small"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> {{ $event->location }}</p>
+                <p class="small"><span class="glyphicon glyphicon-time" aria-hidden="true"></span> {{ $event->start_date }}</p>
+                <p class="small"><span class="glyphicon glyphicon-paperclip" aria-hidden="true"></span> {{ $event->interest }}</p>
+            </div>
+            <div class="panel-footer" style="padding: 10px">
+                <span class="small"><img class="img-rounded align-with-text" src="holder.js/30x30/lava/text:P" alt=""> <a href="">{{ $event->event_owner }}</a></span>
+
+                @if ($event->type == 'interesting')
+                    <span class="small pull-right actions-interesting">
+                        <i id="loading" class="fa fa-spinner fa-spin" style="display: none"></i>
+                        <a href="#" class="join-event" data-event-id="{{ $event->id }}">Join</a>
+                    </span>
+                @elseif ($event->type == 'upcoming')
+                    <span class="pull-right glyphicon glyphicon-check actions-upcoming" aria-hidden="true"></span>
+                @else
+                @endif
+
+            </div>
+        </div>
+    </div>
+    @endforeach
+</div>
+
+
+<div class="row hide">
+    <div class="col-md-offset-1 col-md-10">
         <ul class="nav nav-tabs home-tabs">
             <li role="presentation" class="active"><a href="#interesting" data-tab="interesting">Might Be Interesting</a></li>
             <li role="presentation"><a href="#upcomming" data-tab="upcomming">My Upcoming RendezVous</a></li>
@@ -41,21 +84,5 @@
     </div>
 </div>
 
-
-<div class="row top30">
-<h3>Discover photos from previous Rendez-Vous</h3>
-    @for ($i = 1; $i <= 8; $i++)
-    <div class="col-md-3" id="isotope">
-        <div class="thumbnail isotope-item">
-            <img src="holder.js/100%x200" alt="">
-            <div class="caption">
-                <h4>Thumbnail label</h4>
-                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-            </div>
-        </div>
-    </div>
-    @endfor
-</div>
 
 @endsection

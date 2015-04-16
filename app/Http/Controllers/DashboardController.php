@@ -38,6 +38,9 @@ class DashboardController extends Controller {
 	{
         // get user_id
         $user_id = $this->request->user()->usr_id;
+        $arrEvents = array();
+
+        /*** Interesting ***/
 
         // get user interests list
         $modUserInterest = new UserInterest();
@@ -49,7 +52,6 @@ class DashboardController extends Controller {
 
         //dd($arrUserInterests, $arrUserLocations);die;
 
-        $arrEvents = array();
         if($arrUserInterests && $arrUserLocations) {
             // get events list
             $modelEvent = new Event();
@@ -63,16 +65,45 @@ class DashboardController extends Controller {
                 $objEvent->title = $event->eve_title;
                 $objEvent->details = $event->eve_details;
                 $objEvent->location = $event->eve_location;
-                $objEvent->start_date = $event->start_date;
+                $objEvent->start_date = date('d-m-Y', $event->start_date);
                 $objEvent->event_owner = $event->firstname;
+                $objEvent->interest = $event->int_name;
+                $objEvent->type = 'interesting';
+                $objEvent->class = 'panel-info';
 
-                $arrEvents[] = $objEvent;
+                $arrEvents[$event->eve_id] = $objEvent;
             }
         }
 
 
+        /*** Upcoming ***/
+
+        // get upcomming events for the current user
+        $modEvent = new Event();
+        $eventsList = $modEvent->getUpcommingEventsByUser($user_id);
+        //dd($eventsList);
+
+        foreach($eventsList as $event) {
+            //dd($event);
+            $objEvent = new \stdClass();
+            $objEvent->id = $event->eve_id;
+            $objEvent->title = $event->eve_title;
+            $objEvent->details = $event->eve_details;
+            $objEvent->location = $event->eve_location;
+            $objEvent->start_date = date('d-m-Y', $event->start_date);
+            $objEvent->event_owner = $event->firstname;
+            $objEvent->type = 'upcoming';
+            $objEvent->class = 'panel-primary';
+            $objEvent->interest = $event->int_name;
+
+            $arrEvents[$event->eve_id] = $objEvent;
+        }
+
+        //ksort($arrEvents);
+
         $data = new \stdClass();
         $data->events = $arrEvents;
+        $data->userInterestsList = $arrUserInterests;
 
 		return view('dashboard/index')->with('data', $data);
 	}

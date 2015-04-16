@@ -21,4 +21,11 @@ body {
     vertical-align: text-bottom;
 }
 
+.txt11{ font-size: 80%;}
+.txt13{ font-size: 92.5%; }
+
+div#events-container .panel {
+    height: 295px;
+}
+
 

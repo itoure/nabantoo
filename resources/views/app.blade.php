@@ -18,6 +18,7 @@
     {!! Html::style('css/select2.min.css') !!}
     {!! Html::style('css/rdv_app.css') !!}
     {!! Html::style('css/bootstrap-datetimepicker.min.css') !!}
+    {!! Html::style('font-awesome/css/font-awesome.min.css') !!}
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -51,7 +52,7 @@
     </div>
 </nav>
 
-<div class="container">
+<div class="container-fluid">
     @yield('content')
 </div>
 

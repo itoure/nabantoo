@@ -12,11 +12,16 @@ var RdvApp = {
         });
 
         // isotope
-        var $container = $('#isotope');
+        var $container = $('#events-container');
         $container.isotope({
             // options
-            itemSelector: '.thumbnail',
-            layoutMode: 'fitRows'
+            itemSelector: '.event-item',
+            layoutMode: 'masonry'
+        });
+
+        $('#filters').on( 'click', 'button', function() {
+            var filterValue = $(this).attr('data-filter');
+            $container.isotope({ filter: filterValue });
         });
 
         // manage tabs
@@ -29,9 +34,6 @@ var RdvApp = {
         // join event
         $("a.join-event").click(function (e) {
             e.preventDefault();
-            //$('div#loading').modal('toggle');
-            //$(this).prev('img#spinner').show();
-            //console.log($(this).first());
             RdvApp.joinUserToEvent($(this));
         });
 
@@ -45,6 +47,10 @@ var RdvApp = {
 
         var url = "/rendezvous/join-user-to-event";
         var event_id = object.attr('data-event-id');
+        var elm = $('.event_id_'+event_id);
+        var panel = elm.find('.panel');
+
+        elm.find('#loading').show();
 
         $.ajax(url,{
             data: {
@@ -52,8 +58,14 @@ var RdvApp = {
             },
             context : object,
             success:function(data){
-                //$('div#loading').modal('toggle');
+                elm.find('#loading').hide();
                 if(data.response){
+                    elm.removeClass('interesting');
+                    elm.addClass('upcoming');
+                    panel.removeClass('panel-info');
+                    panel.addClass('panel-primary');
+                    elm.find('.actions-interesting').replaceWith("<span class='pull-right glyphicon glyphicon-check actions-upcoming' aria-hidden='true'></span>");
+
 
                 } else {
 
