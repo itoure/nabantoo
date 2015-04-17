@@ -54,7 +54,7 @@
                 )) !!}
             </div>
 
-            {!! Form::submit('Sign In', array('class' => 'btn btn-success')); !!}
+            {!! Form::submit('Sign In', array('class' => 'btn btn-primary')); !!}
 
             {!! Form::close() !!}
         </div><!--/.navbar-collapse -->

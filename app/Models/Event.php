@@ -50,4 +50,18 @@ class Event extends Model {
 
     }
 
+
+    public function getCompleteEventById($event_id) {
+        $query = DB::table('events')
+            ->join('users', 'users.usr_id', '=', 'events.user_id')
+            ->join('interests', 'interests.int_id', '=', 'events.interest_id')
+            ->where('events.eve_id', '=', $event_id);
+
+        $result = $query->first();
+        //dd($result);
+
+        return $result;
+
+    }
+
 }

@@ -64,7 +64,7 @@ var RdvApp = {
                     elm.addClass('upcoming');
                     panel.removeClass('panel-info');
                     panel.addClass('panel-primary');
-                    elm.find('.actions-interesting').replaceWith("<span class='pull-right glyphicon glyphicon-check actions-upcoming' aria-hidden='true'></span>");
+                    elm.find('.actions-interesting').replaceWith("<i class='pull-right fa fa-check-square-o fa-2x text-success actions-upcoming'></i>");
 
 
                 } else {

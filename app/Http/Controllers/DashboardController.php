@@ -99,8 +99,6 @@ class DashboardController extends Controller {
             $arrEvents[$event->eve_id] = $objEvent;
         }
 
-        //ksort($arrEvents);
-
         $data = new \stdClass();
         $data->events = $arrEvents;
         $data->userInterestsList = $arrUserInterests;

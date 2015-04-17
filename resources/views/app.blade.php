@@ -42,12 +42,16 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="{{action('DashboardController@getIndex')}}">Home</a></li>
                 <li><a href="{{action('RendezvousController@getCreate')}}">Create RendezVous</a></li>
-                <li><a href="{{action('UserController@getCreate')}}">Create Account</a></li>
-                <li><a href="{{action('UserController@getAccount')}}">My Account</a></li>
-                <li><a href="{{action('Auth\AuthController@getLogout')}}">Logout</a></li>
             </ul>
+            <div class="navbar-right">
+
+                <ul class="nav navbar-nav">
+                    <li><i class="fa fa-user-secret fa-2x white user-secret"></i></li>
+                    <li><a href="{{action('UserController@getAccount')}}">My Account</a></li>
+                    <li><a href="{{action('Auth\AuthController@getLogout')}}">Logout</a></li>
+                </ul>
+            </div>
         </div><!--/.nav-collapse -->
     </div>
 </nav>

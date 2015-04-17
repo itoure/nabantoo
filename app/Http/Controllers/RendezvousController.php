@@ -198,9 +198,20 @@ class RendezvousController extends Controller {
 
     public function getDetails($event_id){
 
-        $event = Event::findOrFail($event_id);
+        $modEvent = new Event();
+        $event = $modEvent->getCompleteEventById($event_id);
+
+        $objEvent = new \stdClass();
+        $objEvent->id = $event->eve_id;
+        $objEvent->title = $event->eve_title;
+        $objEvent->details = $event->eve_details;
+        $objEvent->location = $event->eve_location;
+        $objEvent->start_date = date('d-m-Y', $event->start_date);
+        $objEvent->event_owner = $event->firstname;
+        $objEvent->interest = $event->int_name;
 
         $data = new \stdClass();
+        $data->event = $objEvent;
 
         return view('rendezvous/details')->with('data', $data);
 

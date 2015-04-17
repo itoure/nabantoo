@@ -21,9 +21,9 @@
             </div>
                 <img src="holder.js/100%x100" alt="">
             <div class="panel-body" style="padding: 10px">
-                <p class="small"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> {{ $event->location }}</p>
-                <p class="small"><span class="glyphicon glyphicon-time" aria-hidden="true"></span> {{ $event->start_date }}</p>
-                <p class="small"><span class="glyphicon glyphicon-paperclip" aria-hidden="true"></span> {{ $event->interest }}</p>
+                <p><i class="fa fa-map-marker text-danger"></i> <small>{{ $event->location }}</small></p>
+                <p><i class="fa fa-calendar"></i> <small>{{ $event->start_date }}</small></p>
+                <p><i class="fa fa-paperclip"></i> <small>{{ $event->interest }}</small></p>
             </div>
             <div class="panel-footer" style="padding: 10px">
                 <span class="small"><img class="img-rounded align-with-text" src="holder.js/30x30/lava/text:P" alt=""> <a href="">{{ $event->event_owner }}</a></span>
@@ -34,7 +34,7 @@
                         <a href="#" class="join-event" data-event-id="{{ $event->id }}">Join</a>
                     </span>
                 @elseif ($event->type == 'upcoming')
-                    <span class="pull-right glyphicon glyphicon-check actions-upcoming" aria-hidden="true"></span>
+                    <i class="pull-right fa fa-check-square-o fa-2x text-success actions-upcoming"></i>
                 @else
                 @endif
 
