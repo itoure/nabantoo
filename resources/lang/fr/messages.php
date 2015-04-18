@@ -51,6 +51,7 @@ return [
     'your_photo'                => 'Ajouter votre photo',
     'update_account'            => 'Modifier vote compte',
 
-
+    // Event Details
+    'owner'             => 'Organisateur'
 
 ];

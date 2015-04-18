@@ -51,6 +51,9 @@ return [
     'your_photo'                => 'Add your photo',
     'update_account'            => 'Edit your account',
 
+    // Event Details
+    'owner'             => 'Planner'
+
 
 
 ];
