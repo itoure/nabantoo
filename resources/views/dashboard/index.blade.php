@@ -3,10 +3,10 @@
 @section('content')
 
 <div id="filters">
-    <button type="button" class="btn btn-success" data-filter="*">All</button>
-    <button type="button" class="btn btn-info" data-filter=".interesting">Fit To Me</button>
-    <button type="button" class="btn btn-primary" data-filter=".upcoming">My Next Events</button>
-    <button type="button" class="btn btn-warning" data-filter=".friends">Friends</button>
+    <button type="button" class="btn btn-success" data-filter="*">{{trans('messages.all')}}</button>
+    <button type="button" class="btn btn-info" data-filter=".interesting">{{trans('messages.fit_to_me')}}</button>
+    <button type="button" class="btn btn-primary" data-filter=".upcoming">{{trans('messages.upcoming')}}</button>
+    <button type="button" class="btn btn-warning" data-filter=".friends">{{trans('messages.friends')}}</button>
     @foreach ($data->userInterestsList as $interest)
         <button type="button" class="btn btn-default" data-filter=".{{$interest}}">{{$interest}}</button>
     @endforeach
@@ -31,7 +31,7 @@
                 @if ($event->type == 'interesting')
                     <span class="small pull-right actions-interesting">
                         <i id="loading" class="fa fa-spinner fa-spin" style="display: none"></i>
-                        <a href="#" class="join-event" data-event-id="{{ $event->id }}">Join</a>
+                        <a href="#" class="join-event" data-event-id="{{ $event->id }}">{{trans('messages.join')}}</a>
                     </span>
                 @elseif ($event->type == 'upcoming')
                     <i class="pull-right fa fa-check-square-o fa-2x text-success actions-upcoming"></i>

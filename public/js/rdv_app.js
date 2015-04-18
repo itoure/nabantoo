@@ -37,8 +37,12 @@ var RdvApp = {
             RdvApp.joinUserToEvent($(this));
         });
 
+        // init select2
         $(".select-interests").select2();
         $(".multiselect-interests-user").select2();
+
+        // tooltips
+        $('[data-toggle="tooltip"]').tooltip();
 
     },
 

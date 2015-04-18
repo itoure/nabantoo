@@ -5,12 +5,12 @@
 <div class="row">
     <div class="col-md-offset-2 col-md-8">
         <div class="panel panel-default">
-            <div class="panel-heading">My Account</div>
+            <div class="panel-heading">{{trans('messages.my_account')}}</div>
             <div class="panel-body">
 
                 @if (count($errors) > 0)
                 <div class="alert alert-danger">
-                    <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                    <strong>{{trans('messages.oups')}}!</strong> {{trans('messages.problem_with_inputs')}}<br><br>
                     <ul>
                         @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -26,27 +26,33 @@
 
                 <div class="form-group">
                     <label class="radio-inline">
-                        {!! Form::radio('sexe', 'F') !!} Female
+                        {!! Form::radio('sexe', 'F') !!} {{trans('messages.female')}}
                     </label>
 
                     <label class="radio-inline">
-                        {!! Form::radio('sexe', 'M') !!} Male
+                        {!! Form::radio('sexe', 'M') !!} {{trans('messages.male')}}
                     </label>
                 </div>
 
                 <div class="form-group">
                     {!! Form::text('firstname', null, array(
-                    'placeholder' => 'Your Real Name',
-                    'class' => 'form-control input-lg'
+                    'placeholder' => trans('messages.name'),
+                    'class' => 'form-control input-lg',
+                    'data-toggle' => 'tooltip',
+                    'data-placement' => 'left',
+                    'title' => trans('messages.help_name')
                     )) !!}
                 </div>
 
                 <div class="form-group">
                     {!! Form::text('usr_location', null, array(
-                    'placeholder' => 'Your City',
+                    'placeholder' => trans('messages.city'),
                     'class' => 'form-control input-lg',
                     'id' => 'search_autocomplete',
-                    'autocomplete' => 'off'
+                    'autocomplete' => 'off',
+                    'data-toggle' => 'tooltip',
+                    'data-placement' => 'left',
+                    'title' => trans('messages.help_city')
 
                     )) !!}
                 </div>
@@ -66,19 +72,19 @@
                 {!! Form::hidden('short_country', $data->location->short_country, array('id' => 'short_country')) !!}
                 {!! Form::hidden('long_country', $data->location->long_country, array('id' => 'long_country')) !!}
 
-                <h5>Birthday</h5>
+                <h5>{{trans('messages.birthday')}}</h5>
                 <div class="form-group">
-                    {!! Form::select('month', array_combine(range(1,12),range(1,12)), $data->birthday->month, array('class' => 'form-inline')) !!}
-                    {!! Form::select('day', array_combine(range(1,31),range(1,31)), $data->birthday->day, array('class' => 'form-inline')) !!}
-                    {!! Form::select('year', array_combine(range(2015, 1915),range(2015, 1915)), $data->birthday->year, array('class' => 'form-inline')) !!}
+                    {{trans('messages.month')}} {!! Form::select('month', array_combine(range(1,12),range(1,12)), $data->birthday->month, array('class' => 'form-inline')) !!}
+                    {{trans('messages.day')}} {!! Form::select('day', array_combine(range(1,31),range(1,31)), $data->birthday->day, array('class' => 'form-inline')) !!}
+                    {{trans('messages.year')}} {!! Form::select('year', array_combine(range(2015, 1915),range(2015, 1915)), $data->birthday->year, array('class' => 'form-inline')) !!}
                 </div>
 
-                <h5>Your Photo</h5>
+                <h5>{{trans('messages.your_photo')}}</h5>
                 <div class="form-group">
                     {!! Form::file('photo') !!}
                 </div>
 
-                <h3>What are your interests ?</h3>
+                <h3>{{trans('messages.what_your_interests')}}</h3>
 
                 <div class="form-group">
                     {!! Form::select('interests[]',
@@ -88,7 +94,7 @@
                 </div>
 
                 <div class="form-group">
-                    {!! Form::submit('Update', array(
+                    {!! Form::submit(trans('messages.update_account'), array(
                     'class' => 'btn btn-primary btn-lg btn-block'
                     )); !!}
                 </div>

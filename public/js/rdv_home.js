@@ -11,6 +11,9 @@ var RdvHome = {
         // init select2
         $(".multiselect-interests-home").select2();
 
+        // tooltips
+        $('[data-toggle="tooltip"]').tooltip();
+
     },
 
     backgroundSlideshow: function () {

@@ -42,14 +42,14 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="{{action('RendezvousController@getCreate')}}">Create RendezVous</a></li>
+                <li><a href="{{action('RendezvousController@getCreate')}}">{{trans('messages.create_event')}}</a></li>
             </ul>
             <div class="navbar-right">
 
                 <ul class="nav navbar-nav">
                     <li><i class="fa fa-user-secret fa-2x white user-secret"></i></li>
-                    <li><a href="{{action('UserController@getAccount')}}">My Account</a></li>
-                    <li><a href="{{action('Auth\AuthController@getLogout')}}">Logout</a></li>
+                    <li><a href="{{action('UserController@getAccount')}}">{{trans('messages.my_account')}}</a></li>
+                    <li><a href="{{action('Auth\AuthController@getLogout')}}">{{trans('messages.logout')}}</a></li>
                 </ul>
             </div>
         </div><!--/.nav-collapse -->
@@ -60,22 +60,6 @@
     @yield('content')
 </div>
 
-
-<div id="loading" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content text-center">
-            {!! HTML::image('img/spinner.gif') !!}
-        </div>
-    </div>
-</div>
-
-<div id="confirm-event" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content text-center">
-            {!! HTML::image('img/confirm.jpg') !!}
-        </div>
-    </div>
-</div>
 
 <!-- Bootstrap core JavaScript
 ================================================== -->

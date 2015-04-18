@@ -5,7 +5,7 @@
 <div class="row">
     <div class="col-md-offset-2 col-md-8">
         <div class="panel panel-default">
-            <div class="panel-heading">Create Your RendezVous</div>
+            <div class="panel-heading">{{trans('messages.create_your_event')}}</div>
             <div class="panel-body">
 
 
@@ -27,18 +27,23 @@
 
                 <div class="form-group">
                     {!! Form::text('title', null, array(
-                    'placeholder' => 'Title',
-                    'class' => 'form-control input-lg'
+                    'placeholder' => trans('messages.title'),
+                    'class' => 'form-control input-lg',
+                    'data-toggle' => 'tooltip',
+                    'data-placement' => 'left',
+                    'title' => trans('messages.help_title')
                     )) !!}
                 </div>
 
                 <div class="form-group">
                     {!! Form::text('location', null, array(
-                    'placeholder' => 'Where ?',
+                    'placeholder' => trans('messages.where'),
                     'class' => 'form-control input-lg',
                     'id' => 'search_autocomplete',
-                    'autocomplete' => 'off'
-
+                    'autocomplete' => 'off',
+                    'data-toggle' => 'tooltip',
+                    'data-placement' => 'left',
+                    'title' => trans('messages.help_where')
                     )) !!}
                 </div>
 
@@ -59,9 +64,12 @@
 
                 <div class="form-group">
                     {!! Form::text('start_date', null, array(
-                    'placeholder' => 'When ?',
+                    'placeholder' => trans('messages.when'),
                     'class' => 'form-control input-lg',
-                    'id' => 'start_date'
+                    'id' => 'start_date',
+                    'data-toggle' => 'tooltip',
+                    'data-placement' => 'left',
+                    'title' => trans('messages.help_when')
                     )) !!}
                 </div>
 
@@ -69,24 +77,30 @@
                     {!! Form::select('interest',
                     $data->interests,
                     '',
-                    array('class' => 'form-control input-lg select-interests')) !!}
+                    array(
+                    'class' => 'form-control input-lg select-interests',
+                    'data-toggle' => 'tooltip'
+                    )) !!}
                 </div>
 
                 <div class="form-group">
                     {!! Form::textarea('details', null, array(
-                    'placeholder' => 'Details',
+                    'placeholder' => trans('messages.details'),
                     'class' => 'form-control input-lg',
-                    'rows' => '5'
+                    'rows' => '5',
+                    'data-toggle' => 'tooltip',
+                    'data-placement' => 'left',
+                    'title' => trans('messages.help_details')
                     )) !!}
                 </div>
 
-                <h5>Add a Photo</h5>
+                <h5>{{trans('messages.add_photo')}}</h5>
                 <div class="form-group">
                     {!! Form::file('photo') !!}
                 </div>
 
                 <div class="form-group">
-                    {!! Form::submit('Create', array(
+                    {!! Form::submit(trans('messages.create'), array(
                     'class' => 'btn btn-primary btn-lg btn-block'
                     )); !!}
                 </div>

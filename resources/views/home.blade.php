@@ -49,12 +49,12 @@
             </div>
             <div class="form-group">
                 {!! Form::password('password', array(
-                'placeholder' => 'Password',
+                'placeholder' => trans('messages.password'),
                 'class' => 'form-control'
                 )) !!}
             </div>
 
-            {!! Form::submit('Sign In', array('class' => 'btn btn-primary')); !!}
+            {!! Form::submit(trans('messages.signin'), array('class' => 'btn btn-primary')); !!}
 
             {!! Form::close() !!}
         </div><!--/.navbar-collapse -->
