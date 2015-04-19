@@ -68,6 +68,7 @@ class DashboardController extends Controller {
                 $objEvent->start_date = date('d-m-Y', $event->start_date);
                 $objEvent->event_owner = $event->firstname;
                 $objEvent->interest = $event->int_name;
+                $objEvent->img_interest = $event->int_image;
                 $objEvent->type = 'interesting';
                 $objEvent->class = 'panel-info';
 
@@ -95,6 +96,7 @@ class DashboardController extends Controller {
             $objEvent->type = 'upcoming';
             $objEvent->class = 'panel-primary';
             $objEvent->interest = $event->int_name;
+            $objEvent->img_interest = $event->int_image;
 
             $arrEvents[$event->eve_id] = $objEvent;
         }

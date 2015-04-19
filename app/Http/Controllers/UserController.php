@@ -111,7 +111,7 @@ class UserController extends Controller {
             $user->save();
 
 
-            // delete the update
+            // delete then update
             UserLocation::where('user_id', '=', $usr_id)->delete();
             Location::findOrFail($loc_id)->delete();
 

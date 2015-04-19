@@ -19,6 +19,7 @@ class CreateEventsTable extends Migration {
             $table->text('eve_details');
             $table->string('eve_photo')->nullable();
             $table->integer('start_date');
+            $table->integer('people_limit')->default(0);
             $table->string('eve_location');
             $table->integer('interest_id')->unsigned();
             $table->foreign('interest_id')->references('int_id')->on('interests');

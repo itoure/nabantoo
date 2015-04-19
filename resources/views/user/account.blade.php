@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="row">
-    <div class="col-md-offset-1 col-md-8">
+    <div class="col-md-offset-1 col-md-7">
         <div class="panel panel-default">
             <div class="panel-heading">{{trans('messages.my_account')}}</div>
             <div class="panel-body">
@@ -93,9 +93,10 @@
                     array('class' => 'form-control input-lg multiselect-interests-user', 'multiple' => 'multiple')) !!}
                 </div>
 
-                <div class="form-group">
+                <div class="form-group pull-right">
+                    <a class="btn btn-default" href="{{action('DashboardController@getIndex')}}" role="button">Annuler</a>
                     {!! Form::submit(trans('messages.update_account'), array(
-                    'class' => 'btn btn-primary btn-lg btn-block'
+                    'class' => 'btn btn-primary btn-lg'
                     )); !!}
                 </div>
 
@@ -105,7 +106,7 @@
         </div>
     </div>
 
-    <div class="col-md-2">
+    <div class="col-md-3">
         <div class="panel panel-default">
             <div class="panel-heading">Sidebar</div>
             <div class="panel-body">
