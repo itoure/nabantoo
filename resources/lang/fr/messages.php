@@ -50,8 +50,11 @@ return [
     // My Account
     'your_photo'                => 'Ajouter votre photo',
     'update_account'            => 'Modifier vote compte',
+    'account_my_event' => 'Mes Evenements',
 
     // Event Details
-    'owner'             => 'Organisateur'
+    'owner'             => 'Organisateur',
+    'event_comments' => 'Messages',
+    'event' => 'Evenement',
 
 ];

@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use App\Models\UserEvent;
 
 class Event extends Model {
 
@@ -61,6 +62,16 @@ class Event extends Model {
         //dd($result);
 
         return $result;
+
+    }
+
+
+    public function countPeopleByEvent($event_id) {
+
+        $count = UserEvent::where('event_id', '=', $event_id)->count();
+        //dd($count);
+
+        return $count;
 
     }
 

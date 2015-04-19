@@ -27,6 +27,11 @@ class DashboardController extends Controller {
 	{
 		$this->middleware('auth');
         $this->request = $request;
+
+        view()->composer('app', function($view)
+        {
+            $view->with('user', $this->request->user());
+        });
 	}
 
 	/**
@@ -67,6 +72,7 @@ class DashboardController extends Controller {
                 $objEvent->location = $event->eve_location;
                 $objEvent->start_date = date('d-m-Y', $event->start_date);
                 $objEvent->event_owner = $event->firstname;
+                $objEvent->usr_photo = $event->usr_photo;
                 $objEvent->interest = $event->int_name;
                 $objEvent->img_interest = $event->int_image;
                 $objEvent->type = 'interesting';
@@ -93,6 +99,7 @@ class DashboardController extends Controller {
             $objEvent->location = $event->eve_location;
             $objEvent->start_date = date('d-m-Y', $event->start_date);
             $objEvent->event_owner = $event->firstname;
+            $objEvent->usr_photo = $event->usr_photo;
             $objEvent->type = 'upcoming';
             $objEvent->class = 'panel-primary';
             $objEvent->interest = $event->int_name;

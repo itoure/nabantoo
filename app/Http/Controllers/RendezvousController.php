@@ -31,6 +31,11 @@ class RendezvousController extends Controller {
 	{
         $this->middleware('auth');
         $this->request = $request;
+
+        view()->composer('app', function($view)
+        {
+            $view->with('user', $this->request->user());
+        });
 	}
 
 	/**
@@ -138,68 +143,13 @@ class RendezvousController extends Controller {
     }
 
 
-    public function getFetchTabContentUpcomming() {
-
-        // get user_id
-        $user_id = $this->request->user()->usr_id;
-
-        // get upcomming events for the current user
-        $modEvent = new Event();
-        $eventsList = $modEvent->getUpcommingEventsByUser($user_id);
-        //dd($eventsList);
-
-        $arrEvents = array();
-        foreach($eventsList as $event) {
-            //dd($event);
-            $objEvent = new \stdClass();
-            $objEvent->id = $event->eve_id;
-            $objEvent->title = $event->eve_title;
-            $objEvent->details = $event->eve_details;
-            $objEvent->location = $event->eve_location;
-            $objEvent->start_date = $event->start_date;
-            $objEvent->event_owner = $event->firstname;
-
-            $arrEvents[] = $objEvent;
-        }
-
-        $data = new \stdClass();
-        $data->events = $arrEvents;
-
-        $html = view('dashboard/rdvlist')->with('data', $data)->render();
-        $response = array(
-            'html' => $html
-        );
-
-        $return = array(
-            'response' => true,
-            'data' => $response
-        );
-
-        return response()->json($return);
-
-    }
-
-
-    public function getFetchTabContentInteresting() {
-
-        // get user_id
-        $user_id = $this->request->user()->usr_id;
-
-    }
-
-
-    public function getFetchTabContentFriends() {
-
-        // get user_id
-        $user_id = $this->request->user()->usr_id;
-
-    }
-
 
     public function getDetails($event_id){
 
         $modEvent = new Event();
         $event = $modEvent->getCompleteEventById($event_id);
+
+        $count_people = $modEvent->countPeopleByEvent($event_id);
 
         $objEvent = new \stdClass();
         $objEvent->id = $event->eve_id;
@@ -208,7 +158,10 @@ class RendezvousController extends Controller {
         $objEvent->location = $event->eve_location;
         $objEvent->start_date = date('d-m-Y', $event->start_date);
         $objEvent->event_owner = $event->firstname;
+        $objEvent->usr_photo = $event->usr_photo;
         $objEvent->interest = $event->int_name;
+        $objEvent->count_people = $count_people;
+        //$objEvent->people_limit = $event->people_limit;
 
         $data = new \stdClass();
         $data->event = $objEvent;

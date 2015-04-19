@@ -30,7 +30,9 @@
                 <p><i class="fa fa-map-marker text-danger"></i> <small>{{ $event->location }}</small></p>
                 <p><i class="fa fa-calendar"></i> <small>{{ $event->start_date }}</small></p>
                 <p><i class="fa fa-paperclip"></i> <small>{{ $event->interest }}</small></p>
-                <p><img class="img-rounded align-with-text" src="holder.js/30x30/lava/text:P" alt=""> <a href="" class="small">{{ $event->event_owner }}</a></p>
+                <p class="no-margin-bottom">
+                    {!! Html::image('files/user/'.$event->usr_photo, '', array('class' => 'img-user30 img-rounded')) !!} <a href="" class="small">{{ $event->event_owner }}</a>
+                </p>
             </div>
             <div class="panel-footer" style="padding: 10px">
                 @if ($event->type == 'interesting')

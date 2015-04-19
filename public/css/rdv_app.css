@@ -35,4 +35,18 @@ body {
     padding-top: 12px;
 }
 
+.img-user40 {
+    width: 40px;
+}
 
+.img-user30 {
+    width: 30px;
+}
+
+.img-user50 {
+    width: 50px;
+}
+
+.no-margin-bottom {
+    margin-bottom: 0;
+}

@@ -45,9 +45,11 @@
                 <li><a href="{{action('RendezvousController@getCreate')}}">{{trans('messages.create_event')}}</a></li>
             </ul>
             <div class="navbar-right">
-
                 <ul class="nav navbar-nav">
-                    <li><i class="fa fa-user-secret fa-2x white user-secret"></i></li>
+                    <li style="padding-top: 5px;">
+                        {!! Html::image('files/user/'.$user->usr_photo, '', array('class' => 'img-user40 img-rounded')) !!}
+                    </li>
+
                     <li><a href="{{action('UserController@getAccount')}}">{{trans('messages.my_account')}}</a></li>
                     <li><a href="{{action('Auth\AuthController@getLogout')}}">{{trans('messages.logout')}}</a></li>
                 </ul>

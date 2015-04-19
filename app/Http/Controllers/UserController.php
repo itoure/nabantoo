@@ -32,6 +32,11 @@ class UserController extends Controller {
 	{
         $this->middleware('auth');
         $this->request = $request;
+
+        view()->composer('app', function($view)
+        {
+            $view->with('user', $this->request->user());
+        });
 	}
 
     /**
@@ -104,7 +109,7 @@ class UserController extends Controller {
                 if ($photo->isValid()) {
                     $photo->move($fileFolder.'/user/', $photo->getClientOriginalName());
                     $photoName = $photo->getClientOriginalName();
-                    $user->photo = $photoName;
+                    $user->usr_photo = $photoName;
                 }
             }
 

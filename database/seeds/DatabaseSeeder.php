@@ -104,7 +104,8 @@ class UsersTableSeeder extends Seeder {
             'sexe' => 'M',
             'birthday' => 1066348800,
             'email' => 'ib.toure@gmail.com',
-            'password' => bcrypt('123456')
+            'password' => bcrypt('123456'),
+            'usr_photo' => 'anonymous.png'
         ]);
 
         User::create([
@@ -113,7 +114,8 @@ class UsersTableSeeder extends Seeder {
             'sexe' => 'M',
             'birthday' => 1066348800,
             'email' => 'zlatan.ibra@psg.net',
-            'password' => bcrypt('123456')
+            'password' => bcrypt('123456'),
+            'usr_photo' => 'anonymous.png'
         ]);
 
         User::create([
@@ -122,7 +124,8 @@ class UsersTableSeeder extends Seeder {
             'sexe' => 'M',
             'birthday' => 1066348800,
             'email' => 'jayz@nyc.net',
-            'password' => bcrypt('123456')
+            'password' => bcrypt('123456'),
+            'usr_photo' => 'anonymous.png'
         ]);
 
         User::create([
@@ -131,7 +134,8 @@ class UsersTableSeeder extends Seeder {
             'sexe' => 'F',
             'birthday' => 1066348800,
             'email' => 'eva.mendes@ol.net',
-            'password' => bcrypt('123456')
+            'password' => bcrypt('123456'),
+            'usr_photo' => 'anonymous.png'
         ]);
 
         User::create([
@@ -140,7 +144,8 @@ class UsersTableSeeder extends Seeder {
             'sexe' => 'F',
             'birthday' => 1066348800,
             'email' => 'rihanna@ol.net',
-            'password' => bcrypt('123456')
+            'password' => bcrypt('123456'),
+            'usr_photo' => 'anonymous.png'
         ]);
     }
 
