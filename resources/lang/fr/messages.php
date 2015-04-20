@@ -56,5 +56,7 @@ return [
     'owner'             => 'Organisateur',
     'event_comments' => 'Messages',
     'event' => 'Evenement',
+    'your_message' => 'Votre Message',
+    'publish' => 'Publier',
 
 ];

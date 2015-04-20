@@ -3,6 +3,7 @@
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use App\Models\UserEvent;
+use App\Models\EventMessage;
 
 class Event extends Model {
 
@@ -73,6 +74,19 @@ class Event extends Model {
 
         return $count;
 
+    }
+
+
+    public function getAllMessagesByEvent($event_id) {
+
+        $query = DB::table('event_messages')
+            ->join('users', 'users.usr_id', '=', 'event_messages.user_id')
+            ->where('event_messages.event_id', '=', $event_id);
+
+        $result = $query->get();
+        //dd($result->toSql);
+
+        return $result;
     }
 
 }

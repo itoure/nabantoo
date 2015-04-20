@@ -34,7 +34,7 @@
                     {!! Html::image('files/user/'.$event->usr_photo, '', array('class' => 'img-user30 img-rounded')) !!} <a href="" class="small">{{ $event->event_owner }}</a>
                 </p>
             </div>
-            <div class="panel-footer" style="padding: 10px">
+            <div class="panel-footer align-right" style="padding: 10px">
                 @if ($event->type == 'interesting')
                     <span class="small actions-interesting">
                         <i id="loading" class="fa fa-spinner fa-spin" style="display: none"></i>

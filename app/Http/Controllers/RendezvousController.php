@@ -8,6 +8,7 @@ use App\Models\Interest;
 use App\Models\Location;
 use Illuminate\Http\Request;
 use App\Models\UserEvent;
+use App\Models\EventMessage;
 
 class RendezvousController extends Controller {
 
@@ -146,11 +147,17 @@ class RendezvousController extends Controller {
 
     public function getDetails($event_id){
 
+        // get user_id
+        $current_user_id = $this->request->user()->usr_id;
+
+        // get event
         $modEvent = new Event();
         $event = $modEvent->getCompleteEventById($event_id);
 
+        // count people for an event
         $count_people = $modEvent->countPeopleByEvent($event_id);
 
+        // create event object
         $objEvent = new \stdClass();
         $objEvent->id = $event->eve_id;
         $objEvent->title = $event->eve_title;
@@ -159,14 +166,59 @@ class RendezvousController extends Controller {
         $objEvent->start_date = date('d-m-Y', $event->start_date);
         $objEvent->event_owner = $event->firstname;
         $objEvent->usr_photo = $event->usr_photo;
+        $objEvent->user_id = $event->usr_id;
         $objEvent->interest = $event->int_name;
         $objEvent->count_people = $count_people;
         //$objEvent->people_limit = $event->people_limit;
 
+        // get all messages
+        $messages = $modEvent->getAllMessagesByEvent($event_id);
+        $arrMessages = array();
+        foreach($messages as $msg){
+            $objMessage = new \stdClass();
+            $objMessage->user_photo = $msg->usr_photo;
+            $objMessage->message = $msg->eve_message;
+            $objMessage->date = $msg->created_at;
+            $arrMessages[] = $objMessage;
+        }
+
         $data = new \stdClass();
         $data->event = $objEvent;
+        $data->messages = $arrMessages;
+        $data->current_user_id = $current_user_id;
 
         return view('rendezvous/details')->with('data', $data);
+
+    }
+
+
+    public function postStoreMessage() {
+
+        $rules = array(
+            'message' => 'required|string',
+            'user_id' => 'required|integer',
+            'event_id' => 'required|integer',
+        );
+
+        $validator = Validator::make(Input::all(), $rules);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        } else {
+            $message = Input::get('message');
+            $user_id = Input::get('user_id');
+            $event_id = Input::get('event_id');
+
+            EventMessage::create(array(
+                'eve_message' => $message,
+                'user_id' => $user_id,
+                'event_id' => $event_id,
+            ));
+
+            return redirect()->back();
+
+        }
+
 
     }
 

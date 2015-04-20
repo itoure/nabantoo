@@ -50,3 +50,8 @@ body {
 .no-margin-bottom {
     margin-bottom: 0;
 }
+
+.align-right {
+    text-align: right;
+}
+
