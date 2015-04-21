@@ -48,7 +48,7 @@
                 </ul>
                 <div class="navbar-right">
                     <ul class="nav navbar-nav">
-                        <li>
+                        <li class="align-with-text">
                             {!! Html::image('files/user/'.$user->usr_photo, '', array('class' => 'img-user40 img-rounded')) !!}
                         </li>
 
@@ -62,7 +62,7 @@
 
     @yield('content')
 
-    <div class="footer">
+    <div class="footer hide">
         <p>#Nabantoo</p>
     </div>
 

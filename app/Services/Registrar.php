@@ -44,7 +44,8 @@ class Registrar implements RegistrarContract {
             'birthday' => strtotime($data['month'].'/'.$data['day'].'/'.$data['year']),
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'usr_location' => $data['location']
+            'usr_location' => $data['location'],
+            'usr_photo' => 'anonymous.png'
 		]);
 
         // insert location
