@@ -60,9 +60,10 @@
         </div>
     </nav>
 
+<div class="container">
     @yield('content')
 
-    <div class="footer">
+    <div class="footer hide">
         <p>#Nabantoo</p>
     </div>
 
