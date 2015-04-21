@@ -7,7 +7,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="">
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.png">
 
     <title>Rendez-Vous in the real life</title>
 
@@ -36,7 +36,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{action('DashboardController@getIndex')}}">Event</a>
+            <a class="navbar-brand" href="{{action('DashboardController@getIndex')}}">Nabantoo <small>{do it with people}</small></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             {!! Form::open(array('action' => 'Auth\AuthController@postLogin', 'class' => 'navbar-form navbar-right')) !!}

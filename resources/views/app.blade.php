@@ -7,7 +7,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="">
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.png">
 
     <title>Rendez-Vous in the real life</title>
 
@@ -29,37 +29,43 @@
 
 <body>
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="{{action('DashboardController@getIndex')}}">Event</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li><a href="{{action('RendezvousController@getCreate')}}">{{trans('messages.create_event')}}</a></li>
-            </ul>
-            <div class="navbar-right">
-                <ul class="nav navbar-nav">
-                    <li style="padding-top: 5px;">
-                        {!! Html::image('files/user/'.$user->usr_photo, '', array('class' => 'img-user40 img-rounded')) !!}
-                    </li>
-
-                    <li><a href="{{action('UserController@getAccount')}}">{{trans('messages.my_account')}}</a></li>
-                    <li><a href="{{action('Auth\AuthController@getLogout')}}">{{trans('messages.logout')}}</a></li>
-                </ul>
-            </div>
-        </div><!--/.nav-collapse -->
-    </div>
-</nav>
-
 <div class="container">
+
+    <nav class="navbar navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{action('DashboardController@getIndex')}}">Nabantoo <small>{do it with people}</small></a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="{{action('RendezvousController@getCreate')}}">{{trans('messages.create_event')}}</a></li>
+                </ul>
+                <div class="navbar-right">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            {!! Html::image('files/user/'.$user->usr_photo, '', array('class' => 'img-user40 img-rounded')) !!}
+                        </li>
+
+                        <li><a href="{{action('UserController@getAccount')}}">{{trans('messages.my_account')}}</a></li>
+                        <li><a href="{{action('Auth\AuthController@getLogout')}}">{{trans('messages.logout')}}</a></li>
+                    </ul>
+                </div>
+            </div><!--/.nav-collapse -->
+        </div>
+    </nav>
+
     @yield('content')
+
+    <div class="footer">
+        <p>#Nabantoo</p>
+    </div>
+
 </div>
 
 
