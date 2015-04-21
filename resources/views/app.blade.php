@@ -58,7 +58,7 @@
     </div>
 </nav>
 
-<div class="container">
+<div class="container hide">
     @yield('content')
 </div>
 
