@@ -3,12 +3,12 @@
 @section('content')
 
 <div id="filters">
-    <button type="button" class="btn btn-success" data-filter="*">{{trans('messages.all')}}</button>
-    <button type="button" class="btn btn-info" data-filter=".interesting">{{trans('messages.fit_to_me')}}</button>
-    <button type="button" class="btn btn-primary" data-filter=".upcoming">{{trans('messages.upcoming')}}</button>
-    <button type="button" class="btn btn-warning" data-filter=".friends">{{trans('messages.friends')}}</button>
+    <button type="button" class="btn btn-default btn-sm" data-filter="*">{{trans('messages.all')}}</button>
+    <button type="button" class="btn btn-primary btn-sm" data-filter=".interesting">{{trans('messages.fit_to_me')}}</button>
+    <button type="button" class="btn btn-primary btn-sm" data-filter=".upcoming">{{trans('messages.upcoming')}}</button>
+    <button type="button" class="btn btn-primary btn-sm" data-filter=".friends">{{trans('messages.friends')}}</button>
     @foreach ($data->userInterestsList as $interest)
-        <button type="button" class="btn btn-default" data-filter=".{{$interest}}">{{$interest}}</button>
+        <button type="button" class="btn btn-default btn-sm" data-filter=".{{$interest}}">{{$interest}}</button>
     @endforeach
 </div>
 
