@@ -23,7 +23,7 @@
                 </div>
                 @endif
 
-                {!! Form::open(array('action' => 'RendezvousController@postStore', 'files' => true)) !!}
+                {!! Form::open(array('action' => 'EventController@postStore', 'files' => true)) !!}
 
                 <div class="form-group">
                     {!! Form::text('title', null, array(
@@ -100,7 +100,7 @@
                 </div>
 
                 <div class="form-group pull-right">
-                    <a class="btn btn-default" href="{{action('DashboardController@getIndex')}}" role="button">Annuler</a>
+                    <a class="btn btn-default" href="{{action('HomeController@getIndex')}}" role="button">Annuler</a>
                     {!! Form::submit(trans('messages.create'), array(
                     'class' => 'btn btn-primary btn-lg'
                     )); !!}

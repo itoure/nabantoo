@@ -57,7 +57,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">{{trans('messages.event_comments')}}</div>
             <div class="panel-body">
-                {!! Form::open(array('action' => 'RendezvousController@postStoreMessage', 'class' => 'well')) !!}
+                {!! Form::open(array('action' => 'EventController@postStoreMessage', 'class' => 'well')) !!}
                 {!! Form::hidden('event_id', $data->event->id) !!}
                 {!! Form::hidden('user_id', $data->current_user_id) !!}
                 <div class="form-group">

@@ -12,12 +12,19 @@ var RdvApp = {
         });
 
         // isotope
-        var $container = $('#events-container');
-        $container.isotope({
+
+
+        // initialize Isotope
+        var $container = $('#events-container').isotope({
             // options
-            itemSelector: '.event-item',
-            layoutMode: 'masonry'
+            itemSelector: '.event-item'
         });
+
+        // layout Isotope again after all images have loaded
+        $container.imagesLoaded( function() {
+            $container.isotope('packery');
+        });
+
 
         $('#filters').on( 'click', 'button', function() {
             var filterValue = $(this).attr('data-filter');
@@ -49,7 +56,7 @@ var RdvApp = {
 
     joinUserToEvent: function (object) {
 
-        var url = "/rendezvous/join-user-to-event";
+        var url = "/event/join-user-to-event";
         var event_id = object.attr('data-event-id');
         var elm = $('.event_id_'+event_id);
         var panel = elm.find('.panel');
@@ -87,17 +94,17 @@ var RdvApp = {
 
         switch (tab) {
             case '#interesting':
-                var url = "/rendezvous/fetch-tab-content-interesting";
+                var url = "/event/fetch-tab-content-interesting";
                 break;
             case '#upcomming':
-                var url = "/rendezvous/fetch-tab-content-upcomming";
+                var url = "/event/fetch-tab-content-upcomming";
                 break;
             case '#friends':
-                var url = "/rendezvous/fetch-tab-content-friends";
+                var url = "/event/fetch-tab-content-friends";
                 break;
             default:
                 tab = '#interesting';
-                var url = "/rendezvous/fetch-tab-content-interesting";
+                var url = "/event/fetch-tab-content-interesting";
                 break;
         }
 
@@ -117,7 +124,6 @@ var RdvApp = {
 
             }
         });
-
 
     }
 

@@ -14,6 +14,21 @@ class Event extends Model {
         return $this->belongsTo('App\Models\Location');
     }
 
+    public function getEventsByCountry($arrUserLocation) {
+
+        $query = DB::table('events')
+            ->join('locations', 'locations.loc_id', '=', 'events.location_id')
+            ->join('users', 'users.usr_id', '=', 'events.user_id')
+            ->join('interests', 'interests.int_id', '=', 'events.interest_id')
+            ->where('locations.short_country', '=', $arrUserLocation->short_country);
+
+        $result = $query->get();
+        //dd($result);
+
+        return $result;
+
+    }
+
 
     public function getUserEventsByInterestsAndLocation($arrUserInterestIds, $arrUserLocation) {
 

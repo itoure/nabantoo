@@ -17,7 +17,7 @@ Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 	'user' => 'UserController',
-	'rendezvous' => 'RendezvousController',
+	'event' => 'EventController',
 	'utils' => 'UtilsController',
-    '/' => 'DashboardController',
+    '/' => 'HomeController',
 ]);

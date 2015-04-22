@@ -233,78 +233,91 @@ class LocationsTableSeeder extends Seeder {
             'short_locality' => 'Lyon',
             'short_administrative_area_level_2' => '69',
             'short_administrative_area_level_1' => 'RA',
+            'short_country' => 'FR',
         ]);
 
         Location::create([
             'short_locality' => 'Lyon',
             'short_administrative_area_level_2' => '69',
             'short_administrative_area_level_1' => 'RA',
+            'short_country' => 'FR',
         ]);
 
         Location::create([
             'short_locality' => 'Lyon',
             'short_administrative_area_level_2' => '69',
             'short_administrative_area_level_1' => 'RA',
+            'short_country' => 'FR',
         ]);
 
         Location::create([
             'short_locality' => 'Lyon',
             'short_administrative_area_level_2' => '69',
             'short_administrative_area_level_1' => 'RA',
+            'short_country' => 'FR',
         ]);
 
         Location::create([
             'short_locality' => 'Lyon',
             'short_administrative_area_level_2' => '69',
             'short_administrative_area_level_1' => 'RA',
+            'short_country' => 'FR',
         ]);
 
         Location::create([
             'short_locality' => 'Lyon',
             'short_administrative_area_level_2' => '69',
             'short_administrative_area_level_1' => 'RA',
+            'short_country' => 'FR',
         ]);
 
         Location::create([
             'short_locality' => 'Lyon',
             'short_administrative_area_level_2' => '69',
             'short_administrative_area_level_1' => 'RA',
+            'short_country' => 'FR',
         ]);
 
         Location::create([
             'short_locality' => 'Lyon',
             'short_administrative_area_level_2' => '69',
             'short_administrative_area_level_1' => 'RA',
+            'short_country' => 'FR',
         ]);
 
         Location::create([
             'short_locality' => 'Lyon',
             'short_administrative_area_level_2' => '69',
             'short_administrative_area_level_1' => 'RA',
+            'short_country' => 'FR',
         ]);
 
         Location::create([
             'short_locality' => 'Lyon',
             'short_administrative_area_level_2' => '69',
             'short_administrative_area_level_1' => 'RA',
+            'short_country' => 'FR',
         ]);
 
         Location::create([
             'short_locality' => 'Paris',
             'short_administrative_area_level_2' => '75',
             'short_administrative_area_level_1' => 'IDF',
+            'short_country' => 'FR',
         ]);
 
         Location::create([
             'short_locality' => 'NY',
             'short_administrative_area_level_2' => '',
             'short_administrative_area_level_1' => 'NY',
+            'short_country' => 'US',
         ]);
 
         Location::create([
             'short_locality' => 'Marseille',
             'short_administrative_area_level_2' => '13',
             'short_administrative_area_level_1' => 'PACA',
+            'short_country' => 'FR',
         ]);
 
     }

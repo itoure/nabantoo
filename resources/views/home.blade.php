@@ -36,7 +36,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{action('DashboardController@getIndex')}}">Nabantoo <small>{do it with people}</small></a>
+            <a class="navbar-brand" href="{{action('HomeController@getIndex')}}">Nabantoo <small>{do it with people}</small></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             {!! Form::open(array('action' => 'Auth\AuthController@postLogin', 'class' => 'navbar-form navbar-right')) !!}

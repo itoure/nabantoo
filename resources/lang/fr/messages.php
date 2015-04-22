@@ -29,9 +29,14 @@ return [
     'my_account'        => 'Mon compte',
     'all'               => 'Tous',
     'upcoming'          => 'Mes prochains',
-    'fit_to_me'         => 'Fait pour moi',
+    'fit_to_me'         => 'Interessant pour moi',
     'friends'           => 'Amis',
     'join'              => 'Rejoindre',
+    'today'              => 'Aujourd\'hui',
+    'tomorrow'              => 'Demain',
+    'this_week'              => 'Cette semaine',
+    'around_me'              => 'Autour de moi',
+    'exact_match'              => 'Sur mesure',
 
     // Create Event
     'create_your_event'     => 'Créer votre évenement',

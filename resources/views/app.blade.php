@@ -40,11 +40,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{action('DashboardController@getIndex')}}">Nabantoo <small>{do it with people}</small></a>
+                <a class="navbar-brand" href="{{action('HomeController@getIndex')}}">Nabantoo <small>{do it with people}</small></a>
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="{{action('RendezvousController@getCreate')}}">{{trans('messages.create_event')}}</a></li>
+                    <li><a href="{{action('EventController@getCreate')}}">{{trans('messages.create_event')}}</a></li>
                 </ul>
                 <div class="navbar-right">
                     <ul class="nav navbar-nav">
@@ -82,6 +82,7 @@
 {!! Html::script('js/holder.min.js') !!}
 {!! Html::script('js/bootstrap-datetimepicker.min.js') !!}
 {!! Html::script('js/isotope.pkgd.min.js') !!}
+{!! Html::script('js/imagesloaded.pkgd.min.js') !!}
 
 </body>
 </html>

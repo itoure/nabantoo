@@ -94,7 +94,7 @@
                 </div>
 
                 <div class="form-group pull-right">
-                    <a class="btn btn-default" href="{{action('DashboardController@getIndex')}}" role="button">Annuler</a>
+                    <a class="btn btn-default" href="{{action('HomeController@getIndex')}}" role="button">Annuler</a>
                     {!! Form::submit(trans('messages.update_account'), array(
                     'class' => 'btn btn-primary btn-lg'
                     )); !!}

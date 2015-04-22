@@ -5,7 +5,7 @@ use App\Models\UserInterest;
 use App\Models\Event;
 use App\Models\UserLocation;
 
-class DashboardController extends Controller {
+class HomeController extends Controller {
 
 	/*
 	|--------------------------------------------------------------------------
@@ -54,14 +54,13 @@ class DashboardController extends Controller {
         // get user location
         $modUserLocation = new UserLocation();
         $arrUserLocations = $modUserLocation->getUserLocation($user_id);
+        //dd($arrUserLocations);die;
 
-        //dd($arrUserInterests, $arrUserLocations);die;
-
-        if($arrUserInterests && $arrUserLocations) {
+        if($arrUserLocations) {
             // get events list
             $modelEvent = new Event();
-            $eventsList = $modelEvent->getUserEventsByInterestsAndLocation(array_keys($arrUserInterests), $arrUserLocations[0]);
-            //dd($eventsList);
+            $eventsList = $modelEvent->getEventsByCountry($arrUserLocations[0]);
+            //dd($arrUserLocations);die;
 
             foreach($eventsList as $event) {
                 //dd($event);
@@ -75,8 +74,19 @@ class DashboardController extends Controller {
                 $objEvent->usr_photo = $event->usr_photo;
                 $objEvent->interest = $event->int_name;
                 $objEvent->img_interest = $event->int_image;
-                $objEvent->type = 'interesting';
-                $objEvent->class = 'panel-info';
+
+                // if event loc match user loc
+                $objEvent->aroundMe = false;
+                if(($event->short_administrative_area_level_2 == $arrUserLocations[0]->short_administrative_area_level_2) ||
+                ($event->short_administrative_area_level_1 == $arrUserLocations[0]->short_administrative_area_level_1)) {
+                    $objEvent->aroundMe = true;
+                }
+
+                // if event cat match user cat
+                $objEvent->fitToMe = false;
+                if(in_array($event->int_name, $arrUserInterests)){
+                    $objEvent->fitToMe = true;
+                }
 
                 $arrEvents[$event->eve_id] = $objEvent;
             }
@@ -105,14 +115,14 @@ class DashboardController extends Controller {
             $objEvent->interest = $event->int_name;
             $objEvent->img_interest = $event->int_image;
 
-            $arrEvents[$event->eve_id] = $objEvent;
+            //$arrEvents[$event->eve_id] = $objEvent;
         }
 
         $data = new \stdClass();
         $data->events = $arrEvents;
         $data->userInterestsList = $arrUserInterests;
 
-		return view('dashboard/index')->with('data', $data);
+		return view('home/index')->with('data', $data);
 	}
 
 }

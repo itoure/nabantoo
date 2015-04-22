@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\UserEvent;
 use App\Models\EventMessage;
 
-class RendezvousController extends Controller {
+class EventController extends Controller {
 
 	/*
 	|--------------------------------------------------------------------------
@@ -56,7 +56,7 @@ class RendezvousController extends Controller {
         $data = new \stdClass();
         $data->interests = $arrInterests;
 
-		return view('rendezvous/create')->with('data', $data);
+		return view('event/create')->with('data', $data);
 	}
 
     /**
@@ -83,7 +83,7 @@ class RendezvousController extends Controller {
         $validator = Validator::make(Input::all(), $rules);
 
         if ($validator->fails()) {
-            return Redirect::action('RendezvousController@getCreate')->withErrors($validator)->withInput();
+            return Redirect::action('EventController@getCreate')->withErrors($validator)->withInput();
         } else {
             $title = Input::get('title');
             $details = Input::get('details');
@@ -116,7 +116,7 @@ class RendezvousController extends Controller {
                 'location_id' => $location_id,
             ));
 
-            return Redirect::action('DashboardController@getIndex');
+            return Redirect::action('HomeController@getIndex');
         }
 
     }
@@ -187,7 +187,7 @@ class RendezvousController extends Controller {
         $data->messages = $arrMessages;
         $data->current_user_id = $current_user_id;
 
-        return view('rendezvous/details')->with('data', $data);
+        return view('event/details')->with('data', $data);
 
     }
 
@@ -218,7 +218,6 @@ class RendezvousController extends Controller {
             return redirect()->back();
 
         }
-
 
     }
 

@@ -143,7 +143,7 @@ class UserController extends Controller {
                 }
             }
 
-            return Redirect::action('DashboardController@getIndex');
+            return Redirect::action('HomeController@getIndex');
         }
 
     }
