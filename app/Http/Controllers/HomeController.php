@@ -120,6 +120,7 @@ class HomeController extends Controller {
 
         $data = new \stdClass();
         $data->events = $arrEvents;
+        $data->my_events = array_slice($arrEvents, 0, 5);
         $data->userInterestsList = $arrUserInterests;
 
 		return view('home/index')->with('data', $data);
