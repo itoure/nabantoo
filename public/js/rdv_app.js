@@ -22,7 +22,7 @@ var RdvApp = {
 
         // layout Isotope again after all images have loaded
         $container.imagesLoaded( function() {
-            $container.isotope('packery');
+            $container.isotope('vetical');
         });
 
 
@@ -76,6 +76,8 @@ var RdvApp = {
                     panel.removeClass('panel-info');
                     panel.addClass('panel-primary');
                     elm.find('.actions-interesting').replaceWith("<i class='fa fa-check-square-o fa-2x text-success actions-upcoming'></i>");
+
+                    elm.slideUp('slow');
 
 
                 } else {

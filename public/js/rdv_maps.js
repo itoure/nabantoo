@@ -8,8 +8,22 @@ var RdvMaps = {
         // google maps autocomplete
         RdvMaps.initialize();
 
-    },
+        $("#search_autocomplete").blur(function (e) {
+            var search = $(this).val();
+            console.log(search);
+            var service = new google.maps.places.AutocompleteService();
+            service.getQueryPredictions({ input: search }, function(predictions, status) {
+                if (status != google.maps.places.PlacesServiceStatus.OK) {
+                    alert(status);
+                    return;
+                }
 
+                console.log(predictions[0]);
+
+            });
+        });
+
+    },
 
     initialize: function () {
         // Create the autocomplete object, restricting the search

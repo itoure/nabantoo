@@ -43,7 +43,6 @@ class HomeController extends Controller {
 	{
         // get user_id
         $user_id = $this->request->user()->usr_id;
-        $arrEvents = array();
 
         /*** Interesting ***/
 
@@ -62,6 +61,7 @@ class HomeController extends Controller {
             $eventsList = $modelEvent->getEventsByCountry($arrUserLocations[0]);
             //dd($arrUserLocations);die;
 
+            $arrEvents = array();
             foreach($eventsList as $event) {
                 //dd($event);
                 $objEvent = new \stdClass();
@@ -100,6 +100,7 @@ class HomeController extends Controller {
         $eventsList = $modEvent->getUpcommingEventsByUser($user_id);
         //dd($eventsList);
 
+        $arrUpcomingEvents = array();
         foreach($eventsList as $event) {
             //dd($event);
             $objEvent = new \stdClass();
@@ -116,11 +117,12 @@ class HomeController extends Controller {
             $objEvent->img_interest = $event->int_image;
 
             //$arrEvents[$event->eve_id] = $objEvent;
+            $arrUpcomingEvents[$event->eve_id] = $objEvent;
         }
 
         $data = new \stdClass();
         $data->events = $arrEvents;
-        $data->my_events = array_slice($arrEvents, 0, 5);
+        $data->upcomingEvents = $arrUpcomingEvents;
         $data->userInterestsList = $arrUserInterests;
 
 		return view('home/index')->with('data', $data);

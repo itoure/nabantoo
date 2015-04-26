@@ -30,35 +30,39 @@
 <body>
 
 <div class="container">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
 
-    <nav class="navbar navbar-inverse">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="{{action('HomeController@getIndex')}}">Nabantoo <small>{do it with people}</small></a>
-            </div>
-            <div id="navbar" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="{{action('EventController@getCreate')}}">{{trans('messages.create_event')}}</a></li>
-                </ul>
-                <div class="navbar-right">
-                    <ul class="nav navbar-nav">
-                        <li class="align-with-text">
-                            {!! Html::image('files/user/'.$user->usr_photo, '', array('class' => 'img-user40 img-rounded')) !!}
-                        </li>
+            <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="{{action('HomeController@getIndex')}}">Nabantoo <small>{do it with people}</small></a>
+                    </div>
+                    <div id="navbar" class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li><a href="{{action('EventController@getCreate')}}">{{trans('messages.create_event')}}</a></li>
+                        </ul>
+                        <div class="navbar-right">
+                            <ul class="nav navbar-nav">
+                                <li class="align-with-text">
+                                    {!! Html::image('files/user/'.$user->usr_photo, '', array('class' => 'img-user40 img-rounded')) !!}
+                                </li>
 
-                        <li><a href="{{action('UserController@getAccount')}}">{{trans('messages.my_account')}}</a></li>
-                        <li><a href="{{action('Auth\AuthController@getLogout')}}">{{trans('messages.logout')}}</a></li>
-                    </ul>
+                                <li><a href="{{action('UserController@getAccount')}}">{{trans('messages.my_account')}}</a></li>
+                                <li><a href="{{action('Auth\AuthController@getLogout')}}">{{trans('messages.logout')}}</a></li>
+                            </ul>
+                        </div>
+                    </div><!--/.nav-collapse -->
                 </div>
-            </div><!--/.nav-collapse -->
-        </div>
-    </nav>
+            </nav>
+    </div>
+</div>
 
     @yield('content')
 
