@@ -23,7 +23,7 @@
                 </div>
                 @endif
 
-                {!! Form::open(array('action' => 'EventController@postStore', 'files' => true)) !!}
+                {!! Form::open(array('action' => 'EventController@postStore', 'files' => true, 'id' => 'formCreateEvent')) !!}
 
                 <div class="form-group">
                     {!! Form::text('title', null, array(

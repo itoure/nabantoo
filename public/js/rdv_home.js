@@ -12,7 +12,16 @@ var RdvHome = {
         $(".multiselect-interests-home").select2();
 
         // tooltips
-        $('[data-toggle="tooltip"]').tooltip();
+        //$('[data-toggle="tooltip"]').tooltip();
+
+        //$("#formSignupUser").hide();
+
+        $("#showSignupModal").click(function (e) {
+            bootbox.dialog({
+                title: 'Sign Up',
+                message: $('#formSignupUser').html()
+            });
+        });
 
     },
 

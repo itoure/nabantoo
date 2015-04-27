@@ -46,11 +46,71 @@ var RdvApp = {
 
         // init select2
         $(".select-interests").select2();
+
         $(".multiselect-interests-user").select2();
 
         // tooltips
-        $('[data-toggle="tooltip"]').tooltip();
+        //$('[data-toggle="tooltip"]').tooltip();
 
+
+        // validate form
+        RdvApp.validateFormEvent();
+
+    },
+
+
+    validateFormEvent: function () {
+
+        $('#formCreateEvent').formValidation({
+            // I am validating Bootstrap form
+            framework: 'bootstrap',
+            // Feedback icons
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            trigger: 'change',
+
+            // List of fields and their validation rules
+            fields: {
+                title: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The title is required and cannot be empty'
+                        }
+                    }
+                },
+                location: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The location is required and cannot be empty'
+                        }
+                    }
+                },
+                start_date: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The start date is required and cannot be empty'
+                        }
+                    }
+                },
+                interest: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The interest is required and cannot be empty'
+                        }
+                    }
+                },
+                details: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The details is required and cannot be empty'
+                        }
+                    }
+                }
+            }
+        });
     },
 
 

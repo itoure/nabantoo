@@ -19,6 +19,7 @@
     {!! Html::style('css/rdv_app.css') !!}
     {!! Html::style('css/bootstrap-datetimepicker.min.css') !!}
     {!! Html::style('font-awesome/css/font-awesome.min.css') !!}
+    {!! Html::style('formvalidation/css/formValidation.min.css') !!}
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -30,45 +31,33 @@
 <body>
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-offset-1 col-md-10">
-
-            <nav class="navbar navbar-inverse">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="{{action('HomeController@getIndex')}}">Nabantoo <small>{do it with people}</small></a>
-                    </div>
-                    <div id="navbar" class="collapse navbar-collapse">
-                        <ul class="nav navbar-nav">
-                            <li><a href="{{action('EventController@getCreate')}}">{{trans('messages.create_event')}}</a></li>
-                        </ul>
-                        <div class="navbar-right">
-                            <ul class="nav navbar-nav">
-                                <li class="align-with-text">
-                                    {!! Html::image('files/user/'.$user->usr_photo, '', array('class' => 'img-user40 img-rounded')) !!}
-                                </li>
-
-                                <li><a href="{{action('UserController@getAccount')}}">{{trans('messages.my_account')}}</a></li>
-                                <li><a href="{{action('Auth\AuthController@getLogout')}}">{{trans('messages.logout')}}</a></li>
-                            </ul>
-                        </div>
-                    </div><!--/.nav-collapse -->
+    <nav class="navbar navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{action('HomeController@getIndex')}}">Nabantoo <small>{do it with people}</small></a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="{{action('EventController@getCreate')}}">{{trans('messages.create_event')}}</a></li>
+                </ul>
+                <div class="navbar-right">
+                    <ul class="nav navbar-nav">
+                        <li><a href="{{action('UserController@getAccount')}}">{{trans('messages.my_account')}}</a></li>
+                        <li><a href="{{action('Auth\AuthController@getLogout')}}">{{trans('messages.logout')}}</a></li>
+                    </ul>
                 </div>
-            </nav>
-    </div>
-</div>
+            </div><!--/.nav-collapse -->
+        </div>
+    </nav>
 
     @yield('content')
 
-    <div class="footer hide">
-        <p>#Nabantoo</p>
-    </div>
 
 </div>
 
@@ -80,13 +69,16 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 {!! Html::script('bootstrap/js/bootstrap.min.js') !!}
 {!! Html::script('js/select2.min.js') !!}
-{!! Html::script('js/rdv_app.js') !!}
-{!! Html::script('js/rdv_maps.js') !!}
-{!! Html::script('js/rdv_user.js') !!}
 {!! Html::script('js/holder.min.js') !!}
 {!! Html::script('js/bootstrap-datetimepicker.min.js') !!}
 {!! Html::script('js/isotope.pkgd.min.js') !!}
 {!! Html::script('js/imagesloaded.pkgd.min.js') !!}
+{!! Html::script('formvalidation/js/formValidation.min.js') !!}
+{!! Html::script('formvalidation/js/framework/bootstrap.min.js') !!}
+{!! Html::script('js/bootbox.min.js') !!}
+{!! Html::script('js/rdv_app.js') !!}
+{!! Html::script('js/rdv_maps.js') !!}
+{!! Html::script('js/rdv_user.js') !!}
 
 </body>
 </html>

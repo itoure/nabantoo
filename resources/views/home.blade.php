@@ -28,7 +28,7 @@
 <body>
 
 <nav class="navbar navbar-inverse navbar-fixed-top" style="opacity: 0.85">
-    <div class="container">
+    <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
@@ -56,7 +56,10 @@
 
             {!! Form::submit(trans('messages.signin'), array('class' => 'btn btn-primary')); !!}
 
+            <button id="showSignupModal" type="button" class="btn btn-success">{{trans('messages.signup')}}</button>
+
             {!! Form::close() !!}
+
         </div><!--/.navbar-collapse -->
     </div>
 </nav>
@@ -70,6 +73,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 {!! Html::script('bootstrap/js/bootstrap.min.js') !!}
 {!! Html::script('js/select2.min.js') !!}
+{!! Html::script('js/bootbox.min.js') !!}
 {!! Html::script('js/rdv_home.js') !!}
 {!! Html::script('js/rdv_maps.js') !!}
 

@@ -76,15 +76,13 @@
                 @endforeach
             </div>
         </div>
-    </div>
 
-
-    <div class="col-md-3">
         <div class="panel panel-default">
             <div class="panel-heading">Events from my network</div>
             <div class="panel-body">
             </div>
         </div>
+
     </div>
 
 </div>

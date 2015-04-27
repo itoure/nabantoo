@@ -14,7 +14,7 @@
     </div>
     @endif
 
-    {!! Form::open(array('action' => 'Auth\AuthController@postRegister', 'class' => 'form-signup well top40')) !!}
+    {!! Form::open(array('action' => 'Auth\AuthController@postRegister', 'class' => 'form-signup well top40', 'id' => 'formSignupUser', 'style' => 'display:block')) !!}
 
     <div class="form-group">
         <label class="radio-inline">
