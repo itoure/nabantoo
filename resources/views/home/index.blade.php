@@ -10,9 +10,9 @@
             <button type="button" class="btn btn-default btn-sm" data-filter="*">{{trans('messages.today')}}</button>
             <button type="button" class="btn btn-default btn-sm" data-filter="*">{{trans('messages.tomorrow')}}</button>
             <button type="button" class="btn btn-default btn-sm" data-filter="*">{{trans('messages.this_week')}}</button>
-            <button type="button" class="btn btn-primary btn-sm" data-filter=".fitToMe">{{trans('messages.fit_to_me')}}</button>
-            <button type="button" class="btn btn-primary btn-sm" data-filter=".aroundMe">{{trans('messages.around_me')}}</button>
-            <button type="button" class="btn btn-primary btn-sm" data-filter=".aroundMe.fitToMe">{{trans('messages.exact_match')}}</button>
+            <button type="button" class="btn btn-default btn-sm" data-filter=".fitToMe">{{trans('messages.fit_to_me')}}</button>
+            <button type="button" class="btn btn-default btn-sm" data-filter=".aroundMe">{{trans('messages.around_me')}}</button>
+            <button type="button" class="btn btn-default btn-sm" data-filter=".aroundMe.fitToMe">{{trans('messages.exact_match')}}</button>
         </div>
     </div>
 </div>

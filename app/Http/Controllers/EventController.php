@@ -129,10 +129,10 @@ class EventController extends Controller {
 
         if(!empty($params['event_id'])){
 
-            /*UserEvent::create(array(
+            UserEvent::create(array(
                 'user_id' => $user->usr_id,
                 'event_id' => $params['event_id'],
-            ));*/
+            ));
 
             $return = array('response' => true);
             return response()->json($return);

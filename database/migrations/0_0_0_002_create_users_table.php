@@ -16,10 +16,10 @@ class CreateUsersTable extends Migration {
 		{
             $table->increments('usr_id');
             $table->string('firstname');
-            $table->string('lastname');
+            $table->string('lastname')->nullable();
             $table->string('usr_location');
-            $table->string('sexe', 1);
-            $table->integer('birthday');
+            $table->string('sexe')->nullable();
+            $table->integer('birthday')->nullable();
             $table->string('email')->unique();
             $table->string('password', 60);
             $table->string('usr_photo')->nullable();

@@ -15,7 +15,7 @@ var RdvApp = {
 
 
         // initialize Isotope
-        var $container = $('#events-container').isotope({
+        /*var $container = $('#events-container').isotope({
             // options
             itemSelector: '.event-item'
         });
@@ -23,7 +23,7 @@ var RdvApp = {
         // layout Isotope again after all images have loaded
         $container.imagesLoaded( function() {
             $container.isotope('vetical');
-        });
+        });*/
 
 
         $('#filters').on( 'click', 'button', function() {

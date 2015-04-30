@@ -15,6 +15,7 @@
     {!! Html::style('bootstrap/css/bootstrap.min.css') !!}
 
     <!-- Custom styles for this website -->
+    {!! Html::style('formvalidation/css/formValidation.min.css') !!}
     {!! Html::style('css/select2.min.css') !!}
     {!! Html::style('css/rdv_home.css') !!}
 
@@ -27,7 +28,7 @@
 
 <body>
 
-<nav class="navbar navbar-inverse navbar-fixed-top" style="opacity: 0.85">
+<nav class="navbar navbar-default navbar-static-top">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -54,9 +55,7 @@
                 )) !!}
             </div>
 
-            {!! Form::submit(trans('messages.signin'), array('class' => 'btn btn-primary')); !!}
-
-            <button id="showSignupModal" type="button" class="btn btn-success">{{trans('messages.signup')}}</button>
+            {!! Form::submit(trans('messages.signin'), array('class' => 'btn btn-success')); !!}
 
             {!! Form::close() !!}
 
@@ -72,6 +71,9 @@
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyaT28hHyLxs-uGcKc_VSy9mHhfxZqBqs&libraries=places"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 {!! Html::script('bootstrap/js/bootstrap.min.js') !!}
+{!! Html::script('formvalidation/js/formValidation.min.js') !!}
+{!! Html::script('formvalidation/js/framework/bootstrap.min.js') !!}
+{!! Html::script('js/holder.min.js') !!}
 {!! Html::script('js/select2.min.js') !!}
 {!! Html::script('js/bootbox.min.js') !!}
 {!! Html::script('js/rdv_home.js') !!}

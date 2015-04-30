@@ -5,34 +5,69 @@ var RdvHome = {
 
     run: function () {
 
-        // manage background slideshow
-        RdvHome.backgroundSlideshow();
-
         // init select2
         $(".multiselect-interests-home").select2();
 
-        // tooltips
-        //$('[data-toggle="tooltip"]').tooltip();
-
-        //$("#formSignupUser").hide();
-
-        $("#showSignupModal").click(function (e) {
-            bootbox.dialog({
-                title: 'Sign Up',
-                message: $('#formSignupUser').html()
-            });
-        });
-
+        // validate form signup
+        RdvHome.validateFormSignup();
     },
 
-    backgroundSlideshow: function () {
+    validateFormSignup: function () {
 
-        var images = ["/img/climb.jpg", "/img/runners.jpg", "/img/girls_shopping.jpg"];
-        var index = -1;
-        window.setInterval(function () {
-            index = (index + 1 < images.length) ? index + 1 : 0;
-            $('body').css("background-image", "url('" + images[index] + "')");
-        }, 10000);
+
+        $('#formSignupUser').formValidation({
+            // I am validating Bootstrap form
+            framework: 'bootstrap',
+            // Feedback icons
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+
+            // List of fields and their validation rules
+            fields: {
+                firstname: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The firstname is required and cannot be empty'
+                        },
+                        stringLength: {
+                            min: 3,
+                            message: 'The username must be more than 3 characters long'
+                        }
+                    }
+                },
+                location: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The location is required and cannot be empty'
+                        }
+                    }
+                },
+                email: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The email is required and cannot be empty'
+                        },
+                        emailAddress: {
+                            message: 'This is not a valid email address'
+                        }
+                    }
+                },
+                password: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The password is required and cannot be empty'
+                        },
+                        stringLength: {
+                            min: 6,
+                            message: 'The password must be more than 6 characters long'
+                        }
+                    }
+                }
+            }
+        });
 
     }
 

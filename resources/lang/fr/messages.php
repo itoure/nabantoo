@@ -12,7 +12,7 @@ return [
 	'month'         => 'Mois',
 	'day'           => 'Jour',
 	'year'          => 'Année',
-	'what_your_interests'           => 'Vos centres d\'intérêts',
+	'what_your_interests'           => 'Centres d\'intérêts',
 	'help_what_your_interests'      => 'Vous pouvez ajouter autant de centres d\'intérêts que vous souhaitez',
     'help_name'         => 'Votre vrai nom',
     'help_city'         => 'Sélectionner votre ville dans la liste',
