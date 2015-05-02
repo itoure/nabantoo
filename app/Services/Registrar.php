@@ -7,6 +7,7 @@ use App\Models\UserInterest;
 use App\User;
 use Validator;
 use Illuminate\Contracts\Auth\Registrar as RegistrarContract;
+use Illuminate\Support\Facades\Mail;
 
 class Registrar implements RegistrarContract {
 
@@ -69,6 +70,13 @@ class Registrar implements RegistrarContract {
                 ));
             }
         }
+
+        // welcome mail
+        Mail::send('emails.welcome', $data, function($message) use($data)
+        {
+            $mail_to = env('MAIL_TO', $data['email']);
+            $message->to($mail_to, $data['firstname'])->subject('Welcome!');
+        });
 
         return $user;
 	}

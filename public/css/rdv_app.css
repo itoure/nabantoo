@@ -70,3 +70,6 @@ body {
     margin-left: -30px;
 }
 
+.fv-form-bootstrap .fv-icon-no-label {
+    top: -10px;
+}

@@ -53,6 +53,14 @@ var RdvApp = {
         //$('[data-toggle="tooltip"]').tooltip();
 
 
+        // alerts
+        $("#welcome-alert").delay(4000).slideUp('slow', function(){
+            $("#welcome-alert").alert('close');
+        });
+        $("#welcomeback-alert").delay(4000).slideUp('slow', function(){
+            $("#welcomeback-alert").alert('close');
+        });
+
         // validate form
         RdvApp.validateFormEvent();
 
@@ -131,13 +139,12 @@ var RdvApp = {
             success:function(data){
                 elm.find('#loading').hide();
                 if(data.response){
-                    elm.removeClass('interesting');
-                    elm.addClass('upcoming');
-                    panel.removeClass('panel-info');
-                    panel.addClass('panel-primary');
-                    elm.find('.actions-interesting').replaceWith("<i class='fa fa-check-square-o fa-2x text-success actions-upcoming'></i>");
 
                     elm.slideUp('slow');
+                    $('#join-alert').show();
+                    $("#join-alert").delay(2000).slideUp('slow', function(){
+                        $("#join-alert").hide();
+                    });
 
 
                 } else {

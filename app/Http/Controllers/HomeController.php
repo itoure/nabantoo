@@ -41,8 +41,10 @@ class HomeController extends Controller {
 	 */
 	public function getIndex()
 	{
+
         // get user_id
         $user_id = $this->request->user()->usr_id;
+        $user_firstname = $this->request->user()->firstname;
 
         /*** Interesting ***/
 
@@ -124,6 +126,7 @@ class HomeController extends Controller {
         $data->events = $arrEvents;
         $data->upcomingEvents = $arrUpcomingEvents;
         $data->userInterestsList = $arrUserInterests;
+        $data->user_firstname = $user_firstname;
 
 		return view('home/index')->with('data', $data);
 	}

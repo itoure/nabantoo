@@ -2,9 +2,18 @@
 
 @section('content')
 
-
 <div class="row">
     <div class="col-md-offset-1 col-md-10">
+        <div class="alerts">
+            @if (session('key'))
+            <div id="welcome-alert" class="alert alert-success" role="alert">Welcome to Nabantoo ***</div>
+            @endif
+            <div id="join-alert" class="alert alert-success" role="alert" style="display: none">Votre participation pour a bien été prise en compte.</div>
+            @if (session('welcome_back'))
+            <div id="welcomeback-alert" class="alert alert-success" role="alert">Welcome back <a href="{{action('UserController@getAccount')}}">{{$data->user_firstname}}</a></div>
+            @endif
+        </div>
+
         <div id="filters">
             <button type="button" class="btn btn-default btn-sm" data-filter="*">{{trans('messages.all')}}</button>
             <button type="button" class="btn btn-default btn-sm" data-filter="*">{{trans('messages.today')}}</button>

@@ -176,9 +176,10 @@ class UserController extends Controller {
 
         // get birthday
         $birthday = new \stdClass();
-        $birthday->month = date('n', $user->birthday);
-        $birthday->day = date('j', $user->birthday);
-        $birthday->year = date('Y', $user->birthday);
+        $birthday->month = !empty($user->birthday) ? date('n', $user->birthday) : null;
+        $birthday->day = !empty($user->birthday) ? date('j', $user->birthday) : null;
+        $birthday->year = !empty($user->birthday) ? date('Y', $user->birthday) : null;
+
 
         // params
         $data = new \stdClass();

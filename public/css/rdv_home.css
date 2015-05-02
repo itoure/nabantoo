@@ -56,4 +56,8 @@ body {
 
 .right20 {margin-right: 20px; }
 
-.img-activity {width: 150px; }
+.img-activity {width: 200px; }
+
+.fv-form-bootstrap .fv-icon-no-label {
+    top: -10px;
+}

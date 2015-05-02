@@ -113,7 +113,7 @@ class AuthController extends Controller {
 
         if ($this->auth->attempt($credentials, $request->has('remember')))
         {
-            return redirect()->intended($this->redirectPath());
+            return redirect()->intended($this->redirectPath())->with('welcome_back', true);
         }
 
         return redirect($this->loginPath())

@@ -5,20 +5,21 @@
 
     <div class="row">
 
-        <div class="col-md-8 jumbotron">
+        <div class="col-md-8">
+            <div class="jumbotron">
                 <h1>Do it together!</h1>
                 <p>Créer, participer et partager des moments que vous allez aimer...</p>
-            <div class="col-md-3">
-                {!! Html::image('img/drinks.jpg', '', array('class' => 'img-activity img-rounded')) !!}
-            </div>
-            <div class="col-md-3">
-                {!! Html::image('img/runners.jpg', '', array('class' => 'img-activity img-rounded')) !!}
-            </div>
-            <div class="col-md-3">
-                {!! Html::image('img/girls_shopping.jpg', '', array('class' => 'img-activity img-rounded')) !!}
-            </div>
-            <div class="col-md-3">
-                {!! Html::image('img/climb.jpg', '', array('class' => 'img-activity img-rounded')) !!}
+                <div class="row">
+                    <div class="col-xs-12 col-md-4">
+                        {!! Html::image('img/drinks.jpg', '', array('class' => 'img-activity img-rounded')) !!}
+                    </div>
+                    <div class="col-xs-12 col-md-4">
+                        {!! Html::image('img/runners.jpg', '', array('class' => 'img-activity img-rounded')) !!}
+                    </div>
+                    <div class="col-xs-12 col-md-4">
+                        {!! Html::image('img/girls_shopping.jpg', '', array('class' => 'img-activity img-rounded')) !!}
+                    </div>
+                </div>
             </div>
         </div>
 
