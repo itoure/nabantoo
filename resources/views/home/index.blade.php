@@ -4,13 +4,13 @@
 
 <div class="row">
     <div class="col-md-offset-1 col-md-10">
-        <div class="alerts">
-            @if (session('key'))
-            <div id="welcome-alert" class="alert alert-success" role="alert">Welcome to Nabantoo ***</div>
+        <div id="alerts">
+            @if (session('welcome'))
+            <div id="welcome-alert" class="alert alert-success" role="alert">Welcome to Nabantoo <a class="alert-link" href="{{action('UserController@getAccount')}}">{{$data->user_firstname}}</a> !</div>
             @endif
-            <div id="join-alert" class="alert alert-success" role="alert" style="display: none">Votre participation pour a bien été prise en compte.</div>
+
             @if (session('welcome_back'))
-            <div id="welcomeback-alert" class="alert alert-success" role="alert">Welcome back <a href="{{action('UserController@getAccount')}}">{{$data->user_firstname}}</a></div>
+            <div id="welcomeback-alert" class="alert alert-success" role="alert">Welcome back <a class="alert-link" href="{{action('UserController@getAccount')}}">{{$data->user_firstname}}</a> !</div>
             @endif
         </div>
 
@@ -55,7 +55,7 @@
                             <p>
                                 {!! Html::image('files/user/'.$event->usr_photo, '', array('class' => 'img-user30 img-rounded')) !!} <a href="" class="small">{{ $event->event_owner }}</a>
                                 <span class="pull-right">
-                                    <i id="loading" class="fa fa-spinner fa-spin" style="display: none"></i>
+                                    <i id="join-loading" class="fa fa-spinner fa-spin" style="display: none"></i>
                                     <a href="#" class="join-event small" data-event-id="{{ $event->id }}">{{trans('messages.join')}}</a>
                                 </span>
                             </p>
@@ -72,17 +72,11 @@
     <div class="col-md-3">
         <div class="panel panel-default">
             <div class="panel-heading">My next events</div>
-            <div class="panel-body">
-                @foreach ($data->upcomingEvents as $event)
-                <dl>
-                    <dt>
-                        <a href="{{action('EventController@getDetails', array('event_id'=> $event->id))}}">
-                            {{ $event->title }}
-                        </a>
-                    </dt>
-                    <dd><i class="fa fa-calendar"></i> <small>{{ $event->start_date }}</small></dd>
-                </dl>
-                @endforeach
+            <div id="myNextEvents-loading" class="text-center top20">
+                <i class="fa fa-spinner fa-spin fa-2x"></i>
+            </div>
+            <div id="myNextEvents" class="panel-body">
+
             </div>
         </div>
 

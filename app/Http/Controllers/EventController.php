@@ -221,4 +221,49 @@ class EventController extends Controller {
 
     }
 
+
+    public function getFetchMyNextEvents() {
+
+        // get user_id
+        $current_user_id = $this->request->user()->usr_id;
+
+        // get upcomming events for the current user
+        $modEvent = new Event();
+        $eventsList = $modEvent->getUpcommingEventsByUser($current_user_id);
+        //dd($eventsList);
+
+        $arrUpcomingEvents = array();
+        foreach($eventsList as $event) {
+            //dd($event);
+            $objEvent = new \stdClass();
+            $objEvent->id = $event->eve_id;
+            $objEvent->title = $event->eve_title;
+            $objEvent->details = $event->eve_details;
+            $objEvent->location = $event->eve_location;
+            $objEvent->start_date = date('d-m-Y', $event->start_date);
+            $objEvent->event_owner = $event->firstname;
+            $objEvent->usr_photo = $event->usr_photo;
+            $objEvent->type = 'upcoming';
+            $objEvent->class = 'panel-primary';
+            $objEvent->interest = $event->int_name;
+            $objEvent->img_interest = $event->int_image;
+
+            $arrUpcomingEvents[$event->eve_id] = $objEvent;
+        }
+
+        $data = new \stdClass();
+        $data->upcomingEvents = $arrUpcomingEvents;
+        $html = view('event/my_next_events')->with('data', $data)->render();
+        $response = array(
+            'html' => $html
+        );
+        $return = array(
+            'response' => true,
+            'data' => $response
+        );
+
+        return response()->json($return);
+
+    }
+
 }

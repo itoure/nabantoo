@@ -64,6 +64,37 @@ var RdvApp = {
         // validate form
         RdvApp.validateFormEvent();
 
+        // load block myNextEvents
+        RdvApp.fetchMyNextEvents();
+
+    },
+
+
+    fetchMyNextEvents: function() {
+
+        $('#myNextEvents-loading').show();
+        $('#myNextEvents').html('');
+
+        var block = $("#myNextEvents");
+        var url = "/event/fetch-my-next-events";
+
+        $.ajax(url,{
+            data: {},
+            success:function(data){
+                if(data.response){
+
+                $('#myNextEvents-loading').hide();
+                    block.html(data.data.html);
+
+                } else {
+
+                }
+            },
+            error:function(data){
+
+            }
+        });
+
     },
 
 
@@ -129,7 +160,7 @@ var RdvApp = {
         var elm = $('.event_id_'+event_id);
         var panel = elm.find('.panel');
 
-        elm.find('#loading').show();
+        elm.find('#join-loading').show();
 
         $.ajax(url,{
             data: {
@@ -137,14 +168,19 @@ var RdvApp = {
             },
             context : object,
             success:function(data){
-                elm.find('#loading').hide();
+                elm.find('#join-loading').hide();
                 if(data.response){
 
                     elm.slideUp('slow');
-                    $('#join-alert').show();
-                    $("#join-alert").delay(2000).slideUp('slow', function(){
-                        $("#join-alert").hide();
+
+                    var htmlAlert = '<div id="join-alert-'+event_id+'" class="alert alert-success" role="alert">Votre participation pour a bien été prise en compte.</div>';
+                    $('#alerts').append(htmlAlert);
+
+                    $("#join-alert-"+event_id).delay(4000).slideUp('slow', function(){
+                        $("#welcomeback-alert").alert('close');
                     });
+
+                    RdvApp.fetchMyNextEvents();
 
 
                 } else {
