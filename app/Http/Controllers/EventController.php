@@ -9,6 +9,7 @@ use App\Models\Location;
 use Illuminate\Http\Request;
 use App\Models\UserEvent;
 use App\Models\EventMessage;
+use App\Models\UserLocation;
 
 class EventController extends Controller {
 
@@ -148,7 +149,7 @@ class EventController extends Controller {
     public function getDetails($event_id){
 
         // get user_id
-        $current_user_id = $this->request->user()->usr_id;
+        $user_id = $this->request->user()->usr_id;
 
         // get event
         $modEvent = new Event();
@@ -167,9 +168,9 @@ class EventController extends Controller {
         $objEvent->event_owner = $event->firstname;
         $objEvent->usr_photo = $event->usr_photo;
         $objEvent->user_id = $event->usr_id;
-        $objEvent->interest = $event->int_name;
+        $objEvent->int_name = $event->int_name;
+        $objEvent->interest_id = $event->int_id;
         $objEvent->count_people = $count_people;
-        //$objEvent->people_limit = $event->people_limit;
 
         // get all messages
         $messages = $modEvent->getAllMessagesByEvent($event_id);
@@ -184,8 +185,10 @@ class EventController extends Controller {
 
         $data = new \stdClass();
         $data->event = $objEvent;
+        $data->eventsListByInterest = $this->_fetchEventsListByInterest($objEvent->interest_id, $objEvent->id);
+        $data->participantsListByEvent = $this->_fetchParticipantsListByEvent($objEvent->id);
         $data->messages = $arrMessages;
-        $data->current_user_id = $current_user_id;
+        $data->user_id = $user_id;
 
         return view('event/details')->with('data', $data);
 
@@ -225,11 +228,11 @@ class EventController extends Controller {
     public function getFetchMyNextEvents() {
 
         // get user_id
-        $current_user_id = $this->request->user()->usr_id;
+        $user_id = $this->request->user()->usr_id;
 
         // get upcomming events for the current user
         $modEvent = new Event();
-        $eventsList = $modEvent->getUpcommingEventsByUser($current_user_id);
+        $eventsList = $modEvent->getUpcommingEventsByUser($user_id);
         //dd($eventsList);
 
         $arrUpcomingEvents = array();
@@ -263,6 +266,62 @@ class EventController extends Controller {
         );
 
         return response()->json($return);
+
+    }
+
+
+    protected function _fetchParticipantsListByEvent($event_id) {
+
+        $modEvent = new Event();
+        $participantsList = $modEvent->getParticipantsByEvent($event_id);
+        //dd($participantsList);
+
+        $arrParticipants = array();
+        foreach($participantsList as $participant) {
+            //dd($event);
+            $objParticipant = new \stdClass();
+            $objParticipant->id = $participant->user_id;
+            $objParticipant->firstname = $participant->firstname;
+            $objParticipant->photo = $participant->usr_photo;
+
+            $arrParticipants[$objParticipant->id] = $objParticipant;
+        }
+
+        return $arrParticipants;
+
+    }
+
+
+    protected function _fetchEventsListByInterest($interest_id, $event_id) {
+
+        // get user_id
+        $user_id = $this->request->user()->usr_id;
+
+        // get user location
+        $modUserLocation = new UserLocation();
+        $arrUserLocations = $modUserLocation->getUserLocation($user_id);
+
+        $modEvent = new Event();
+        $eventsList = $modEvent->getEventsByInterest($interest_id, $event_id, $arrUserLocations[0]);
+
+        $arrEvents = array();
+        foreach($eventsList as $event) {
+            //dd($event);
+            $objEvent = new \stdClass();
+            $objEvent->id = $event->eve_id;
+            $objEvent->title = $event->eve_title;
+            $objEvent->details = $event->eve_details;
+            $objEvent->location = $event->eve_location;
+            $objEvent->start_date = date('d-m-Y', $event->start_date);
+            $objEvent->event_owner = $event->firstname;
+            $objEvent->usr_photo = $event->usr_photo;
+            $objEvent->interest = $event->int_name;
+            $objEvent->img_interest = $event->int_image;
+
+            $arrEvents[$event->eve_id] = $objEvent;
+        }
+
+        return $arrEvents;
 
     }
 

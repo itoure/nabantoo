@@ -14,6 +14,23 @@ class Event extends Model {
         return $this->belongsTo('App\Models\Location');
     }
 
+    public function getEventsByInterest($interest_id, $event_id, $arrUserLocation) {
+
+        $query = DB::table('events')
+            ->join('locations', 'locations.loc_id', '=', 'events.location_id')
+            ->join('users', 'users.usr_id', '=', 'events.user_id')
+            ->join('interests', 'interests.int_id', '=', 'events.interest_id')
+            ->where('locations.short_country', '=', $arrUserLocation->short_country)
+            ->where('interests.int_id', '=', $interest_id);
+            //->where('events.eve_id', '<>', $event_id);
+
+        $result = $query->get();
+        //dd($result);
+
+        return $result;
+
+    }
+
     public function getEventsByCountry($arrUserLocation) {
 
         $query = DB::table('events')
@@ -43,6 +60,20 @@ class Event extends Model {
                     ->orWhere('locations.short_administrative_area_level_2', '=', $arrUserLocation->short_administrative_area_level_2)
                     ->orWhere('locations.short_administrative_area_level_1', '=', $arrUserLocation->short_administrative_area_level_1);
             });
+
+        $result = $query->get();
+        //dd($result);
+
+        return $result;
+
+    }
+
+
+    public function getParticipantsByEvent($event_id) {
+
+        $query = DB::table('user_events')
+            ->join('users', 'users.usr_id', '=', 'user_events.user_id')
+            ->where('user_events.event_id', '=', $event_id);
 
         $result = $query->get();
         //dd($result);
