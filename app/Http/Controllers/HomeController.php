@@ -71,6 +71,7 @@ class HomeController extends Controller {
                 $objEvent->location = $event->eve_location;
                 $objEvent->start_date = date('d-m-Y', $event->start_date);
                 $objEvent->event_owner = $event->firstname;
+                $objEvent->owner_id = $event->usr_id;
                 $objEvent->usr_photo = $event->usr_photo;
                 $objEvent->interest = $event->int_name;
                 $objEvent->img_interest = $event->int_image;

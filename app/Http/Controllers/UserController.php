@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Models\Event;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
@@ -191,5 +192,53 @@ class UserController extends Controller {
 
 		return view('user/account')->with('data', $data);
 	}
+
+
+    public function getProfile($user_id) {
+
+        // get complete user
+        $modUser = new User();
+        $user = $modUser->getCompleteUserById($user_id);
+        //dd($user);
+
+        // get user calendar
+        $modEvent = new Event();
+        $upcomingEvents = $modEvent->getUpcommingEventsByUser($user_id);
+
+        $arrUpcomingEvents = array();
+        foreach($upcomingEvents as $event) {
+            $objEvent = new \stdClass();
+            $objEvent->id = $event->eve_id;
+            $objEvent->title = $event->eve_title;
+            $objEvent->details = $event->eve_details;
+            $objEvent->location = $event->eve_location;
+            $objEvent->start_date = date('d-m-Y', $event->start_date);
+            $objEvent->event_owner = $event->firstname;
+            $objEvent->usr_photo = $event->usr_photo;
+            $objEvent->type = 'upcoming';
+            $objEvent->class = 'panel-primary';
+            $objEvent->interest = $event->int_name;
+            $objEvent->img_interest = $event->int_image;
+
+            $arrUpcomingEvents[$event->eve_id] = $objEvent;
+        }
+
+        // get hosted events
+        $arrHostEvents = $modEvent->getHostEventByUser($user_id);
+
+        foreach($arrHostEvents as $event) {
+            $event->start_date = date('d-m-Y', $event->start_date);
+        }
+        //dd($arrHostEvents);
+
+        // params
+        $data = new \stdClass();
+        $data->user = $user;
+        $data->upcomingEvents = $arrUpcomingEvents;
+        $data->hostEvents = $arrHostEvents;
+
+        return view('user/profile')->with('data', $data);
+
+    }
 
 }

@@ -77,10 +77,11 @@
         <div class="panel panel-default">
             <div class="panel-heading">{{trans('messages.owner')}}</div>
             <div class="panel-body">
-                <h3><a href="">{{$data->event->event_owner}}</a></h3>
-                <div>events list</div>
-                <div>interests list</div>
-                <div class="pull-right">{!! Html::image('files/user/'.$data->event->usr_photo, '', array('class' => 'img-rounded img-user50')) !!}</div>
+                <div>
+                    <div class="pull-left">{!! Html::image('files/user/'.$data->event->usr_photo, '', array('class' => 'img-rounded img-user50')) !!}</div>
+                    <h3 class="pull-left"><a href="{{action('UserController@getProfile', array('user_id'=> $data->event->user_id))}}">{{$data->event->event_owner}}</a></h3>
+                </div>
+
             </div>
         </div>
 
@@ -90,7 +91,8 @@
                 @foreach ($data->participantsListByEvent as $participant)
                 <dl>
                     <dt>
-                        {!! Html::image('files/user/'.$participant->photo, '', array('class' => 'img-user30 img-rounded')) !!} <a href="">{{ $participant->firstname }}</a>
+                        {!! Html::image('files/user/'.$participant->photo, '', array('class' => 'img-user30 img-rounded')) !!}
+                        <a href="{{action('UserController@getProfile', array('user_id'=> $participant->id))}}">{{ $participant->firstname }}</a>
                     </dt>
                 </dl>
                 @endforeach

@@ -21,8 +21,8 @@ class Event extends Model {
             ->join('users', 'users.usr_id', '=', 'events.user_id')
             ->join('interests', 'interests.int_id', '=', 'events.interest_id')
             ->where('locations.short_country', '=', $arrUserLocation->short_country)
-            ->where('interests.int_id', '=', $interest_id);
-            //->where('events.eve_id', '<>', $event_id);
+            ->where('interests.int_id', '=', $interest_id)
+            ->where('events.eve_id', '<>', $event_id);
 
         $result = $query->get();
         //dd($result);
@@ -133,6 +133,19 @@ class Event extends Model {
         //dd($result->toSql);
 
         return $result;
+    }
+
+    public function getHostEventByUser($user_id) {
+
+        $query = DB::table('events')
+            ->join('interests', 'interests.int_id', '=', 'events.interest_id')
+            ->where('events.user_id', '=', $user_id);
+
+        $result = $query->get();
+        //dd($result->toSql);
+
+        return $result;
+
     }
 
 }

@@ -53,7 +53,7 @@
                                 <i class="fa fa-tag"></i> <small>{{ $event->interest }}</small>
                             </p>
                             <p>
-                                {!! Html::image('files/user/'.$event->usr_photo, '', array('class' => 'img-user30 img-rounded')) !!} <a href="" class="small">{{ $event->event_owner }}</a>
+                                {!! Html::image('files/user/'.$event->usr_photo, '', array('class' => 'img-user30 img-rounded')) !!} <a href="{{action('UserController@getProfile', array('user_id'=> $event->owner_id))}}" class="small">{{ $event->event_owner }}</a>
                                 <span class="pull-right">
                                     <i id="join-loading" class="fa fa-spinner fa-spin" style="display: none"></i>
                                     <a href="#" class="join-event small" data-event-id="{{ $event->id }}">{{trans('messages.join')}}</a>

@@ -35,4 +35,5 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public $primaryKey = 'usr_id';
 
 
+
 }
