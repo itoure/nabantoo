@@ -7,4 +7,5 @@ class Category extends Model {
     public $timestamps = false;
     public $primaryKey = 'cat_id';
 
+
 }

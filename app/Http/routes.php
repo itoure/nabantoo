@@ -12,6 +12,7 @@
 */
 
 //Route::get('rendezvous/{event_id}/details', 'RendezvousController@getDetails');
+Route::resource('admin/interests', 'InterestController');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
@@ -21,3 +22,4 @@ Route::controllers([
 	'utils' => 'UtilsController',
     '/' => 'HomeController',
 ]);
+

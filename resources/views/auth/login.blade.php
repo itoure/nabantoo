@@ -40,7 +40,7 @@
             <div class="form-group">
                 {!! Form::text('firstname', null, array(
                 'placeholder' => trans('messages.name'),
-                'class' => 'form-control input-lg',
+                'class' => 'form-control',
                 'data-toggle' => 'tooltip',
                 'data-placement' => 'left',
                 'title' => trans('messages.help_name')
@@ -50,7 +50,7 @@
             <div class="form-group">
                 {!! Form::text('location', null, array(
                 'placeholder' => trans('messages.city'),
-                'class' => 'form-control input-lg',
+                'class' => 'form-control',
                 'id' => 'search_autocomplete',
                 'autocomplete' => 'off',
                 'data-toggle' => 'tooltip',
@@ -78,7 +78,7 @@
             <div class="form-group">
                 {!! Form::email('email', null, array(
                 'placeholder' => 'Email',
-                'class' => 'form-control input-lg',
+                'class' => 'form-control',
                 'data-toggle' => 'tooltip',
                 'data-placement' => 'left',
                 'title' => trans('messages.help_email')
@@ -88,7 +88,7 @@
             <div class="form-group">
                 {!! Form::password('password', array(
                 'placeholder' => 'Password',
-                'class' => 'form-control input-lg',
+                'class' => 'form-control',
                 'data-toggle' => 'tooltip',
                 'data-placement' => 'left',
                 'title' => trans('messages.help_password')
@@ -101,7 +101,7 @@
                 $data->interests,
                 '',
                 array(
-                'class' => 'form-control input-lg multiselect-interests-home',
+                'class' => 'form-control multiselect-interests-home',
                 'multiple' => 'multiple',
                 )) !!}
                 <p class="help-block">{{trans('messages.help_what_your_interests')}}</p>
@@ -109,7 +109,7 @@
 
             <div class="form-group">
                 {!! Form::submit(trans('messages.signup'), array(
-                'class' => 'btn btn-primary btn-lg btn-block'
+                'class' => 'btn btn-primary btn-block'
                 )); !!}
             </div>
 
