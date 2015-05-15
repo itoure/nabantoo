@@ -26,16 +26,16 @@
 
                 <div class="form-group">
                     <label class="radio-inline">
-                        {!! Form::radio('sexe', 'F') !!} {{trans('messages.female')}}
+                        {!! Form::radio('usr_sexe', 'F') !!} {{trans('messages.female')}}
                     </label>
 
                     <label class="radio-inline">
-                        {!! Form::radio('sexe', 'M') !!} {{trans('messages.male')}}
+                        {!! Form::radio('usr_sexe', 'M') !!} {{trans('messages.male')}}
                     </label>
                 </div>
 
                 <div class="form-group">
-                    {!! Form::text('firstname', null, array(
+                    {!! Form::text('usr_firstname', null, array(
                     'placeholder' => trans('messages.name'),
                     'class' => 'form-control input-lg',
                     'data-toggle' => 'tooltip',

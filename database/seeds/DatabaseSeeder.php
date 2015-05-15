@@ -41,10 +41,10 @@ class CategoriesTableSeeder extends Seeder {
     {
         DB::table('categories')->delete();
 
-        Category::create(['cat_name' => 'Sports']);
-        Category::create(['cat_name' => 'Sorties']);
-        Category::create(['cat_name' => 'Jeux']);
-        Category::create(['cat_name' => 'Enfants']);
+        Category::create(['cat_name' => 'Sports', 'cat_color' => 'sky']);
+        Category::create(['cat_name' => 'Sorties', 'cat_color' => 'vine']);
+        Category::create(['cat_name' => 'Jeux', 'cat_color' => 'lava']);
+        Category::create(['cat_name' => 'Enfants', 'cat_color' => 'industrial']);
     }
 
 }
@@ -56,8 +56,8 @@ class InterestsTableSeeder extends Seeder {
     {
         DB::table('interests')->delete();
 
-        Interest::create(['int_name' => 'Football', 'int_image' => 'football.jpg',  'category_id' => 1]);
-        Interest::create(['int_name' => 'Jogging', 'int_image' => 'jogging.jpg', 'category_id' => 1]);
+        Interest::create(['int_name' => 'Football', 'category_id' => 1]);
+        Interest::create(['int_name' => 'Jogging', 'category_id' => 1]);
         Interest::create(['int_name' => 'Basketball', 'category_id' => 1]);
         Interest::create(['int_name' => 'Marche', 'category_id' => 1]);
         Interest::create(['int_name' => 'Badminton', 'category_id' => 1]);
@@ -73,15 +73,15 @@ class InterestsTableSeeder extends Seeder {
         Interest::create(['int_name' => 'Escalade', 'category_id' => 1]);
         Interest::create(['int_name' => 'Golf', 'category_id' => 1]);
         Interest::create(['int_name' => 'Pêche', 'category_id' => 1]);
-        Interest::create(['int_name' => 'Boite de nuit', 'int_image' => 'clubbing.jpg', 'category_id' => 2]);
+        Interest::create(['int_name' => 'Boite de nuit', 'category_id' => 2]);
         Interest::create(['int_name' => 'Bar', 'category_id' => 2]);
-        Interest::create(['int_name' => 'Restaurant', 'int_image' => 'restaurant.jpg', 'category_id' => 2]);
+        Interest::create(['int_name' => 'Restaurant', 'category_id' => 2]);
         Interest::create(['int_name' => 'After work', 'category_id' => 2]);
         Interest::create(['int_name' => 'Cinema', 'category_id' => 2]);
         Interest::create(['int_name' => 'Bowling', 'category_id' => 2]);
         Interest::create(['int_name' => 'Poker', 'category_id' => 3]);
         Interest::create(['int_name' => 'Jeux videos', 'category_id' => 3]);
-        Interest::create(['int_name' => 'Shopping', 'int_image' => 'shopping.jpg', 'category_id' => 3]);
+        Interest::create(['int_name' => 'Shopping', 'category_id' => 3]);
         Interest::create(['int_name' => 'Chicha', 'category_id' => 3]);
         Interest::create(['int_name' => 'Brunch', 'category_id' => 3]);
         Interest::create(['int_name' => 'Pique-nique', 'category_id' => 3]);
@@ -99,53 +99,48 @@ class UsersTableSeeder extends Seeder {
         DB::table('users')->delete();
 
         User::create([
-            'firstname' => 'Ibou',
+            'usr_firstname' => 'Ibou',
             'usr_location' => 'Lyon, France',
-            'sexe' => 'M',
-            'birthday' => 1066348800,
+            'usr_sexe' => 'M',
+            'usr_birthday' => 1066348800,
             'email' => 'ib.toure@gmail.com',
-            'password' => bcrypt('123456'),
-            'usr_photo' => 'anonymous.png'
+            'password' => bcrypt('123456')
         ]);
 
         User::create([
-            'firstname' => 'Zlatan',
+            'usr_firstname' => 'Zlatan',
             'usr_location' => 'Paris, France',
-            'sexe' => 'M',
-            'birthday' => 1066348800,
+            'usr_sexe' => 'M',
+            'usr_birthday' => 1066348800,
             'email' => 'zlatan.ibra@psg.net',
-            'password' => bcrypt('123456'),
-            'usr_photo' => 'anonymous.png'
+            'password' => bcrypt('123456')
         ]);
 
         User::create([
-            'firstname' => 'Sean Carter',
+            'usr_firstname' => 'Sean Carter',
             'usr_location' => 'New York, État de New York, États-Unis',
-            'sexe' => 'M',
-            'birthday' => 1066348800,
+            'usr_sexe' => 'M',
+            'usr_birthday' => 1066348800,
             'email' => 'jayz@nyc.net',
-            'password' => bcrypt('123456'),
-            'usr_photo' => 'anonymous.png'
+            'password' => bcrypt('123456')
         ]);
 
         User::create([
-            'firstname' => 'Eva Mendes',
+            'usr_firstname' => 'Eva Mendes',
             'usr_location' => 'Lyon, France',
-            'sexe' => 'F',
-            'birthday' => 1066348800,
+            'usr_sexe' => 'F',
+            'usr_birthday' => 1066348800,
             'email' => 'eva.mendes@ol.net',
-            'password' => bcrypt('123456'),
-            'usr_photo' => 'anonymous.png'
+            'password' => bcrypt('123456')
         ]);
 
         User::create([
-            'firstname' => 'Rihanna',
+            'usr_firstname' => 'Rihanna',
             'usr_location' => 'Marseille, France',
-            'sexe' => 'F',
-            'birthday' => 1066348800,
+            'usr_sexe' => 'F',
+            'usr_birthday' => 1066348800,
             'email' => 'rihanna@ol.net',
-            'password' => bcrypt('123456'),
-            'usr_photo' => 'anonymous.png'
+            'password' => bcrypt('123456')
         ]);
     }
 
@@ -365,7 +360,7 @@ class EventsTableSeeder extends Seeder {
         Event::create([
             'eve_title' => 'Soccer 5v5',
             'eve_details' => 'Match de foot 5v5 au soccer five de Parilly',
-            'start_date' => time(),
+            'eve_start_date' => time(),
             'eve_location' => 'Lyon, France',
             'interest_id' => '1',
             'user_id' => '1',
@@ -375,7 +370,7 @@ class EventsTableSeeder extends Seeder {
         Event::create([
             'eve_title' => 'Soirée disco au Macumba',
             'eve_details' => 'Préparer vous à enflammer la piste de danse sur des sons des années 80',
-            'start_date' => time(),
+            'eve_start_date' => time(),
             'eve_location' => 'Paris, France',
             'interest_id' => '18',
             'user_id' => '2',
@@ -385,7 +380,7 @@ class EventsTableSeeder extends Seeder {
         Event::create([
             'eve_title' => 'Shopping sur la 5eme aveneue',
             'eve_details' => 'Salut les filles! Partantes pour une après-midi shopping',
-            'start_date' => time(),
+            'eve_start_date' => time(),
             'eve_location' => 'New York, État de New York, États-Unis',
             'interest_id' => '26',
             'user_id' => '3',
@@ -395,7 +390,7 @@ class EventsTableSeeder extends Seeder {
         Event::create([
             'eve_title' => 'Restaurant sur le vieux port',
             'eve_details' => 'Venez decouvrir avec moi le nouveau restaurant branché sur le vieux port',
-            'start_date' => time(),
+            'eve_start_date' => time(),
             'eve_location' => 'Marseille, France',
             'interest_id' => '20',
             'user_id' => '5',
@@ -405,7 +400,7 @@ class EventsTableSeeder extends Seeder {
         Event::create([
             'eve_title' => 'Petit jogging aux parc de la tête d\'or',
             'eve_details' => 'Sur un rythme cool biensur...',
-            'start_date' => time(),
+            'eve_start_date' => time(),
             'eve_location' => 'Lyon, France',
             'interest_id' => '2',
             'user_id' => '4',

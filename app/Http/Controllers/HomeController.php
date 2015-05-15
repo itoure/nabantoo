@@ -44,7 +44,7 @@ class HomeController extends Controller {
 
         // get user_id
         $user_id = $this->request->user()->usr_id;
-        $user_firstname = $this->request->user()->firstname;
+        $user_firstname = $this->request->user()->usr_firstname;
 
         // get user interests list
         $modUserInterest = new UserInterest();
@@ -61,47 +61,58 @@ class HomeController extends Controller {
             $eventsList = $modelEvent->getEventsByCountry($arrUserLocations[0]);
             //dd($arrUserLocations);die;
 
-            $arrEvents = array();
             foreach($eventsList as $event) {
                 //dd($event);
-                $objEvent = new \stdClass();
-                $objEvent->id = $event->eve_id;
-                $objEvent->title = $event->eve_title;
-                $objEvent->details = $event->eve_details;
-                $objEvent->location = $event->eve_location;
-                $objEvent->start_date = date('d-m-Y', $event->start_date);
-                $objEvent->event_owner = $event->firstname;
-                $objEvent->owner_id = $event->usr_id;
-                $objEvent->usr_photo = $event->usr_photo;
-                $objEvent->interest = $event->int_name;
-                $objEvent->img_interest = $event->int_image;
+                $event->eve_start_date = date('d M H:i', $event->eve_start_date);
+                $event->usr_first_letter = strtoupper($event->usr_firstname[0]);
+
+                //get user upcoming event
+                $event->isUserComing = $this->_isUserComingToEvent($user_id, $event->eve_id);
+
+                // count people for the event
+                $event->count_people = $modelEvent->countPeopleByEvent($event->eve_id);
 
                 // if event loc match user loc
-                $objEvent->aroundMe = false;
+                $event->aroundMe = false;
                 if(($event->short_administrative_area_level_2 == $arrUserLocations[0]->short_administrative_area_level_2) ||
                 ($event->short_administrative_area_level_1 == $arrUserLocations[0]->short_administrative_area_level_1)) {
-                    $objEvent->aroundMe = true;
+                    $event->aroundMe = true;
                 }
 
                 // if event cat match user cat
-                $objEvent->fitToMe = false;
+                $event->fitToMe = false;
                 if(in_array($event->int_name, $arrUserInterests)){
-                    $objEvent->fitToMe = true;
+                    $event->fitToMe = true;
                 }
-
-                $arrEvents[$event->eve_id] = $objEvent;
+                //dd($event);
             }
         }
 
-
-
-
         $data = new \stdClass();
-        $data->events = $arrEvents;
+        $data->events = $eventsList;
         $data->userInterestsList = $arrUserInterests;
         $data->user_firstname = $user_firstname;
 
 		return view('home/index')->with('data', $data);
 	}
+
+
+    protected function _isUserComingToEvent($user_id, $event_id) {
+
+        $isComing = false;
+
+        $modEvent = new Event();
+        $arrUserUpcomingEvent = $modEvent->getUpcommingEventsByUser($user_id);
+
+        foreach($arrUserUpcomingEvent as $event){
+            if($event->eve_id == $event_id){
+                $isComing = true;
+                break;
+            }
+        }
+
+        return $isComing;
+
+    }
 
 }

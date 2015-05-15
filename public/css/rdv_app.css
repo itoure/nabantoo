@@ -77,3 +77,17 @@ body {
 .img-int-admin {
     width: 150px;
 }
+
+.list-group-item {
+    padding: 0;
+}
+
+.marg-top5 {margin-top: 5px}
+
+dl.participants {
+    margin-bottom: 5px;
+}
+
+div.panel-title {
+    font-size: 25px;
+}

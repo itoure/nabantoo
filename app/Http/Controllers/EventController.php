@@ -102,19 +102,26 @@ class EventController extends Controller {
                 }
             }
 
-            // insert location
+            // create location
             $modelLocation = new Location();
             $location_id = $modelLocation->saveLocation(Input::all());
 
-            Event::create(array(
+            // create event
+            $newEvent = Event::create(array(
                 'eve_title' => $title,
                 'eve_details' => $details,
                 'eve_location' => $location,
                 'eve_photo' => $photoName,
-                'start_date' => strtotime($start_date),
+                'eve_start_date' => strtotime($start_date),
                 'interest_id' => $interest,
                 'user_id' => $user_id,
                 'location_id' => $location_id,
+            ));
+
+            // create user event
+            UserEvent::create(array(
+                'user_id' => $user_id,
+                'event_id' => $newEvent->eve_id,
             ));
 
             return Redirect::action('HomeController@getIndex');
@@ -159,20 +166,34 @@ class EventController extends Controller {
         $count_people = $modEvent->countPeopleByEvent($event_id);
 
         // create event object
-        $objEvent = new \stdClass();
-        $objEvent->id = $event->eve_id;
-        $objEvent->title = $event->eve_title;
-        $objEvent->details = $event->eve_details;
-        $objEvent->location = $event->eve_location;
-        $objEvent->start_date = date('d-m-Y', $event->start_date);
-        $objEvent->event_owner = $event->firstname;
-        $objEvent->usr_photo = $event->usr_photo;
-        $objEvent->user_id = $event->usr_id;
-        $objEvent->int_name = $event->int_name;
-        $objEvent->interest_id = $event->int_id;
-        $objEvent->count_people = $count_people;
+        $event->eve_start_date = date('d M H:i', $event->eve_start_date);
+        $event->count_people = $count_people;
 
         // get all messages
+        $arrMessages = $this->_getAllMessages($event->eve_id);
+
+        //get user upcoming event
+        $isUserComing = $this->_isUserComingToEvent($user_id, $event->eve_id);
+
+        // get first letter
+        $event->usr_first_letter = strtoupper($event->usr_firstname[0]);
+
+        $data = new \stdClass();
+        $data->event = $event;
+        $data->eventsListByInterest = $this->_fetchEventsListByInterest($event->int_id, $event->eve_id);
+        $data->participantsListByEvent = $this->_fetchParticipantsListByEvent($event->eve_id);
+        $data->messages = $arrMessages;
+        $data->user_id = $user_id;
+        $data->isUserComing = $isUserComing;
+
+        return view('event/details')->with('data', $data);
+
+    }
+
+
+    public function _getAllMessages($event_id){
+
+        $modEvent = new Event();
         $messages = $modEvent->getAllMessagesByEvent($event_id);
         $arrMessages = array();
         foreach($messages as $msg){
@@ -183,14 +204,7 @@ class EventController extends Controller {
             $arrMessages[] = $objMessage;
         }
 
-        $data = new \stdClass();
-        $data->event = $objEvent;
-        $data->eventsListByInterest = $this->_fetchEventsListByInterest($objEvent->interest_id, $objEvent->id);
-        $data->participantsListByEvent = $this->_fetchParticipantsListByEvent($objEvent->id);
-        $data->messages = $arrMessages;
-        $data->user_id = $user_id;
-
-        return view('event/details')->with('data', $data);
+        return $arrMessages;
 
     }
 
@@ -235,27 +249,14 @@ class EventController extends Controller {
         $eventsList = $modEvent->getUpcommingEventsByUser($user_id);
         //dd($eventsList);
 
-        $arrUpcomingEvents = array();
         foreach($eventsList as $event) {
             //dd($event);
-            $objEvent = new \stdClass();
-            $objEvent->id = $event->eve_id;
-            $objEvent->title = $event->eve_title;
-            $objEvent->details = $event->eve_details;
-            $objEvent->location = $event->eve_location;
-            $objEvent->start_date = date('d-m-Y', $event->start_date);
-            $objEvent->event_owner = $event->firstname;
-            $objEvent->usr_photo = $event->usr_photo;
-            $objEvent->type = 'upcoming';
-            $objEvent->class = 'panel-primary';
-            $objEvent->interest = $event->int_name;
-            $objEvent->img_interest = $event->int_image;
-
-            $arrUpcomingEvents[$event->eve_id] = $objEvent;
+            $event->eve_start_date = date('d M H:i', $event->eve_start_date);
+            $event->usr_first_letter = strtoupper($event->usr_firstname[0]);
         }
 
         $data = new \stdClass();
-        $data->upcomingEvents = $arrUpcomingEvents;
+        $data->upcomingEvents = $eventsList;
         $html = view('event/my_next_events')->with('data', $data)->render();
         $response = array(
             'html' => $html
@@ -276,18 +277,11 @@ class EventController extends Controller {
         $participantsList = $modEvent->getParticipantsByEvent($event_id);
         //dd($participantsList);
 
-        $arrParticipants = array();
         foreach($participantsList as $participant) {
-            //dd($event);
-            $objParticipant = new \stdClass();
-            $objParticipant->id = $participant->user_id;
-            $objParticipant->firstname = $participant->firstname;
-            $objParticipant->photo = $participant->usr_photo;
-
-            $arrParticipants[$objParticipant->id] = $objParticipant;
+            $participant->usr_first_letter = strtoupper($participant->usr_firstname[0]);
         }
 
-        return $arrParticipants;
+        return $participantsList;
 
     }
 
@@ -304,24 +298,31 @@ class EventController extends Controller {
         $modEvent = new Event();
         $eventsList = $modEvent->getEventsByInterest($interest_id, $event_id, $arrUserLocations[0]);
 
-        $arrEvents = array();
         foreach($eventsList as $event) {
             //dd($event);
-            $objEvent = new \stdClass();
-            $objEvent->id = $event->eve_id;
-            $objEvent->title = $event->eve_title;
-            $objEvent->details = $event->eve_details;
-            $objEvent->location = $event->eve_location;
-            $objEvent->start_date = date('d-m-Y', $event->start_date);
-            $objEvent->event_owner = $event->firstname;
-            $objEvent->usr_photo = $event->usr_photo;
-            $objEvent->interest = $event->int_name;
-            $objEvent->img_interest = $event->int_image;
-
-            $arrEvents[$event->eve_id] = $objEvent;
+            $event->eve_start_date = date('d-m', $event->eve_start_date);
         }
 
-        return $arrEvents;
+        return $eventsList;
+
+    }
+
+
+    protected function _isUserComingToEvent($user_id, $event_id) {
+
+        $isComing = false;
+
+        $modEvent = new Event();
+        $arrUserUpcomingEvent = $modEvent->getUpcommingEventsByUser($user_id);
+
+        foreach($arrUserUpcomingEvent as $event){
+            if($event->eve_id == $event_id){
+                $isComing = true;
+                break;
+            }
+        }
+
+        return $isComing;
 
     }
 

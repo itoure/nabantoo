@@ -37,6 +37,7 @@ class Event extends Model {
             ->join('locations', 'locations.loc_id', '=', 'events.location_id')
             ->join('users', 'users.usr_id', '=', 'events.user_id')
             ->join('interests', 'interests.int_id', '=', 'events.interest_id')
+            ->join('categories', 'interests.category_id', '=', 'categories.cat_id')
             ->where('locations.short_country', '=', $arrUserLocation->short_country);
 
         $result = $query->get();

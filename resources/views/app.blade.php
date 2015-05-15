@@ -68,8 +68,8 @@
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyaT28hHyLxs-uGcKc_VSy9mHhfxZqBqs&libraries=places"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 {!! Html::script('bootstrap/js/bootstrap.min.js') !!}
-{!! Html::script('js/select2.min.js') !!}
 {!! Html::script('js/holder.min.js') !!}
+{!! Html::script('js/select2.min.js') !!}
 {!! Html::script('js/bootstrap-datetimepicker.min.js') !!}
 {!! Html::script('js/isotope.pkgd.min.js') !!}
 {!! Html::script('js/imagesloaded.pkgd.min.js') !!}

@@ -201,40 +201,28 @@ class UserController extends Controller {
         $user = $modUser->getCompleteUserById($user_id);
         //dd($user);
 
+        $user->usr_first_letter = strtoupper($user->usr_firstname[0]);
+
         // get user calendar
         $modEvent = new Event();
         $upcomingEvents = $modEvent->getUpcommingEventsByUser($user_id);
 
-        $arrUpcomingEvents = array();
         foreach($upcomingEvents as $event) {
-            $objEvent = new \stdClass();
-            $objEvent->id = $event->eve_id;
-            $objEvent->title = $event->eve_title;
-            $objEvent->details = $event->eve_details;
-            $objEvent->location = $event->eve_location;
-            $objEvent->start_date = date('d-m-Y', $event->start_date);
-            $objEvent->event_owner = $event->firstname;
-            $objEvent->usr_photo = $event->usr_photo;
-            $objEvent->type = 'upcoming';
-            $objEvent->class = 'panel-primary';
-            $objEvent->interest = $event->int_name;
-            $objEvent->img_interest = $event->int_image;
-
-            $arrUpcomingEvents[$event->eve_id] = $objEvent;
+            $event->eve_start_date = date('d M H:i', $event->eve_start_date);
         }
 
         // get hosted events
         $arrHostEvents = $modEvent->getHostEventByUser($user_id);
 
         foreach($arrHostEvents as $event) {
-            $event->start_date = date('d-m-Y', $event->start_date);
+            $event->eve_start_date = date('d M H:i', $event->eve_start_date);
         }
         //dd($arrHostEvents);
 
         // params
         $data = new \stdClass();
         $data->user = $user;
-        $data->upcomingEvents = $arrUpcomingEvents;
+        $data->upcomingEvents = $upcomingEvents;
         $data->hostEvents = $arrHostEvents;
 
         return view('user/profile')->with('data', $data);

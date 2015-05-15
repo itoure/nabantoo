@@ -40,13 +40,12 @@ class Registrar implements RegistrarContract {
 	public function create(array $data)
 	{
 		$user =  User::create([
-            'firstname' => $data['firstname'],
+            'usr_firstname' => $data['firstname'],
             //'sexe' => $data['sexe'],
             //'birthday' => strtotime($data['month'].'/'.$data['day'].'/'.$data['year']),
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'usr_location' => $data['location'],
-            'usr_photo' => 'anonymous.png'
+            'usr_location' => $data['location']
 		]);
 
         // insert location

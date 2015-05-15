@@ -16,7 +16,6 @@ class CreateInterestsTable extends Migration {
 		{
 			$table->increments('int_id');
 			$table->string('int_name');
-			$table->string('int_image')->nullable();
             $table->integer('category_id')->unsigned();
             $table->foreign('category_id')->references('cat_id')->on('categories');
 		});

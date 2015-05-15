@@ -16,6 +16,7 @@ class CreateCategoriesTable extends Migration {
 		{
 			$table->increments('cat_id');
 			$table->string('cat_name');
+			$table->string('cat_color');
 		});
 	}
 
