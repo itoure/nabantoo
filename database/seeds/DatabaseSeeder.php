@@ -302,7 +302,7 @@ class LocationsTableSeeder extends Seeder {
         ]);
 
         Location::create([
-            'short_locality' => 'NY',
+            'short_locality' => 'New York',
             'short_administrative_area_level_2' => '',
             'short_administrative_area_level_1' => 'NY',
             'short_country' => 'US',

@@ -91,6 +91,7 @@ class Event extends Model {
             ->join('events', 'user_events.event_id', '=', 'events.eve_id')
             ->join('users', 'users.usr_id', '=', 'events.user_id')
             ->join('interests', 'interests.int_id', '=', 'events.interest_id')
+            ->join('categories', 'interests.category_id', '=', 'categories.cat_id')
             ->where('user_events.user_id', '=', $user_id);
 
         $result = $query->get();

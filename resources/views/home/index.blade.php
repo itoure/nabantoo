@@ -16,12 +16,10 @@
 
         <div id="filters">
             <button type="button" class="btn btn-default btn-sm" data-filter="*">{{trans('messages.all')}}</button>
-            <button type="button" class="btn btn-default btn-sm" data-filter="*">{{trans('messages.today')}}</button>
-            <button type="button" class="btn btn-default btn-sm" data-filter="*">{{trans('messages.tomorrow')}}</button>
-            <button type="button" class="btn btn-default btn-sm" data-filter="*">{{trans('messages.this_week')}}</button>
             <button type="button" class="btn btn-default btn-sm" data-filter=".fitToMe">{{trans('messages.fit_to_me')}}</button>
             <button type="button" class="btn btn-default btn-sm" data-filter=".aroundMe">{{trans('messages.around_me')}}</button>
             <button type="button" class="btn btn-default btn-sm" data-filter=".aroundMe.fitToMe">{{trans('messages.exact_match')}}</button>
+            <button type="button" class="btn btn-default btn-sm" data-filter=".aroundMe.fitToMe">My Network</button>
         </div>
     </div>
 </div>
@@ -42,14 +40,14 @@
                             @endif
                         </div>
                         <div class="col-xs-9 col-sm-9 col-md-9">
-                            <h4 class="list-group-item-heading marg-top5">
+                            <h5 class="list-group-item-heading marg-top5">
                                 <a href="{{action('EventController@getDetails', array('event_id'=> $event->eve_id))}}">
                                     {{ $event->eve_title }}
                                 </a>
-                            </h4>
+                            </h5>
                             <p>
                                 <i class="fa fa-calendar"></i> <small>{{ $event->eve_start_date }}</small> |
-                                <i class="fa fa-map-marker text-danger"></i> <small>{{ $event->eve_location }}</small> |
+                                <i class="fa fa-map-marker text-danger"></i> <small>{{ $event->short_locality }}</small> |
                                 <i class="fa fa-users text-success"></i> <small>{{ $event->count_people }}</small>
                             </p>
                             <p class="marg-bot5">
@@ -61,11 +59,9 @@
                                 <a href="{{action('UserController@getProfile', array('user_id'=> $event->usr_id))}}" class="small">{{ $event->usr_firstname }}</a>
 
                                 <span id="info-item-list" class="pull-right">
-
-                                    <i class="fa fa-user-plus text-success"></i>
-                                    <a href="#" class="join-event small" data-event-id="{{ $event->eve_id }}">{{trans('messages.join')}}</a>
                                     <i id="join-loading" class="fa fa-spinner fa-spin" style="display: none"></i>
-
+                                    <a role="button" href="#" class="btn btn-default btn-xs join-event" data-event-id="{{ $event->eve_id }}"><i class="fa fa-user-plus"></i> {{trans('messages.join')}}</a>
+                                    <a role="button" href="#" class="btn btn-default btn-xs" data-event-id="{{ $event->eve_id }}"><i class="fa fa-user-times"></i> decline</a>
                                 </span>
                             </p>
                         </div>
@@ -76,6 +72,7 @@
             @endforeach
         </ul>
 
+        <h4>Past Events Highlights</h4>
     </div>
 
     <div class="col-md-3">

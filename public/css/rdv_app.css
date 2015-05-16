@@ -91,3 +91,7 @@ dl.participants {
 div.panel-title {
     font-size: 25px;
 }
+
+.pad-left0 {
+    padding-left: 0;
+}

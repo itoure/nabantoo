@@ -23,9 +23,9 @@
                 @if ($data->isUserComing)
                 <i class="fa fa-check-square-o fa-2x text-success"></i> Your are going to this moment - <a href="">cancel?</a>
                 @else
-                <i class="fa fa-user-plus fa-2x text-success"></i>
-                    <a href="#" class="join-event-detail" data-event-id="{{ $data->event->eve_id }}">{{trans('messages.join')}}</a>
                     <i id="join-loading" class="fa fa-spinner fa-spin" style="display: none"></i>
+                    <a role="button" href="#" class="btn btn-default btn-xs join-event-detail" data-event-id="{{ $data->event->eve_id }}"><i class="fa fa-user-plus"></i> {{trans('messages.join')}}</a>
+                    <a role="button" href="#" class="btn btn-default btn-xs" data-event-id="{{ $data->event->eve_id }}"><i class="fa fa-user-times"></i> decline</a>
                 @endif
                 </div>
 

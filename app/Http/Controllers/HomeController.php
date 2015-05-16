@@ -68,7 +68,7 @@ class HomeController extends Controller {
 
             // get events list
             $eventsList = $modEvent->getEventsByCountry($arrUserLocations[0], $arrUpEventIds);
-            //dd($arrUserLocations);die;
+            //dd($eventsList);die;
 
             foreach($eventsList as $event) {
                 //dd($event);

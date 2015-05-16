@@ -94,6 +94,7 @@ var RdvApp = {
 
                 $('#myNextEvents-loading').hide();
                     block.html(data.data.html);
+                    Holder.run();
 
                 } else {
 
