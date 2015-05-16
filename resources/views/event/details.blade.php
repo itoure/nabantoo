@@ -39,23 +39,13 @@
                 {!! Form::hidden('event_id', $data->event->eve_id) !!}
                 {!! Form::hidden('user_id', $data->user_id) !!}
                 <div class="form-group">
-
-                    @if (!empty($data->event->usr_photo))
-                    {!! Html::image('files/user/'.$data->event->usr_photo, '', array('class' => 'img-rounded img-user50')) !!}
-                    @else
-                    <img class="img-circle" src="holder.js/50x50?theme=social&text={{ $data->event->usr_first_letter }}" alt="">
-                    @endif
-                    <i class="fa fa-quote-right fa-2x"></i>
-
-                </div>
-                <div class="form-group">
                     {!! Form::textarea('message', null, array(
                     'placeholder' => trans('messages.your_message'),
                     'class' => 'form-control textarea-msg',
                     'rows' => '2'
                     )) !!}
                 </div>
-                <div class="align-right">
+                <div class="text-right">
                     {!! Form::submit(trans('messages.publish'), array(
                     'class' => 'btn btn-primary'
                     )); !!}
@@ -68,11 +58,11 @@
                         <tr>
                             <td style="width: 20%">
                                 @if (!empty($message->user_photo))
-                                {!! Html::image('files/user/'.$message->user_photo, '', array('class' => 'img-rounded img-user40')) !!}
+                                {!! Html::image('files/user/'.$message->user_photo, '', array('class' => 'img-rounded img-user30')) !!}
                                 @else
-                                <img class="img-circle" src="holder.js/40x40?theme=social&text={{ $message->usr_first_letter }}" alt="">
+                                <img class="img-circle" src="holder.js/30x30?theme=social&text={{ $message->usr_first_letter }}" alt="">
                                 @endif
-                                <i class="fa fa-quote-right fa-2x"></i>
+                                <i class="fa fa-quote-right"></i>
                             </td>
                             <td>{{$message->message}}</td>
                             <td>{{$message->date}}</td>
