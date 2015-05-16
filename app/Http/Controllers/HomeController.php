@@ -56,9 +56,18 @@ class HomeController extends Controller {
         //dd($arrUserLocations);die;
 
         if($arrUserLocations) {
+
+            // get upcomming events for the current user
+            $modEvent = new Event();
+            $userUpcomingEventsList = $modEvent->getUpcommingEventsByUser($user_id);
+            $arrUpEventIds = array();
+            foreach($userUpcomingEventsList as $upEvent){
+                $arrUpEventIds[] = $upEvent->eve_id;
+            }
+            //dd($userUpcomingEventsList);
+
             // get events list
-            $modelEvent = new Event();
-            $eventsList = $modelEvent->getEventsByCountry($arrUserLocations[0]);
+            $eventsList = $modEvent->getEventsByCountry($arrUserLocations[0], $arrUpEventIds);
             //dd($arrUserLocations);die;
 
             foreach($eventsList as $event) {
@@ -66,11 +75,8 @@ class HomeController extends Controller {
                 $event->eve_start_date = date('d M H:i', $event->eve_start_date);
                 $event->usr_first_letter = strtoupper($event->usr_firstname[0]);
 
-                //get user upcoming event
-                $event->isUserComing = $this->_isUserComingToEvent($user_id, $event->eve_id);
-
                 // count people for the event
-                $event->count_people = $modelEvent->countPeopleByEvent($event->eve_id);
+                $event->count_people = $modEvent->countParticipantsByEvent($event->eve_id);
 
                 // if event loc match user loc
                 $event->aroundMe = false;

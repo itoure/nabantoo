@@ -31,13 +31,14 @@ class Event extends Model {
 
     }
 
-    public function getEventsByCountry($arrUserLocation) {
+    public function getEventsByCountry($arrUserLocation, $exludedEventIds) {
 
         $query = DB::table('events')
             ->join('locations', 'locations.loc_id', '=', 'events.location_id')
             ->join('users', 'users.usr_id', '=', 'events.user_id')
             ->join('interests', 'interests.int_id', '=', 'events.interest_id')
             ->join('categories', 'interests.category_id', '=', 'categories.cat_id')
+            ->whereNotIn('events.eve_id', $exludedEventIds)
             ->where('locations.short_country', '=', $arrUserLocation->short_country);
 
         $result = $query->get();
@@ -114,7 +115,7 @@ class Event extends Model {
     }
 
 
-    public function countPeopleByEvent($event_id) {
+    public function countParticipantsByEvent($event_id) {
 
         $count = UserEvent::where('event_id', '=', $event_id)->count();
         //dd($count);

@@ -26,17 +26,17 @@ var RdvApp = {
         });*/
 
 
-        $('#filters').on( 'click', 'button', function() {
+        /*$('#filters').on( 'click', 'button', function() {
             var filterValue = $(this).attr('data-filter');
             $container.isotope({ filter: filterValue });
-        });
+        });*/
 
         // manage tabs
-        $(".home-tabs a").click(function (e) {
+        /*$(".home-tabs a").click(function (e) {
             e.preventDefault();
             $(this).tab('show');
             RdvApp.getTabContent($(this));
-        });
+        });*/
 
         // join event
         $("a.join-event").click(function (e) {
@@ -44,14 +44,17 @@ var RdvApp = {
             RdvApp.joinUserToEvent($(this));
         });
 
+        $("a.join-event-detail").click(function (e) {
+            e.preventDefault();
+            RdvApp.joinUserToEventDetail($(this));
+        });
+
         // init select2
         $(".select-interests").select2();
-
         $(".multiselect-interests-user").select2();
 
         // tooltips
         //$('[data-toggle="tooltip"]').tooltip();
-
 
         // alerts
         $("#welcome-alert").delay(4000).slideUp('slow', function(){
@@ -61,11 +64,17 @@ var RdvApp = {
             $("#welcomeback-alert").alert('close');
         });
 
-        // validate form
-        RdvApp.validateFormEvent();
+        if ( $('#eventParticipants').length ){
+            RdvApp.fetchEventParticipantsList();
+        }
 
         // load block myNextEvents
-        RdvApp.fetchMyNextEvents();
+        if ( $('#myNextEvents').length ){
+            RdvApp.fetchMyNextEvents();
+        }
+
+        // validate form
+        RdvApp.validateFormEvent();
 
     },
 
@@ -177,7 +186,7 @@ var RdvApp = {
                     $('#alerts').append(htmlAlert);
 
                     $("#join-alert-"+event_id).delay(4000).slideUp('slow', function(){
-                        $("#welcomeback-alert").alert('close');
+                        $("#join-alert-"+event_id).alert('close');
                     });
 
                     RdvApp.fetchMyNextEvents();
@@ -193,7 +202,103 @@ var RdvApp = {
         });
     },
 
-    getTabContent: function (object) {
+    joinUserToEventDetail: function (object) {
+
+        var url = "/event/join-user-to-event";
+        var event_id = object.attr('data-event-id');
+        var elm = $('.panel-event-detail');
+
+        elm.find('#join-loading').show();
+
+        $.ajax(url,{
+            data: {
+                event_id: event_id
+            },
+            context : object,
+            success:function(data){
+                elm.find('#join-loading').hide();
+                if(data.response){
+
+                    var htmlAlert = '<div id="join-alert-'+event_id+'" class="alert alert-success" role="alert">Votre participation pour a bien été prise en compte.</div>';
+                    $('#alerts').append(htmlAlert);
+
+                    $("#join-alert-"+event_id).delay(4000).slideUp('slow', function(){
+                        $("#join-alert-"+event_id).alert('close');
+                    });
+
+                    elm.find('#info-event-detail').html('<i class="fa fa-check-square-o fa-2x text-success"></i> Your are going to this moment - <a href="">cancel?</a>');
+
+                    RdvApp.fetchEventParticipantsList();
+                    RdvApp.fetchCountParticipants();
+
+                } else {
+
+                }
+            },
+            error:function(data){
+
+            }
+        });
+    },
+
+    fetchEventParticipantsList: function () {
+
+        $('#eventParticipants-loading').show();
+        $('#eventParticipants').html('');
+
+        var block = $("#eventParticipants");
+        var event_id = block.attr('data-event-id');
+        var url = "/event/fetch-event-participants";
+
+        $.ajax(url,{
+            data: {
+                event_id: event_id
+            },
+            success:function(data){
+                if(data.response){
+
+                    $('#eventParticipants-loading').hide();
+                    block.html(data.data.html);
+                    Holder.run();
+
+                } else {
+
+                }
+            },
+            error:function(data){
+
+            }
+        });
+
+    },
+
+    fetchCountParticipants: function () {
+
+        var block = $("#event-count-participant");
+        var event_id = block.attr('data-event-id');
+        var url = "/event/fetch-event-count-participants";
+
+        $.ajax(url,{
+            data: {
+                event_id: event_id
+            },
+            success:function(data){
+                if(data.response){
+
+                    block.html(data.data);
+
+                } else {
+
+                }
+            },
+            error:function(data){
+
+            }
+        });
+
+    }
+
+    /*getTabContent: function (object) {
 
         var tab = object.attr('href');
 
@@ -230,7 +335,7 @@ var RdvApp = {
             }
         });
 
-    }
+    }*/
 
 }
 

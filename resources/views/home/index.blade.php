@@ -34,14 +34,14 @@
             <li class="list-group-item event_id_{{ $event->eve_id }} event-item {{ $event->fitToMe ? 'fitToMe' : '' }} {{ $event->aroundMe ? 'aroundMe' : '' }}">
                 <div class="container-fluid">
                     <div class="row row-list">
-                        <div class="col-xs-2 col-sm-2 col-md-2">
+                        <div class="col-xs-3 col-sm-3 col-md-3">
                             @if (!empty($event->eve_photo))
                             {!! Html::image('img/interests/'.$event->eve_photo, '', array('class' => 'img-event-item')) !!}
                             @else
-                            <img class="" src="holder.js/100x98?text={{ $event->int_name }}&theme={{$event->cat_color}}" alt="">
+                            <img class="" src="holder.js/100px98?text={{ $event->int_name }}&theme={{$event->cat_color}}" alt="">
                             @endif
                         </div>
-                        <div class="col-xs-10 col-sm-10 col-md-10">
+                        <div class="col-xs-9 col-sm-9 col-md-9">
                             <h4 class="list-group-item-heading marg-top5">
                                 <a href="{{action('EventController@getDetails', array('event_id'=> $event->eve_id))}}">
                                     {{ $event->eve_title }}
@@ -52,7 +52,7 @@
                                 <i class="fa fa-map-marker text-danger"></i> <small>{{ $event->eve_location }}</small> |
                                 <i class="fa fa-users text-success"></i> <small>{{ $event->count_people }}</small>
                             </p>
-                            <p>
+                            <p class="marg-bot5">
                                 @if (!empty($event->usr_photo))
                                 {!! Html::image('files/user/'.$event->usr_photo, '', array('class' => 'img-user30 img-rounded')) !!}
                                 @else
@@ -60,14 +60,11 @@
                                 @endif
                                 <a href="{{action('UserController@getProfile', array('user_id'=> $event->usr_id))}}" class="small">{{ $event->usr_firstname }}</a>
 
-                                <span class="pull-right">
+                                <span id="info-item-list" class="pull-right">
 
-                                    @if ($event->isUserComing)
-                                    <i class="fa fa-check-square-o text-success"></i> <small>going - <a href="">cancel?</a></small>
-                                    @else
-                                    <i id="join-loading" class="fa fa-spinner fa-spin" style="display: none"></i>
+                                    <i class="fa fa-user-plus text-success"></i>
                                     <a href="#" class="join-event small" data-event-id="{{ $event->eve_id }}">{{trans('messages.join')}}</a>
-                                    @endif
+                                    <i id="join-loading" class="fa fa-spinner fa-spin" style="display: none"></i>
 
                                 </span>
                             </p>

@@ -5,25 +5,27 @@
 <div class="row">
 
     <div class="col-md-offset-1 col-md-7">
-        <div class="panel panel-default">
+        <div class="panel panel-default panel-event-detail">
             <div class="panel-heading panel-title">{{$data->event->eve_title}}</div>
             <div class="panel-body">
                 <table class="table">
-                    <tr><td><i class="fa fa-map-marker fa-2x text-danger"></i></td><td>{{$data->event->eve_location}}</td></tr>
-                    <tr><td><i class="fa fa-calendar fa-2x"></i></td><td>{{$data->event->eve_start_date}}</td></tr>
                     <tr><td><i class="fa fa-tag fa-2x"></i></td><td>{{$data->event->int_name}}</td></tr>
+                    <tr><td><i class="fa fa-calendar fa-2x"></i></td><td>{{$data->event->eve_start_date}}</td></tr>
+                    <tr><td><i class="fa fa-map-marker fa-2x text-danger"></i></td><td>{{$data->event->eve_location}}</td></tr>
                     <tr>
-                        <td><i class="fa fa-users fa-2x"></i></td>
-                        <td><span class="badge">{{$data->event->count_people}}</span></td>
+                        <td><i class="fa fa-users fa-2x text-success"></i></td>
+                        <td><span id="event-count-participant" class="badge" data-event-id="{{ $data->event->eve_id }}">{{$data->event->count_participants}}</span></td>
                     </tr>
-                    <tr><td><i class="fa fa-info-circle fa-2x text-primary"></i></td><td>{{$data->event->eve_details}}</td></tr>
+                    <tr><td><i class="fa fa-info-circle fa-2x text-warning"></i></td><td>{{$data->event->eve_details}}</td></tr>
                 </table>
 
-                <div class="small pull-right">
+                <div id="info-event-detail" class="small pull-right">
                 @if ($data->isUserComing)
                 <i class="fa fa-check-square-o fa-2x text-success"></i> Your are going to this moment - <a href="">cancel?</a>
                 @else
-                <i class="fa fa-user-plus fa-2x text-success"></i> {{trans('messages.join')}}
+                <i class="fa fa-user-plus fa-2x text-success"></i>
+                    <a href="#" class="join-event-detail" data-event-id="{{ $data->event->eve_id }}">{{trans('messages.join')}}</a>
+                    <i id="join-loading" class="fa fa-spinner fa-spin" style="display: none"></i>
                 @endif
                 </div>
 
@@ -64,7 +66,14 @@
                     <table class="table">
                         @foreach ($data->messages as $message)
                         <tr>
-                            <td style="width: 20%">{!! Html::image('files/user/'.$message->user_photo, '', array('class' => 'img-rounded img-user40')) !!} <i class="fa fa-quote-right fa-2x"></i></td>
+                            <td style="width: 20%">
+                                @if (!empty($message->user_photo))
+                                {!! Html::image('files/user/'.$message->user_photo, '', array('class' => 'img-rounded img-user40')) !!}
+                                @else
+                                <img class="img-circle" src="holder.js/40x40?theme=social&text={{ $message->usr_first_letter }}" alt="">
+                                @endif
+                                <i class="fa fa-quote-right fa-2x"></i>
+                            </td>
                             <td>{{$message->message}}</td>
                             <td>{{$message->date}}</td>
                         </tr>
@@ -95,28 +104,16 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">Participants</div>
-            <div class="panel-body small">
-                @foreach ($data->participantsListByEvent as $participant)
-                <dl class="participants">
-                    <dt>
-                        @if (!empty($participant->usr_photo))
-                        {!! Html::image('files/user/'.$participant->usr_photo, '', array('class' => 'img-user30 img-rounded')) !!}
-                        @else
-                        <img class="img-circle" src="holder.js/30x30?text={{ $participant->usr_first_letter }}" alt="">
-                        @endif
-                        <a href="{{action('UserController@getProfile', array('user_id'=> $participant->usr_id))}}">{{ $participant->usr_firstname }}</a>
-                    </dt>
-                </dl>
-                @endforeach
+            <div id="eventParticipants-loading" class="text-center top20">
+                <i class="fa fa-spinner fa-spin fa-2x"></i>
+            </div>
+            <div id="eventParticipants" class="panel-body small" data-event-id="{{ $data->event->eve_id }}">
 
-                @if (empty($data->participantsListByEvent))
-                No participants
-                @endif
             </div>
         </div>
 
         <div class="panel panel-default">
-            <div class="panel-heading">Upcoming events : {{$data->event->int_name}}</div>
+            <div class="panel-heading">Upcoming events for <span class="label label-primary">{{$data->event->int_name}}</span></div>
             <div class="panel-body">
                 @foreach ($data->eventsListByInterest as $event)
                 <dl>

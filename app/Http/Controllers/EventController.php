@@ -163,11 +163,11 @@ class EventController extends Controller {
         $event = $modEvent->getCompleteEventById($event_id);
 
         // count people for an event
-        $count_people = $modEvent->countPeopleByEvent($event_id);
+        $count_participants = $modEvent->countParticipantsByEvent($event_id);
 
         // create event object
         $event->eve_start_date = date('d M H:i', $event->eve_start_date);
-        $event->count_people = $count_people;
+        $event->count_participants = $count_participants;
 
         // get all messages
         $arrMessages = $this->_getAllMessages($event->eve_id);
@@ -181,7 +181,7 @@ class EventController extends Controller {
         $data = new \stdClass();
         $data->event = $event;
         $data->eventsListByInterest = $this->_fetchEventsListByInterest($event->int_id, $event->eve_id);
-        $data->participantsListByEvent = $this->_fetchParticipantsListByEvent($event->eve_id);
+        //$data->participantsListByEvent = $this->_fetchParticipantsListByEvent($event->eve_id);
         $data->messages = $arrMessages;
         $data->user_id = $user_id;
         $data->isUserComing = $isUserComing;
@@ -201,6 +201,7 @@ class EventController extends Controller {
             $objMessage->user_photo = $msg->usr_photo;
             $objMessage->message = $msg->eve_message;
             $objMessage->date = $msg->created_at;
+            $objMessage->usr_first_letter = strtoupper($msg->usr_firstname[0]);
             $arrMessages[] = $objMessage;
         }
 
@@ -323,6 +324,43 @@ class EventController extends Controller {
         }
 
         return $isComing;
+
+    }
+
+    public function getFetchEventParticipants() {
+
+        $params = $this->request->all();
+        $participantsList = $this->_fetchParticipantsListByEvent($params['event_id']);
+
+        $data = new \stdClass();
+        $data->participantsList = $participantsList;
+        $html = view('event/event_participants')->with('data', $data)->render();
+        $response = array(
+            'html' => $html
+        );
+        $return = array(
+            'response' => true,
+            'data' => $response
+        );
+
+        return response()->json($return);
+
+    }
+
+    public function getFetchEventCountParticipants() {
+
+        $params = $this->request->all();
+
+        // count people for an event
+        $modEvent = new Event();
+        $count_participants = $modEvent->countParticipantsByEvent($params['event_id']);
+
+        $return = array(
+            'response' => true,
+            'data' => $count_participants
+        );
+
+        return response()->json($return);
 
     }
 
