@@ -301,7 +301,7 @@ class EventController extends Controller {
 
         foreach($eventsList as $event) {
             //dd($event);
-            $event->eve_start_date = date('d-m', $event->eve_start_date);
+            $event->eve_start_date = date('d M H:i', $event->eve_start_date);
         }
 
         return $eventsList;

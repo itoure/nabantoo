@@ -20,6 +20,7 @@
             <button type="button" class="btn btn-default btn-sm" data-filter=".aroundMe">{{trans('messages.around_me')}}</button>
             <button type="button" class="btn btn-default btn-sm" data-filter=".aroundMe.fitToMe">{{trans('messages.exact_match')}}</button>
             <button type="button" class="btn btn-default btn-sm" data-filter=".aroundMe.fitToMe">My Network</button>
+            <button type="button" class="btn btn-default btn-sm" data-filter=".aroundMe.fitToMe">My Events</button>
         </div>
     </div>
 </div>
@@ -73,6 +74,38 @@
         </ul>
 
         <h4>Past Events Highlights</h4>
+        <div class="row">
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <img src="holder.js/100px100?text={{ $event->usr_first_letter }}" alt="">
+                    <div class="caption">
+                        <h3>Thumbnail label</h3>
+                        <p>...</p>
+                        <p><a href="#" class="btn btn-primary" role="button">Button</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <img src="holder.js/100px100?text={{ $event->usr_first_letter }}" alt="">
+                    <div class="caption">
+                        <h3>Thumbnail label</h3>
+                        <p>...</p>
+                        <p><a href="#" class="btn btn-primary" role="button">Button</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <img src="holder.js/100px100?text={{ $event->usr_first_letter }}" alt="">
+                    <div class="caption">
+                        <h3>Thumbnail label</h3>
+                        <p>...</p>
+                        <p><a href="#" class="btn btn-primary" role="button">Button</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="col-md-3">
@@ -83,12 +116,6 @@
             </div>
             <div id="myNextEvents" class="panel-body">
 
-            </div>
-        </div>
-
-        <div class="panel panel-default">
-            <div class="panel-heading">Events from my network</div>
-            <div class="panel-body">
             </div>
         </div>
 
