@@ -12,10 +12,8 @@ var RdvApp = {
         });
 
         // isotope
-
-
         // initialize Isotope
-        /*var $container = $('#events-container').isotope({
+        /*var $container = $('#eventListHome').isotope({
             // options
             itemSelector: '.event-item'
         });
@@ -23,10 +21,9 @@ var RdvApp = {
         // layout Isotope again after all images have loaded
         $container.imagesLoaded( function() {
             $container.isotope('vetical');
-        });*/
+        });
 
-
-        /*$('#filters').on( 'click', 'button', function() {
+        $('#filters').on( 'click', 'button', function() {
             var filterValue = $(this).attr('data-filter');
             $container.isotope({ filter: filterValue });
         });*/
@@ -39,15 +36,27 @@ var RdvApp = {
         });*/
 
         // join event
-        $("a.join-event").click(function (e) {
+        $("#eventListHome").on( "click", 'a.join-event', function(e) {
             e.preventDefault();
             RdvApp.joinUserToEvent($(this));
         });
-
         $("a.join-event-detail").click(function (e) {
             e.preventDefault();
             RdvApp.joinUserToEventDetail($(this));
         });
+
+        // join decline
+        $("#eventListHome").on( "click", 'a.decline-event', function(e) {
+            e.preventDefault();
+            RdvApp.declineUserToEvent($(this));
+        });
+
+
+        $(".moments-filter").on( "click", function(e) {
+            e.preventDefault();
+            RdvApp.fetchEventListHome($(this));
+        });
+
 
         // init select2
         $(".select-interests").select2();
@@ -68,6 +77,11 @@ var RdvApp = {
             RdvApp.fetchEventParticipantsList();
         }
 
+        if ( $('#eventListHome').length ){
+            $( ".default-filter" ).trigger( "click" );
+            //RdvApp.fetchEventListHome(null);
+        }
+
         // load block myNextEvents
         if ( $('#myNextEvents').length ){
             RdvApp.fetchMyNextEvents();
@@ -75,6 +89,38 @@ var RdvApp = {
 
         // validate form
         RdvApp.validateFormEvent();
+
+    },
+
+
+    fetchEventListHome: function(object) {
+
+        $('#eventListHome-loading').show();
+        $('#eventListHome').html('');
+
+        var block = $("#eventListHome");
+        var url = "/event/fetch-event-list-home";
+        var filter = object.attr('data-filter');
+
+        $.ajax(url,{
+            data: {
+                filter: filter
+            },
+            success:function(data){
+                if(data.response){
+
+                    $('#eventListHome-loading').hide();
+                    block.html(data.data.html);
+                    Holder.run();
+
+                } else {
+
+                }
+            },
+            error:function(data){
+
+            }
+        });
 
     },
 
@@ -163,6 +209,37 @@ var RdvApp = {
     },
 
 
+    declineUserToEvent: function (object) {
+
+        var url = "/event/decline-user-to-event";
+        var event_id = object.attr('data-event-id');
+        var elm = $('.event_id_'+event_id);
+        var panel = elm.find('.panel');
+
+        elm.find('#join-loading').show();
+
+        $.ajax(url,{
+            data: {
+                event_id: event_id
+            },
+            context : object,
+            success:function(data){
+                elm.find('#join-loading').hide();
+                if(data.response){
+
+                    elm.slideUp('slow');
+
+                } else {
+
+                }
+            },
+            error:function(data){
+
+            }
+        });
+    },
+
+
     joinUserToEvent: function (object) {
 
         var url = "/event/join-user-to-event";
@@ -183,12 +260,12 @@ var RdvApp = {
 
                     elm.slideUp('slow');
 
-                    var htmlAlert = '<div id="join-alert-'+event_id+'" class="alert alert-success" role="alert">Votre participation pour a bien été prise en compte.</div>';
+                    /*var htmlAlert = '<div id="join-alert-'+event_id+'" class="alert alert-success" role="alert">Votre participation pour a bien été prise en compte.</div>';
                     $('#alerts').append(htmlAlert);
 
                     $("#join-alert-"+event_id).delay(4000).slideUp('slow', function(){
                         $("#join-alert-"+event_id).alert('close');
-                    });
+                    });*/
 
                     RdvApp.fetchMyNextEvents();
 

@@ -42,64 +42,13 @@ class HomeController extends Controller {
 	public function getIndex()
 	{
 
-        // get user_id
-        $user_id = $this->request->user()->usr_id;
         $user_firstname = $this->request->user()->usr_firstname;
 
-        // get user interests list
-        $modUserInterest = new UserInterest();
-        $arrUserInterests = $modUserInterest->getUserInterests($user_id);
-
-        // get user location
-        $modUserLocation = new UserLocation();
-        $arrUserLocations = $modUserLocation->getUserLocation($user_id);
-        //dd($arrUserLocations);die;
-
-        if($arrUserLocations) {
-
-            // get upcomming events for the current user
-            $modEvent = new Event();
-            $userUpcomingEventsList = $modEvent->getUpcommingEventsByUser($user_id);
-            $arrUpEventIds = array();
-            foreach($userUpcomingEventsList as $upEvent){
-                $arrUpEventIds[] = $upEvent->eve_id;
-            }
-            //dd($userUpcomingEventsList);
-
-            // get events list
-            $eventsList = $modEvent->getEventsByCountry($arrUserLocations[0], $arrUpEventIds);
-            //dd($eventsList);die;
-
-            foreach($eventsList as $event) {
-                //dd($event);
-                $event->eve_start_date = date('d M H:i', $event->eve_start_date);
-                $event->usr_first_letter = strtoupper($event->usr_firstname[0]);
-
-                // count people for the event
-                $event->count_people = $modEvent->countParticipantsByEvent($event->eve_id);
-
-                // if event loc match user loc
-                $event->aroundMe = false;
-                if(($event->short_administrative_area_level_2 == $arrUserLocations[0]->short_administrative_area_level_2) ||
-                ($event->short_administrative_area_level_1 == $arrUserLocations[0]->short_administrative_area_level_1)) {
-                    $event->aroundMe = true;
-                }
-
-                // if event cat match user cat
-                $event->fitToMe = false;
-                if(in_array($event->int_name, $arrUserInterests)){
-                    $event->fitToMe = true;
-                }
-                //dd($event);
-            }
-        }
-
         $data = new \stdClass();
-        $data->events = $eventsList;
-        $data->userInterestsList = $arrUserInterests;
         $data->user_firstname = $user_firstname;
 
-		return view('home/index')->with('data', $data);
+        return view('home/index')->with('data', $data);
+
 	}
 
 

@@ -50,13 +50,55 @@ class Event extends Model {
     }
 
 
-    public function getUserEventsByInterestsAndLocation($arrUserInterestIds, $arrUserLocation) {
+    public function getUserEventsByInterestsAndLocation($arrUserInterestIds, $arrUserLocation, $exludedEventIds) {
 
         $query = DB::table('events')
             ->join('locations', 'locations.loc_id', '=', 'events.location_id')
             ->join('users', 'users.usr_id', '=', 'events.user_id')
             ->join('interests', 'interests.int_id', '=', 'events.interest_id')
+            ->join('categories', 'interests.category_id', '=', 'categories.cat_id')
             ->whereIn('interest_id', $arrUserInterestIds)
+            ->whereNotIn('events.eve_id', $exludedEventIds)
+            ->where(function($query) use($arrUserLocation)
+            {
+                $query->orWhere('locations.short_locality', '=', $arrUserLocation->short_locality)
+                    ->orWhere('locations.short_administrative_area_level_2', '=', $arrUserLocation->short_administrative_area_level_2)
+                    ->orWhere('locations.short_administrative_area_level_1', '=', $arrUserLocation->short_administrative_area_level_1);
+            });
+
+        $result = $query->get();
+        //dd($result);
+
+        return $result;
+
+    }
+
+
+    public function getEventsByUserInterests($arrUserInterestIds, $exludedEventIds) {
+
+        $query = DB::table('events')
+            ->join('locations', 'locations.loc_id', '=', 'events.location_id')
+            ->join('users', 'users.usr_id', '=', 'events.user_id')
+            ->join('interests', 'interests.int_id', '=', 'events.interest_id')
+            ->join('categories', 'interests.category_id', '=', 'categories.cat_id')
+            ->whereNotIn('events.eve_id', $exludedEventIds)
+            ->whereIn('interest_id', $arrUserInterestIds);
+
+        $result = $query->get();
+        //dd($result);
+
+        return $result;
+
+    }
+
+    public function getEventsByUserLocation($arrUserLocation, $exludedEventIds) {
+
+        $query = DB::table('events')
+            ->join('locations', 'locations.loc_id', '=', 'events.location_id')
+            ->join('users', 'users.usr_id', '=', 'events.user_id')
+            ->join('interests', 'interests.int_id', '=', 'events.interest_id')
+            ->join('categories', 'interests.category_id', '=', 'categories.cat_id')
+            ->whereNotIn('events.eve_id', $exludedEventIds)
             ->where(function($query) use($arrUserLocation)
             {
                 $query->orWhere('locations.short_locality', '=', $arrUserLocation->short_locality)
@@ -93,7 +135,8 @@ class Event extends Model {
             ->join('users', 'users.usr_id', '=', 'events.user_id')
             ->join('interests', 'interests.int_id', '=', 'events.interest_id')
             ->join('categories', 'interests.category_id', '=', 'categories.cat_id')
-            ->where('user_events.user_id', '=', $user_id);
+            ->where('user_events.user_id', '=', $user_id)
+            ->where('user_events.user_event_choice', '=', 'ok');
 
         $result = $query->get();
         //dd($result->toSql);

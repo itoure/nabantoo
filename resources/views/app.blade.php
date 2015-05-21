@@ -44,8 +44,8 @@
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="{{action('HomeController@getIndex')}}">Events List</a></li>
-                    <li><a href="{{action('EventController@getCreate')}}">{{trans('messages.create_event')}}</a></li>
+                    <li><a href="{{action('HomeController@getIndex')}}">Moments List</a></li>
+                    <li><a href="{{action('EventController@getCreate')}}">Create Moment</a></li>
                 </ul>
                 <div class="navbar-right">
                     <ul class="nav navbar-nav">

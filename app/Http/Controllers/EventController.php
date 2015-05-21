@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\UserEvent;
 use App\Models\EventMessage;
 use App\Models\UserLocation;
+use App\Models\UserInterest;
 
 class EventController extends Controller {
 
@@ -140,6 +141,7 @@ class EventController extends Controller {
             UserEvent::create(array(
                 'user_id' => $user->usr_id,
                 'event_id' => $params['event_id'],
+                'user_event_choice' => 'ok'
             ));
 
             $return = array('response' => true);
@@ -151,6 +153,28 @@ class EventController extends Controller {
 
     }
 
+
+    public function getDeclineUserToEvent(){
+
+        $params = $this->request->all();
+        $user = $this->request->user();
+
+        if(!empty($params['event_id'])){
+
+            UserEvent::create(array(
+                'user_id' => $user->usr_id,
+                'event_id' => $params['event_id'],
+                'user_event_choice' => 'ko'
+            ));
+
+            $return = array('response' => true);
+            return response()->json($return);
+        }
+
+        $return = array('response' => false);
+        return response()->json($return);
+
+    }
 
 
     public function getDetails($event_id){
@@ -358,6 +382,112 @@ class EventController extends Controller {
         $return = array(
             'response' => true,
             'data' => $count_participants
+        );
+
+        return response()->json($return);
+
+    }
+
+
+    public function getFetchEventListHome() {
+
+        $params = $this->request->all();
+        $filter = $params['filter'];
+
+        // get user_id
+        $user_id = $this->request->user()->usr_id;
+        $user_firstname = $this->request->user()->usr_firstname;
+
+        // get upcomming events for the current user
+        $modEvent = new Event();
+        $userUpcomingEventsList = $modEvent->getUpcommingEventsByUser($user_id);
+        $arrUpEventIds = array();
+        foreach($userUpcomingEventsList as $upEvent){
+            $arrUpEventIds[] = $upEvent->eve_id;
+        }
+
+        $eventsList = array();
+        switch($filter){
+
+            case 'fitToMe':
+                // get user interests list
+                $modUserInterest = new UserInterest();
+                $arrUserInterests = $modUserInterest->getUserInterests($user_id);
+                $arrUserInterestsIds = array();
+                foreach($arrUserInterests as $int_id => $interest){
+                    $arrUserInterestsIds[] = $int_id;
+                }
+
+                // get events list
+                $eventsList = $modEvent->getEventsByUserInterests($arrUserInterestsIds, $arrUpEventIds);
+                break;
+
+            case 'aroundMe':
+                // get user location
+                $modUserLocation = new UserLocation();
+                $arrUserLocations = $modUserLocation->getUserLocation($user_id);
+
+                // get events list
+                $eventsList = $modEvent->getEventsByUserLocation($arrUserLocations[0], $arrUpEventIds);
+                break;
+
+            case 'perfectMatch':
+                // get user interests list
+                $modUserInterest = new UserInterest();
+                $arrUserInterests = $modUserInterest->getUserInterests($user_id);
+                $arrUserInterestsIds = array();
+                foreach($arrUserInterests as $int_id => $interest){
+                    $arrUserInterestsIds[] = $int_id;
+                }
+
+                // get user location
+                $modUserLocation = new UserLocation();
+                $arrUserLocations = $modUserLocation->getUserLocation($user_id);
+
+                // get events list
+                $eventsList = $modEvent->getUserEventsByInterestsAndLocation($arrUserInterestsIds, $arrUserLocations[0], $arrUpEventIds);
+                break;
+
+            case 'myNetwork':
+                break;
+
+            case 'myMoments':
+                break;
+
+            default:
+                // get user location
+                $modUserLocation = new UserLocation();
+                $arrUserLocations = $modUserLocation->getUserLocation($user_id);
+
+                // get events list
+                $eventsList = $modEvent->getEventsByCountry($arrUserLocations[0], $arrUpEventIds);
+        }
+
+        if(!empty($eventsList)) {
+
+            foreach($eventsList as $event) {
+                //dd($event);
+                $event->eve_start_date = date('d M H:i', $event->eve_start_date);
+                $event->usr_first_letter = strtoupper($event->usr_firstname[0]);
+
+                // count people for the event
+                $event->count_people = $modEvent->countParticipantsByEvent($event->eve_id);
+            }
+        }
+
+        $data = new \stdClass();
+        $data->events = $eventsList;
+        //$data->userInterestsList = $arrUserInterests;
+        $data->user_firstname = $user_firstname;
+
+        $html = view('event/event_list_home')->with('data', $data)->render();
+        $response = array(
+            'html' => $html
+        );
+
+        $return = array(
+            'response' => true,
+            'data' => $response
         );
 
         return response()->json($return);

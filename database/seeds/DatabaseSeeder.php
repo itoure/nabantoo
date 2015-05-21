@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder {
 		$this->call('LocationsTableSeeder');
 		$this->call('UserLocationsTableSeeder');
 		$this->call('EventsTableSeeder');
-		$this->call('UserEventsTableSeeder');
+		//$this->call('UserEventsTableSeeder');
 	}
 
 }
@@ -405,21 +405,6 @@ class EventsTableSeeder extends Seeder {
             'interest_id' => '2',
             'user_id' => '4',
             'location_id' => '10',
-        ]);
-    }
-
-}
-
-
-class UserEventsTableSeeder extends Seeder {
-
-    public function run()
-    {
-        DB::table('user_events')->delete();
-
-        UserEvent::create([
-            'user_id' => '1',
-            'event_id' => '2'
         ]);
     }
 

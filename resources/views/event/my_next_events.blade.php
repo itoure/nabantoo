@@ -19,5 +19,5 @@
 </ul>
 
 @if (empty($data->upcomingEvents))
-No upcoming events
+No moments
 @endif
