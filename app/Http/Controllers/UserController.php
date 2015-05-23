@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\UserNetwork;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
@@ -229,4 +230,32 @@ class UserController extends Controller {
 
     }
 
+
+    public function getManageNetwork() {
+
+        $params = $this->request->all();
+        $user = $this->request->user();
+
+        $user_id = $params['user_id'];
+        $action = $params['action'];
+
+        if($user_id && $action){
+
+            if($action == 'add'){
+                UserNetwork::create(array(
+                    'user_id' => $user->usr_id,
+                    'member_id' => $user_id,
+                ));
+            }
+            else{
+                UserNetwork::where('user_id', '=', $user->usr_id)->where('member_id', '=', $user_id)->delete();
+            }
+
+            $return = array('response' => true);
+            return response()->json($return);
+        }
+
+        $return = array('response' => false);
+        return response()->json($return);
+    }
 }

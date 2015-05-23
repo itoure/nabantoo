@@ -31,7 +31,7 @@ return [
     'upcoming'          => 'Mes prochains',
     'fit_to_me'         => 'Interessant pour moi',
     'friends'           => 'Amis',
-    'join'              => 'rejoindre',
+    'join'              => 'Rejoindre',
     'today'              => 'Aujourd\'hui',
     'tomorrow'              => 'Demain',
     'this_week'              => 'Cette semaine',

@@ -33,4 +33,20 @@ class User extends Model {
     }
 
 
+    public function isUserInMyNetwork($current_user_id, $user_id) {
+
+        $query = UserNetwork::where('user_id', '=', $current_user_id);
+        $result = $query->get();
+
+        foreach($result as $item){
+            if($item->member_id == $user_id){
+                return true;
+            }
+        }
+
+        return false;
+
+    }
+
+
 }

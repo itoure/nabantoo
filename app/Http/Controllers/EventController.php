@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
@@ -193,11 +194,11 @@ class EventController extends Controller {
         $event->eve_start_date = date('d M H:i', $event->eve_start_date);
         $event->count_participants = $count_participants;
 
+        $modUser = new User();
+        $event->isUserInMyNetwork = $modUser->isUserInMyNetwork($user_id, $event->usr_id);
+
         // get all messages
         $arrMessages = $this->_getAllMessages($event->eve_id);
-
-        //get user upcoming event
-        $isUserComing = $this->_isUserComingToEvent($user_id, $event->eve_id);
 
         // get first letter
         $event->usr_first_letter = strtoupper($event->usr_firstname[0]);
@@ -208,14 +209,13 @@ class EventController extends Controller {
         //$data->participantsListByEvent = $this->_fetchParticipantsListByEvent($event->eve_id);
         $data->messages = $arrMessages;
         $data->user_id = $user_id;
-        $data->isUserComing = $isUserComing;
 
         return view('event/details')->with('data', $data);
 
     }
 
 
-    public function _getAllMessages($event_id){
+    protected function _getAllMessages($event_id){
 
         $modEvent = new Event();
         $messages = $modEvent->getAllMessagesByEvent($event_id);
@@ -333,24 +333,6 @@ class EventController extends Controller {
     }
 
 
-    protected function _isUserComingToEvent($user_id, $event_id) {
-
-        $isComing = false;
-
-        $modEvent = new Event();
-        $arrUserUpcomingEvent = $modEvent->getUpcommingEventsByUser($user_id);
-
-        foreach($arrUserUpcomingEvent as $event){
-            if($event->eve_id == $event_id){
-                $isComing = true;
-                break;
-            }
-        }
-
-        return $isComing;
-
-    }
-
     public function getFetchEventParticipants() {
 
         $params = $this->request->all();
@@ -400,10 +382,10 @@ class EventController extends Controller {
 
         // get upcomming events for the current user
         $modEvent = new Event();
-        $userUpcomingEventsList = $modEvent->getUpcommingEventsByUser($user_id);
-        $arrUpEventIds = array();
-        foreach($userUpcomingEventsList as $upEvent){
-            $arrUpEventIds[] = $upEvent->eve_id;
+        $userAnsweredEventsList = $modEvent->getAnsweredEventsByUser($user_id);
+        $arrAnsEventIds = array();
+        foreach($userAnsweredEventsList as $upEvent){
+            $arrAnsEventIds[] = $upEvent->eve_id;
         }
 
         $eventsList = array();
@@ -419,7 +401,7 @@ class EventController extends Controller {
                 }
 
                 // get events list
-                $eventsList = $modEvent->getEventsByUserInterests($arrUserInterestsIds, $arrUpEventIds);
+                $eventsList = $modEvent->getEventsByUserInterests($arrUserInterestsIds, $arrAnsEventIds);
                 break;
 
             case 'aroundMe':
@@ -428,7 +410,7 @@ class EventController extends Controller {
                 $arrUserLocations = $modUserLocation->getUserLocation($user_id);
 
                 // get events list
-                $eventsList = $modEvent->getEventsByUserLocation($arrUserLocations[0], $arrUpEventIds);
+                $eventsList = $modEvent->getEventsByUserLocation($arrUserLocations[0], $arrAnsEventIds);
                 break;
 
             case 'perfectMatch':
@@ -445,7 +427,7 @@ class EventController extends Controller {
                 $arrUserLocations = $modUserLocation->getUserLocation($user_id);
 
                 // get events list
-                $eventsList = $modEvent->getUserEventsByInterestsAndLocation($arrUserInterestsIds, $arrUserLocations[0], $arrUpEventIds);
+                $eventsList = $modEvent->getUserEventsByInterestsAndLocation($arrUserInterestsIds, $arrUserLocations[0], $arrAnsEventIds);
                 break;
 
             case 'myNetwork':
@@ -460,7 +442,7 @@ class EventController extends Controller {
                 $arrUserLocations = $modUserLocation->getUserLocation($user_id);
 
                 // get events list
-                $eventsList = $modEvent->getEventsByCountry($arrUserLocations[0], $arrUpEventIds);
+                $eventsList = $modEvent->getEventsByCountry($arrUserLocations[0], $arrAnsEventIds);
         }
 
         if(!empty($eventsList)) {

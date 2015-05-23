@@ -33,6 +33,8 @@
         <ul class="list-group" id="eventListHome"></ul>
 
 
+
+        <!-- Past moments -->
         <h4 class="top40">Past Moments Highlights</h4>
         <div class="row">
             <div class="col-sm-6 col-md-4">
@@ -69,8 +71,11 @@
     </div>
 
     <div class="col-md-3">
+
+
+        <!-- upcoming moments -->
         <div class="panel panel-default">
-            <div class="panel-heading">My upcoming moments</div>
+            <div class="panel-heading small">My upcoming moments</div>
             <div id="myNextEvents-loading" class="text-center top20">
                 <i class="fa fa-spinner fa-spin fa-2x"></i>
             </div>

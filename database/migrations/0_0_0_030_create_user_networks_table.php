@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserFriendsTable extends Migration {
+class CreateUserNetworksTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,12 +12,12 @@ class CreateUserFriendsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('user_friends', function(Blueprint $table)
+		Schema::create('user_networks', function(Blueprint $table)
 		{
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('usr_id')->on('users');
-            $table->integer('friend_id')->unsigned();
-            $table->foreign('friend_id')->references('usr_id')->on('users');
+            $table->integer('member_id')->unsigned();
+            $table->foreign('member_id')->references('usr_id')->on('users');
 		});
 	}
 
@@ -28,7 +28,7 @@ class CreateUserFriendsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('user_friends');
+		Schema::drop('user_networks');
 	}
 
 }

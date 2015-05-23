@@ -31,7 +31,7 @@
                             <span id="info-item-list" class="pull-right">
                                 <i id="join-loading" class="fa fa-spinner fa-spin" style="display: none"></i>
                                 <a role="button" href="#" class="btn btn-default btn-xs join-event" data-event-id="{{ $event->eve_id }}"><i class="fa fa-user-plus"></i> {{trans('messages.join')}}</a>
-                                <a role="button" href="#" class="btn btn-default btn-xs decline-event" data-event-id="{{ $event->eve_id }}"><i class="fa fa-user-times"></i> decline</a>
+                                <a role="button" href="#" class="btn btn-default btn-xs decline-event" data-event-id="{{ $event->eve_id }}"><i class="fa fa-user-times"></i> Decline</a>
                             </span>
                 </p>
             </div>
@@ -42,5 +42,5 @@
 @endforeach
 
 @if (empty($data->events))
-No moments found <a href="">Create your moment</a>
+No moments found. <a href="{{action('EventController@getCreate')}}">Create a moment</a>
 @endif

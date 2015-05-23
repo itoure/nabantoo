@@ -118,10 +118,28 @@ class Event extends Model {
 
         $query = DB::table('user_events')
             ->join('users', 'users.usr_id', '=', 'user_events.user_id')
-            ->where('user_events.event_id', '=', $event_id);
+            ->where('user_events.event_id', '=', $event_id)
+            ->where('user_events.user_event_choice', '=', 'ok');
 
         $result = $query->get();
         //dd($result);
+
+        return $result;
+
+    }
+
+
+    public function getAnsweredEventsByUser($user_id) {
+
+        $query = DB::table('user_events')
+            ->join('events', 'user_events.event_id', '=', 'events.eve_id')
+            ->join('users', 'users.usr_id', '=', 'events.user_id')
+            ->join('interests', 'interests.int_id', '=', 'events.interest_id')
+            ->join('categories', 'interests.category_id', '=', 'categories.cat_id')
+            ->where('user_events.user_id', '=', $user_id);
+
+        $result = $query->get();
+        //dd($result->toSql);
 
         return $result;
 
@@ -150,6 +168,7 @@ class Event extends Model {
         $query = DB::table('events')
             ->join('users', 'users.usr_id', '=', 'events.user_id')
             ->join('interests', 'interests.int_id', '=', 'events.interest_id')
+            ->leftJoin('user_events', 'user_events.event_id', '=', 'events.eve_id')
             ->where('events.eve_id', '=', $event_id);
 
         $result = $query->first();
@@ -162,7 +181,9 @@ class Event extends Model {
 
     public function countParticipantsByEvent($event_id) {
 
-        $count = UserEvent::where('event_id', '=', $event_id)->count();
+        $count = UserEvent::where('event_id', '=', $event_id)
+            ->where('user_events.user_event_choice', '=', 'ok')
+            ->count();
         //dd($count);
 
         return $count;

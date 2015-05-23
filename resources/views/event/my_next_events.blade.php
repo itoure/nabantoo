@@ -19,5 +19,6 @@
 </ul>
 
 @if (empty($data->upcomingEvents))
-No moments
+No moments.
+<div><a href="{{action('EventController@getCreate')}}">Create a moment</a></div>
 @endif

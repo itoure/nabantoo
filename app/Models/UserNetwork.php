@@ -2,9 +2,9 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class UserFriend extends Model {
+class UserNetwork extends Model {
 
     public $timestamps = false;
-    protected $fillable = ['user_id', 'friend_id'];
+    protected $fillable = ['user_id', 'member_id'];
 
 }

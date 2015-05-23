@@ -40,7 +40,7 @@ var RdvApp = {
             e.preventDefault();
             RdvApp.joinUserToEvent($(this));
         });
-        $("a.join-event-detail").click(function (e) {
+        $("a.join-event-detail").on( "click", function (e) {
             e.preventDefault();
             RdvApp.joinUserToEventDetail($(this));
         });
@@ -50,6 +50,10 @@ var RdvApp = {
             e.preventDefault();
             RdvApp.declineUserToEvent($(this));
         });
+        $("a.decline-event-detail").on( "click", function (e) {
+            e.preventDefault();
+            RdvApp.declineUserToEventDetail($(this));
+        });
 
 
         $(".moments-filter").on( "click", function(e) {
@@ -57,6 +61,10 @@ var RdvApp = {
             RdvApp.fetchEventListHome($(this));
         });
 
+        $(".manage-network").on( "click", function(e) {
+            e.preventDefault();
+            RdvApp.addUserToNetwork($(this));
+        });
 
         // init select2
         $(".select-interests").select2();
@@ -89,6 +97,52 @@ var RdvApp = {
 
         // validate form
         RdvApp.validateFormEvent();
+
+    },
+
+
+    addUserToNetwork: function(object) {
+
+        $('#network-loading').show();
+        var block = $("#host-block");
+        var user_id = object.attr('data-user-id');
+        var action = object.attr('data-action');
+        var url = "/user/manage-network";
+        //var elm = $('.event_id_'+event_id);
+
+        $.ajax(url,{
+            data: {
+                user_id: user_id,
+                action: action
+            },
+            success:function(data){
+                $('#network-loading').hide();
+                if(data.response){
+
+                    if(action == 'add'){
+                        object.removeClass('btn-primary');
+                        object.addClass('btn-default');
+                        object.attr('data-action', 'remove');
+
+                        object.html('Remove network');
+                    }
+                    else{
+                        object.removeClass('btn-default');
+                        object.addClass('btn-primary');
+                        object.attr('data-action', 'add');
+
+                        object.html('Add network');
+                    }
+
+
+                } else {
+
+                }
+            },
+            error:function(data){
+
+            }
+        });
 
     },
 
@@ -240,6 +294,36 @@ var RdvApp = {
     },
 
 
+    declineUserToEventDetail: function (object) {
+
+        var url = "/event/decline-user-to-event";
+        var event_id = object.attr('data-event-id');
+        var elm = $('.panel-event-detail');
+
+        elm.find('#loading').show();
+
+        $.ajax(url,{
+            data: {
+                event_id: event_id
+            },
+            context : object,
+            success:function(data){
+                elm.find('#loading').hide();
+                if(data.response){
+
+                    elm.find('#info-event-detail').html('<i class="fa fa-thumbs-o-down text-danger"></i> declined - <a href="">cancel?</a>');
+
+                } else {
+
+                }
+            },
+            error:function(data){
+
+            }
+        });
+    },
+
+
     joinUserToEvent: function (object) {
 
         var url = "/event/join-user-to-event";
@@ -286,7 +370,7 @@ var RdvApp = {
         var event_id = object.attr('data-event-id');
         var elm = $('.panel-event-detail');
 
-        elm.find('#join-loading').show();
+        elm.find('#loading').show();
 
         $.ajax(url,{
             data: {
@@ -297,14 +381,7 @@ var RdvApp = {
                 elm.find('#join-loading').hide();
                 if(data.response){
 
-                    var htmlAlert = '<div id="join-alert-'+event_id+'" class="alert alert-success" role="alert">Votre participation pour a bien été prise en compte.</div>';
-                    $('#alerts').append(htmlAlert);
-
-                    $("#join-alert-"+event_id).delay(4000).slideUp('slow', function(){
-                        $("#join-alert-"+event_id).alert('close');
-                    });
-
-                    elm.find('#info-event-detail').html('<i class="fa fa-check-square-o fa-2x text-success"></i> Your are going to this moment - <a href="">cancel?</a>');
+                    elm.find('#info-event-detail').html('<i class="fa fa-thumbs-o-up text-success"></i> going - <a href="">cancel?</a>');
 
                     RdvApp.fetchEventParticipantsList();
                     RdvApp.fetchCountParticipants();

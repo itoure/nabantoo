@@ -12,5 +12,5 @@
 @endforeach
 
 @if (empty($data->participantsList))
-No participants
+No participants.
 @endif

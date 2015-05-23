@@ -2,6 +2,15 @@
 
 @section('content')
 
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
 <div class="row">
 
     <div class="col-md-offset-1 col-md-7">
@@ -19,19 +28,26 @@
                     <tr><td><i class="fa fa-info-circle fa-2x text-warning"></i></td><td>{{$data->event->eve_details}}</td></tr>
                 </table>
 
+                <div class="fb-share-button pull-left" data-href="{{Request::url()}}" data-layout="button"></div>
+
                 <div id="info-event-detail" class="small pull-right">
-                @if ($data->isUserComing)
-                <i class="fa fa-check-square-o fa-2x text-success"></i> Your are going to this moment - <a href="">cancel?</a>
+                @if ($data->event->user_event_choice == 'ok')
+                    <i class="fa fa-thumbs-o-up text-success"></i> going - <a href="">cancel</a>
+                @elseif($data->event->user_event_choice == 'ko')
+                    <i class="fa fa-thumbs-o-down text-danger"></i> declined - <a href="">cancel</a>
                 @else
-                    <i id="join-loading" class="fa fa-spinner fa-spin" style="display: none"></i>
+                    <i id="loading" class="fa fa-spinner fa-spin" style="display: none"></i>
                     <a role="button" href="#" class="btn btn-default btn-xs join-event-detail" data-event-id="{{ $data->event->eve_id }}"><i class="fa fa-user-plus"></i> {{trans('messages.join')}}</a>
-                    <a role="button" href="#" class="btn btn-default btn-xs" data-event-id="{{ $data->event->eve_id }}"><i class="fa fa-user-times"></i> decline</a>
+                    <a role="button" href="#" class="btn btn-default btn-xs decline-event-detail" data-event-id="{{ $data->event->eve_id }}"><i class="fa fa-user-times"></i> Decline</a>
                 @endif
                 </div>
 
             </div>
         </div>
 
+
+
+        <!-- Messages -->
         <div class="panel panel-default">
             <div class="panel-heading">{{trans('messages.event_comments')}}</div>
             <div class="panel-body">
@@ -76,24 +92,38 @@
 
     </div>
 
+
     <div class="col-md-3">
+
+        <!-- Host -->
         <div class="panel panel-default">
-            <div class="panel-heading">{{trans('messages.owner')}}</div>
-            <div class="panel-body">
+            <div class="panel-heading small">{{trans('messages.owner')}}</div>
+            <div class="panel-body" id="host-block">
                 <div>
                     @if (!empty($data->event->usr_photo))
                     {!! Html::image('files/user/'.$data->event->usr_photo, '', array('class' => 'img-rounded img-user50')) !!}
                     @else
                     <img class="img-circle" src="holder.js/50x50?text={{ $data->event->usr_first_letter }}" alt="">
                     @endif
-                    <a href="{{action('UserController@getProfile', array('user_id'=> $data->event->user_id))}}">{{$data->event->usr_firstname}}</a>
+                    <a href="{{action('UserController@getProfile', array('user_id'=> $data->event->usr_id))}}">{{$data->event->usr_firstname}}</a>
                 </div>
 
+                <div class="text-right">
+                    <i id="network-loading" class="fa fa-spinner fa-spin fa-2x" style="display: none"></i>
+                    @if ($data->event->isUserInMyNetwork)
+                        <a role="button" class="btn btn-default btn-xs manage-network" data-action="remove" data-user-id="{{$data->event->usr_id}}">Remove network</a>
+                    @else
+                        <a role="button" class="btn btn-primary btn-xs manage-network" data-action="add" data-user-id="{{$data->event->usr_id}}">Add network</a>
+                    @endif
+                </div>
             </div>
         </div>
 
+
+
+        <!-- Participants -->
         <div class="panel panel-default">
-            <div class="panel-heading">Participants</div>
+            <div class="panel-heading small">Participants</div>
             <div id="eventParticipants-loading" class="text-center top20">
                 <i class="fa fa-spinner fa-spin fa-2x"></i>
             </div>
@@ -102,8 +132,11 @@
             </div>
         </div>
 
+
+
+        <!-- Others moments -->
         <div class="panel panel-default">
-            <div class="panel-heading">Upcoming events for <span class="label label-primary">{{$data->event->int_name}}</span></div>
+            <div class="panel-heading small">Others moments in <span class="label label-primary">{{$data->event->int_name}}</span></div>
             <div class="panel-body">
                 <ul class="media-list">
                     @foreach ($data->eventsListByInterest as $event)
@@ -126,7 +159,7 @@
                 </ul>
 
                 @if (empty($data->eventsListByInterest))
-                No events
+                No moments.
                 @endif
             </div>
         </div>
