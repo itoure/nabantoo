@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder {
 		$this->call('LocationsTableSeeder');
 		$this->call('UserLocationsTableSeeder');
 		$this->call('EventsTableSeeder');
-		//$this->call('UserEventsTableSeeder');
+		$this->call('UserEventsTableSeeder');
 	}
 
 }
@@ -388,6 +388,16 @@ class EventsTableSeeder extends Seeder {
         ]);
 
         Event::create([
+            'eve_title' => 'Petit jogging aux parc de la tête d\'or',
+            'eve_details' => 'Sur un rythme cool biensur...',
+            'eve_start_date' => time(),
+            'eve_location' => 'Lyon, France',
+            'interest_id' => '2',
+            'user_id' => '4',
+            'location_id' => '10',
+        ]);
+
+        Event::create([
             'eve_title' => 'Restaurant sur le vieux port',
             'eve_details' => 'Venez decouvrir avec moi le nouveau restaurant branché sur le vieux port',
             'eve_start_date' => time(),
@@ -397,15 +407,46 @@ class EventsTableSeeder extends Seeder {
             'location_id' => '9',
         ]);
 
-        Event::create([
-            'eve_title' => 'Petit jogging aux parc de la tête d\'or',
-            'eve_details' => 'Sur un rythme cool biensur...',
-            'eve_start_date' => time(),
-            'eve_location' => 'Lyon, France',
-            'interest_id' => '2',
-            'user_id' => '4',
-            'location_id' => '10',
-        ]);
+    }
+
+}
+
+class UserEventsTableSeeder extends Seeder {
+
+    public function run()
+    {
+        DB::table('user_events')->delete();
+
+        UserEvent::create(array(
+            'user_id' => 1,
+            'event_id' => 1,
+            'user_event_choice' => 'ok'
+        ));
+
+        UserEvent::create(array(
+            'user_id' => 2,
+            'event_id' => 2,
+            'user_event_choice' => 'ok'
+        ));
+
+        UserEvent::create(array(
+            'user_id' => 3,
+            'event_id' => 3,
+            'user_event_choice' => 'ok'
+        ));
+
+        UserEvent::create(array(
+            'user_id' => 4,
+            'event_id' => 4,
+            'user_event_choice' => 'ok'
+        ));
+
+        UserEvent::create(array(
+            'user_id' => 5,
+            'event_id' => 5,
+            'user_event_choice' => 'ok'
+        ));
+
     }
 
 }
