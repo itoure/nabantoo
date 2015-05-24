@@ -108,6 +108,7 @@
                     <a href="{{action('UserController@getProfile', array('user_id'=> $data->event->usr_id))}}">{{$data->event->usr_firstname}}</a>
                 </div>
 
+                @if ($data->event->usr_id != $data->user_id)
                 <div class="text-right">
                     <i id="network-loading" class="fa fa-spinner fa-spin" style="display: none"></i>
                     @if ($data->event->isUserInMyNetwork)
@@ -116,6 +117,7 @@
                         <a role="button" class="btn btn-primary btn-xs manage-network" data-action="add" data-user-id="{{$data->event->usr_id}}">Add network</a>
                     @endif
                 </div>
+                @endif
             </div>
         </div>
 

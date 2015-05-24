@@ -210,16 +210,22 @@ class UserController extends Controller {
         // get user calendar
         $modEvent = new Event();
         $upcomingEvents = $modEvent->getUpcommingEventsByUser($user_id);
-
         foreach($upcomingEvents as $event) {
             $event->eve_start_date = date('d M H:i', $event->eve_start_date);
+            $event->usr_first_letter = strtoupper($event->usr_firstname[0]);
+
+            // count people for the event
+            $event->count_people = $modEvent->countParticipantsByEvent($event->eve_id);
         }
 
         // get hosted events
         $arrHostEvents = $modEvent->getHostEventByUser($user_id);
-
         foreach($arrHostEvents as $event) {
             $event->eve_start_date = date('d M H:i', $event->eve_start_date);
+            $event->usr_first_letter = strtoupper($event->usr_firstname[0]);
+
+            // count people for the event
+            $event->count_people = $modEvent->countParticipantsByEvent($event->eve_id);
         }
         //dd($arrHostEvents);
 
@@ -231,6 +237,7 @@ class UserController extends Controller {
         $data->user = $user;
         $data->upcomingEvents = $upcomingEvents;
         $data->hostEvents = $arrHostEvents;
+        $data->user_id = $current_user_id;
 
         return view('user/profile')->with('data', $data);
 

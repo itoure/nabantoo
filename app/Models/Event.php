@@ -150,6 +150,7 @@ class Event extends Model {
 
         $query = DB::table('user_events')
             ->join('events', 'user_events.event_id', '=', 'events.eve_id')
+            ->join('locations', 'locations.loc_id', '=', 'events.location_id')
             ->join('users', 'users.usr_id', '=', 'events.user_id')
             ->join('interests', 'interests.int_id', '=', 'events.interest_id')
             ->join('categories', 'interests.category_id', '=', 'categories.cat_id')
@@ -206,6 +207,8 @@ class Event extends Model {
     public function getHostEventByUser($user_id) {
 
         $query = DB::table('events')
+            ->join('users', 'users.usr_id', '=', 'events.user_id')
+            ->join('locations', 'locations.loc_id', '=', 'events.location_id')
             ->join('interests', 'interests.int_id', '=', 'events.interest_id')
             ->join('categories', 'interests.category_id', '=', 'categories.cat_id')
             ->where('events.user_id', '=', $user_id);

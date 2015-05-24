@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="row">
-    <div class="col-md-offset-1 col-md-7">
+    <div class="col-md-offset-2 col-md-8">
         <div class="panel panel-default">
             <div class="panel-heading">{{trans('messages.my_account')}}</div>
             <div class="panel-body">
@@ -102,14 +102,6 @@
 
                 {!! Form::close() !!}
 
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-3">
-        <div class="panel panel-default">
-            <div class="panel-heading">{{trans('messages.account_my_event')}}</div>
-            <div class="panel-body">
             </div>
         </div>
     </div>

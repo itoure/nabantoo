@@ -49,7 +49,7 @@
                 </ul>
                 <div class="navbar-right">
                     <ul class="nav navbar-nav">
-                        <li><a href="{{action('UserController@getAccount')}}">{{trans('messages.my_account')}}</a></li>
+                        <li><a href="{{action('UserController@getProfile', array('user_id' => $user->usr_id))}}">{{trans('messages.my_account')}}</a></li>
                         <li><a href="{{action('Auth\AuthController@getLogout')}}">{{trans('messages.logout')}}</a></li>
                     </ul>
                 </div>

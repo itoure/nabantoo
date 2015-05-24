@@ -13,16 +13,17 @@ var RdvApp = {
 
         // isotope
         // initialize Isotope
-        /*var $container = $('#eventListHome').isotope({
+        var $container = $('#pastMomentsBlock').isotope({
             // options
-            itemSelector: '.event-item'
+            itemSelector: '.past-moment'
         });
 
         // layout Isotope again after all images have loaded
         $container.imagesLoaded( function() {
-            $container.isotope('vetical');
+            $container.isotope('masonry');
         });
 
+        /*
         $('#filters').on( 'click', 'button', function() {
             var filterValue = $(this).attr('data-filter');
             $container.isotope({ filter: filterValue });

@@ -14,13 +14,15 @@
             @endif
         </div>
 
+        <h4>Moments List</h4>
+
         <div id="filters">
             <a role="button" class="btn btn-default btn-sm moments-filter default-filter" data-filter="all">{{trans('messages.all')}}</a>
             <a role="button" class="btn btn-default btn-sm moments-filter" data-filter="fitToMe">{{trans('messages.fit_to_me')}}</a>
             <a role="button" class="btn btn-default btn-sm moments-filter" data-filter="aroundMe">{{trans('messages.around_me')}}</a>
             <a role="button" class="btn btn-default btn-sm moments-filter" data-filter="perfectMatch">{{trans('messages.exact_match')}}</a>
             <a role="button" class="btn btn-default btn-sm moments-filter" data-filter="myNetwork">My Network</a>
-            <a role="button" class="btn btn-default btn-sm moments-filter" data-filter="myMoments">My Moments</a>
+            <a role="button" class="btn btn-default btn-sm moments-filter hide" data-filter="myMoments">My Moments</a>
         </div>
     </div>
 </div>
@@ -31,47 +33,9 @@
             <i class="fa fa-spinner fa-spin fa-4x"></i>
         </div>
         <ul class="list-group" id="eventListHome"></ul>
-
-
-
-        <!-- Past moments -->
-        <h4 class="top40">Past Moments Highlights</h4>
-        <div class="row">
-            <div class="col-sm-6 col-md-4">
-                <div class="thumbnail">
-                    <img src="holder.js/100px100" alt="">
-                    <div class="caption">
-                        <h3>Thumbnail label</h3>
-                        <p>...</p>
-                        <p><a href="#" class="btn btn-primary" role="button">Button</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-4">
-                <div class="thumbnail">
-                    <img src="holder.js/100px100?text=" alt="">
-                    <div class="caption">
-                        <h3>Thumbnail label</h3>
-                        <p>...</p>
-                        <p><a href="#" class="btn btn-primary" role="button">Button</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-4">
-                <div class="thumbnail">
-                    <img src="holder.js/100px100?text=" alt="">
-                    <div class="caption">
-                        <h3>Thumbnail label</h3>
-                        <p>...</p>
-                        <p><a href="#" class="btn btn-primary" role="button">Button</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
     <div class="col-md-3">
-
 
         <!-- upcoming moments -->
         <div class="panel panel-default">
@@ -88,5 +52,30 @@
 
 </div>
 
+
+<!-- Past moments -->
+<h4 class="top40">Past Moments Highlights</h4>
+<div id="filters-hl">
+    <a role="button" class="btn btn-default btn-sm moments-filter default-filter" data-filter="all">{{trans('messages.all')}}</a>
+    <a role="button" class="btn btn-default btn-sm moments-filter" data-filter="fitToMe">Sports</a>
+    <a role="button" class="btn btn-default btn-sm moments-filter" data-filter="aroundMe">Outings</a>
+    <a role="button" class="btn btn-default btn-sm moments-filter" data-filter="perfectMatch">Games</a>
+</div>
+
+<div class="row top30" id="pastMomentsBlock">
+
+    @for ($i = 1; $i < 9; $i++)
+    <div class="col-xs-6 col-sm-4 col-md-3 past-moment">
+        <div class="thumbnail">
+            <img src="http://i.imgur.com/6EYMizr.png" alt="">
+            <div class="caption">
+                <h5>Moments {{$i}}</h5>
+                <p><a href="#" class="btn btn-primary btn-xs" role="button">See photos</a></p>
+            </div>
+        </div>
+    </div>
+    @endfor
+
+</div>
 
 @endsection
