@@ -197,6 +197,9 @@ class UserController extends Controller {
 
     public function getProfile($user_id) {
 
+        // get user_id
+        $current_user_id = $this->request->user()->usr_id;
+
         // get complete user
         $modUser = new User();
         $user = $modUser->getCompleteUserById($user_id);
@@ -219,6 +222,9 @@ class UserController extends Controller {
             $event->eve_start_date = date('d M H:i', $event->eve_start_date);
         }
         //dd($arrHostEvents);
+
+        // is user is in network
+        $user->isUserInMyNetwork = $modUser->isUserInMyNetwork($current_user_id, $user_id);
 
         // params
         $data = new \stdClass();

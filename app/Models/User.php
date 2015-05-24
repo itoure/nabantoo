@@ -49,4 +49,13 @@ class User extends Model {
     }
 
 
+    public function getNetworkMemberIdByUser($user_id) {
+
+        $network = DB::table('user_networks')->where('user_networks.user_id', '=', $user_id)->lists('user_networks.member_id');
+
+        return $network;
+
+    }
+
+
 }

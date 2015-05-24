@@ -28,13 +28,7 @@ class UserInterest extends Model {
 
     public function getUserInterestIds($usr_id) {
 
-        $dbUserInterest = self::where('user_id', '=', $usr_id)->get();
-
-        $arrUserInterestIds = array();
-        foreach($dbUserInterest as $interest){
-            $arrUserInterestIds[] = $interest->interest_id;
-        }
-
+        $arrUserInterestIds = self::where('user_id', '=', $usr_id)->lists('interest_id');
         return $arrUserInterestIds;
 
     }

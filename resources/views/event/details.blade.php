@@ -109,7 +109,7 @@
                 </div>
 
                 <div class="text-right">
-                    <i id="network-loading" class="fa fa-spinner fa-spin fa-2x" style="display: none"></i>
+                    <i id="network-loading" class="fa fa-spinner fa-spin" style="display: none"></i>
                     @if ($data->event->isUserInMyNetwork)
                         <a role="button" class="btn btn-default btn-xs manage-network" data-action="remove" data-user-id="{{$data->event->usr_id}}">Remove network</a>
                     @else

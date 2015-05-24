@@ -124,6 +124,7 @@ class EventController extends Controller {
             UserEvent::create(array(
                 'user_id' => $user_id,
                 'event_id' => $newEvent->eve_id,
+                'user_event_choice' => 'ok'
             ));
 
             return Redirect::action('HomeController@getIndex');
@@ -206,7 +207,6 @@ class EventController extends Controller {
         $data = new \stdClass();
         $data->event = $event;
         $data->eventsListByInterest = $this->_fetchEventsListByInterest($event->int_id, $event->eve_id);
-        //$data->participantsListByEvent = $this->_fetchParticipantsListByEvent($event->eve_id);
         $data->messages = $arrMessages;
         $data->user_id = $user_id;
 
@@ -394,11 +394,7 @@ class EventController extends Controller {
             case 'fitToMe':
                 // get user interests list
                 $modUserInterest = new UserInterest();
-                $arrUserInterests = $modUserInterest->getUserInterests($user_id);
-                $arrUserInterestsIds = array();
-                foreach($arrUserInterests as $int_id => $interest){
-                    $arrUserInterestsIds[] = $int_id;
-                }
+                $arrUserInterestsIds = $modUserInterest->getUserInterestIds($user_id);
 
                 // get events list
                 $eventsList = $modEvent->getEventsByUserInterests($arrUserInterestsIds, $arrAnsEventIds);
@@ -416,11 +412,7 @@ class EventController extends Controller {
             case 'perfectMatch':
                 // get user interests list
                 $modUserInterest = new UserInterest();
-                $arrUserInterests = $modUserInterest->getUserInterests($user_id);
-                $arrUserInterestsIds = array();
-                foreach($arrUserInterests as $int_id => $interest){
-                    $arrUserInterestsIds[] = $int_id;
-                }
+                $arrUserInterestsIds = $modUserInterest->getUserInterestIds($user_id);
 
                 // get user location
                 $modUserLocation = new UserLocation();
@@ -431,6 +423,11 @@ class EventController extends Controller {
                 break;
 
             case 'myNetwork':
+                $modUser = new User();
+                $arrMemberIds = $modUser->getNetworkMemberIdByUser($user_id);
+
+                $eventsList = $modEvent->getEventsInNetwork($arrMemberIds);
+
                 break;
 
             case 'myMoments':

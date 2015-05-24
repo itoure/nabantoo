@@ -217,4 +217,21 @@ class Event extends Model {
 
     }
 
+
+    public function getEventsInNetwork($membersIds){
+
+        $query = DB::table('events')
+            ->join('locations', 'locations.loc_id', '=', 'events.location_id')
+            ->join('users', 'users.usr_id', '=', 'events.user_id')
+            ->join('interests', 'interests.int_id', '=', 'events.interest_id')
+            ->join('categories', 'interests.category_id', '=', 'categories.cat_id')
+            ->whereIn('events.user_id', $membersIds);
+
+        $result = $query->get();
+        //dd($result);
+
+        return $result;
+
+    }
+
 }

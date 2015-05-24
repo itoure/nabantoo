@@ -13,6 +13,15 @@
                 @endif
 
                 {{$data->user->usr_firstname}}
+
+                <div class="pull-right">
+                    <i id="network-loading" class="fa fa-spinner fa-spin" style="display: none"></i>
+                    @if ($data->user->isUserInMyNetwork)
+                    <a role="button" class="btn btn-default btn-xs manage-network" data-action="remove" data-user-id="{{$data->user->usr_id}}">Remove network</a>
+                    @else
+                    <a role="button" class="btn btn-primary btn-xs manage-network" data-action="add" data-user-id="{{$data->user->usr_id}}">Add network</a>
+                    @endif
+                </div>
             </div>
             <div class="panel-body">
                 <dl>
@@ -48,14 +57,14 @@
                 </ul>
 
                 @if (empty($data->upcomingEvents))
-                No upcoming events
+                No upcoming moments
                 @endif
             </div>
         </div>
 
 
         <div class="panel panel-default">
-            <div class="panel-heading">Events Host</div>
+            <div class="panel-heading">Moments Host</div>
             <div class="panel-body">
                 <ul class="media-list">
                     @foreach ($data->hostEvents as $event)
@@ -78,7 +87,7 @@
                 </ul>
 
                 @if (empty($data->hostEvents))
-                No host events
+                No host moments
                 @endif
             </div>
         </div>

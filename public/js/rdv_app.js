@@ -63,7 +63,7 @@ var RdvApp = {
 
         $(".manage-network").on( "click", function(e) {
             e.preventDefault();
-            RdvApp.addUserToNetwork($(this));
+            RdvApp.manageUserNetwork($(this));
         });
 
         // init select2
@@ -87,7 +87,6 @@ var RdvApp = {
 
         if ( $('#eventListHome').length ){
             $( ".default-filter" ).trigger( "click" );
-            //RdvApp.fetchEventListHome(null);
         }
 
         // load block myNextEvents
@@ -101,10 +100,9 @@ var RdvApp = {
     },
 
 
-    addUserToNetwork: function(object) {
+    manageUserNetwork: function(object) {
 
         $('#network-loading').show();
-        var block = $("#host-block");
         var user_id = object.attr('data-user-id');
         var action = object.attr('data-action');
         var url = "/user/manage-network";
