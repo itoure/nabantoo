@@ -29,12 +29,6 @@ var RdvApp = {
             $container.isotope({ filter: filterValue });
         });*/
 
-        // manage tabs
-        /*$(".home-tabs a").click(function (e) {
-            e.preventDefault();
-            $(this).tab('show');
-            RdvApp.getTabContent($(this));
-        });*/
 
         // join event
         $("#eventListHome").on( "click", 'a.join-event', function(e) {
@@ -62,10 +56,7 @@ var RdvApp = {
             RdvApp.fetchEventListHome($(this));
         });
 
-        $(".manage-network").on( "click", function(e) {
-            e.preventDefault();
-            RdvApp.manageUserNetwork($(this));
-        });
+
 
         // init select2
         $(".select-interests").select2();
@@ -97,51 +88,6 @@ var RdvApp = {
 
         // validate form
         RdvApp.validateFormEvent();
-
-    },
-
-
-    manageUserNetwork: function(object) {
-
-        $('#network-loading').show();
-        var user_id = object.attr('data-user-id');
-        var action = object.attr('data-action');
-        var url = "/user/manage-network";
-        //var elm = $('.event_id_'+event_id);
-
-        $.ajax(url,{
-            data: {
-                user_id: user_id,
-                action: action
-            },
-            success:function(data){
-                $('#network-loading').hide();
-                if(data.response){
-
-                    if(action == 'add'){
-                        object.removeClass('btn-primary');
-                        object.addClass('btn-default');
-                        object.attr('data-action', 'remove');
-
-                        object.html('Remove network');
-                    }
-                    else{
-                        object.removeClass('btn-default');
-                        object.addClass('btn-primary');
-                        object.attr('data-action', 'add');
-
-                        object.html('Add network');
-                    }
-
-
-                } else {
-
-                }
-            },
-            error:function(data){
-
-            }
-        });
 
     },
 
@@ -452,44 +398,6 @@ var RdvApp = {
 
     }
 
-    /*getTabContent: function (object) {
-
-        var tab = object.attr('href');
-
-        switch (tab) {
-            case '#interesting':
-                var url = "/event/fetch-tab-content-interesting";
-                break;
-            case '#upcomming':
-                var url = "/event/fetch-tab-content-upcomming";
-                break;
-            case '#friends':
-                var url = "/event/fetch-tab-content-friends";
-                break;
-            default:
-                tab = '#interesting';
-                var url = "/event/fetch-tab-content-interesting";
-                break;
-        }
-
-
-        $.ajax(url,{
-            data: {},
-            context : object,
-            success:function(data){
-                if(data.response){
-                    $(tab).html(data.data.html);
-                    Holder.run();
-                } else {
-
-                }
-            },
-            error:function(data){
-
-            }
-        });
-
-    }*/
 
 }
 

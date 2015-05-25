@@ -169,7 +169,7 @@ class Event extends Model {
         $query = DB::table('events')
             ->join('users', 'users.usr_id', '=', 'events.user_id')
             ->join('interests', 'interests.int_id', '=', 'events.interest_id')
-            ->leftJoin('user_events', 'user_events.event_id', '=', 'events.eve_id')
+            ->join('categories', 'interests.category_id', '=', 'categories.cat_id')
             ->where('events.eve_id', '=', $event_id);
 
         $result = $query->first();
@@ -234,6 +234,18 @@ class Event extends Model {
         //dd($result);
 
         return $result;
+
+    }
+
+
+    public function getEventStatus($event_id, $user_id){
+
+        $user_event_choice = DB::table('user_events')
+            ->where('user_events.event_id', '=', $event_id)
+            ->where('user_events.user_id', '=', $user_id)
+            ->pluck('user_event_choice');
+
+        return $user_event_choice;
 
     }
 

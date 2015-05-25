@@ -90,10 +90,6 @@ div.panel-title {
     padding-left: 0;
 }
 
-.media-left, .media > .pull-left {
-    padding-right: 5px;
-}
-
 .panel-body {
     padding: 5px;
 }

@@ -17,7 +17,14 @@
         <div class="panel panel-default panel-event-detail">
             <div class="panel-heading panel-title">{{$data->event->eve_title}}</div>
             <div class="panel-body">
-                <table class="table">
+
+                @if (!empty($data->event->eve_photo))
+                {!! Html::image('img/interests/'.$data->event->eve_photo, '', array('class' => 'img-event-item')) !!}
+                @else
+                <img class="" src="holder.js/100px200?text={{ $data->event->int_name }}&theme={{$data->event->cat_color}}" alt="">
+                @endif
+
+                <table class="table table-striped">
                     <tr><td><i class="fa fa-tag fa-2x"></i></td><td>{{$data->event->int_name}}</td></tr>
                     <tr><td><i class="fa fa-calendar fa-2x"></i></td><td>{{$data->event->eve_start_date}}</td></tr>
                     <tr><td><i class="fa fa-map-marker fa-2x text-danger"></i></td><td>{{$data->event->eve_location}}</td></tr>

@@ -187,6 +187,7 @@ class EventController extends Controller {
         // get event
         $modEvent = new Event();
         $event = $modEvent->getCompleteEventById($event_id);
+        //dd($event);
 
         // count people for an event
         $count_participants = $modEvent->countParticipantsByEvent($event_id);
@@ -203,6 +204,8 @@ class EventController extends Controller {
 
         // get first letter
         $event->usr_first_letter = strtoupper($event->usr_firstname[0]);
+
+        $event->user_event_choice = $modEvent->getEventStatus($event->eve_id, $user_id);
 
         $data = new \stdClass();
         $data->event = $event;
