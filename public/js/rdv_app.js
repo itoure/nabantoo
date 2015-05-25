@@ -72,7 +72,7 @@ var RdvApp = {
         $(".multiselect-interests-user").select2();
 
         // tooltips
-        //$('[data-toggle="tooltip"]').tooltip();
+        $('[data-toggle="tooltip"]').tooltip();
 
         // alerts
         $("#welcome-alert").delay(4000).slideUp('slow', function(){

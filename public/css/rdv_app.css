@@ -36,17 +36,11 @@ body {
     padding-top: 12px;
 }
 
-.img-user40 {
-    width: 40px;
-}
-
-.img-user30 {
-    width: 30px;
-}
-
-.img-user50 {
-    width: 50px;
-}
+.img-user40 {width: 40px;}
+.img-user30 {width: 30px;}
+.img-user50 {width: 50px;}
+.img-user80 {width: 80px;}
+.img-user150 {width: 150px;}
 
 .no-margin-bottom {
     margin-bottom: 0;
@@ -110,3 +104,5 @@ div.panel-title {
 .right20 {margin-right: 20px }
 .right30 {margin-right: 30px }
 .right40 {margin-right: 40px }
+
+.bottom15 {margin-bottom: 15px}

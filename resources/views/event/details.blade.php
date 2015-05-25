@@ -23,7 +23,7 @@
                     <tr><td><i class="fa fa-map-marker fa-2x text-danger"></i></td><td>{{$data->event->eve_location}}</td></tr>
                     <tr>
                         <td><i class="fa fa-users fa-2x text-success"></i></td>
-                        <td><span id="event-count-participant" class="badge" data-event-id="{{ $data->event->eve_id }}">{{$data->event->count_participants}}</span></td>
+                        <td><span id="event-count-participant" class="badge">{{$data->event->count_participants}}</span></td>
                     </tr>
                     <tr><td><i class="fa fa-info-circle fa-2x text-warning"></i></td><td>{{$data->event->eve_details}}</td></tr>
                 </table>
@@ -100,12 +100,21 @@
             <div class="panel-heading small">{{trans('messages.owner')}}</div>
             <div class="panel-body" id="host-block">
                 <div>
-                    @if (!empty($data->event->usr_photo))
-                    {!! Html::image('files/user/'.$data->event->usr_photo, '', array('class' => 'img-rounded img-user50')) !!}
-                    @else
-                    <img class="img-circle" src="holder.js/50x50?text={{ $data->event->usr_first_letter }}" alt="">
-                    @endif
-                    <a href="{{action('UserController@getProfile', array('user_id'=> $data->event->usr_id))}}">{{$data->event->usr_firstname}}</a>
+                    <ul class="media-list">
+                        <li class="media">
+                            <div class="media-left">
+                                @if (!empty($data->event->usr_photo))
+                                {!! Html::image('files/user/'.$data->event->usr_photo, '', array('class' => 'img-rounded img-user80')) !!}
+                                @else
+                                <img class="img-rounded" src="holder.js/80x80?text={{ $data->event->usr_first_letter }}" alt="">
+                                @endif
+                            </div>
+                            <div class="media-body">
+                                <a href="{{action('UserController@getProfile', array('user_id'=> $data->event->usr_id))}}">{{$data->event->usr_firstname}}</a>
+                                <p><i class="fa fa-trophy"></i> <small class="badge">23</small></p>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
 
                 @if ($data->event->usr_id != $data->user_id)
@@ -154,7 +163,7 @@
                             <a class="small" href="{{action('EventController@getDetails', array('event_id'=> $event->eve_id))}}">
                                 {{ $event->eve_title }}
                             </a>
-                            <p><i class="fa fa-calendar small"></i> <small>{{ $event->eve_start_date }}</small></p>
+                            <p><i class="fa fa-calendar"></i> <small>{{ $event->eve_start_date }}</small></p>
                         </div>
                     </li>
                     @endforeach

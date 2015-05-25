@@ -7,9 +7,9 @@
 
             <div class="pull-left right20">
             @if (!empty($data->user->usr_photo))
-            {!! Html::image('files/user/'.$data->user->usr_photo, '', array('class' => 'img-rounded img-user50')) !!}
+            {!! Html::image('files/user/'.$data->user->usr_photo, '', array('class' => 'img-rounded img-user150')) !!}
             @else
-            <img class="img-rounded" src="holder.js/100x100?theme=social&text={{ $data->user->usr_first_letter }}" alt="">
+            <img class="img-rounded" src="holder.js/150x150?theme=social&text={{ $data->user->usr_first_letter }}" alt="">
             @endif
             </div>
 
@@ -32,6 +32,7 @@
 
                     <dd>{{$data->user->usr_location}}</dd>
                     <dd>Interests : {!! implode(', ', $data->user->interests) !!}</dd>
+                    <dd><i class="fa fa-trophy"></i> <small class="badge">23</small></dd>
 
                     @if ($data->user->usr_id == $data->user_id)
                     <dd class="small"><a href="{{action('UserController@getAccount')}}">edit profile</a></dd>
@@ -72,7 +73,7 @@
                             @if (!empty($event->usr_photo))
                             {!! Html::image('files/user/'.$event->usr_photo, '', array('class' => 'img-user30 img-rounded')) !!}
                             @else
-                            <img class="img-circle" src="holder.js/30x30?text={{ $event->usr_first_letter }}" alt="">
+                            <img class="img-rounded" src="holder.js/30x30?text={{ $event->usr_first_letter }}" alt="">
                             @endif
                             <a href="{{action('UserController@getProfile', array('user_id'=> $event->usr_id))}}" class="small">{{ $event->usr_firstname }}</a>
 
@@ -121,12 +122,6 @@
                             <i class="fa fa-users text-success"></i> <small>{{ $event->count_people }}</small>
                         </p>
                         <p class="marg-bot5">
-                            @if (!empty($event->usr_photo))
-                            {!! Html::image('files/user/'.$event->usr_photo, '', array('class' => 'img-user30 img-rounded')) !!}
-                            @else
-                            <img class="img-circle" src="holder.js/30x30?text={{ $event->usr_first_letter }}" alt="">
-                            @endif
-
                             <span id="info-item-list" class="pull-right">
                                 <i id="join-loading" class="fa fa-spinner fa-spin" style="display: none"></i>
                                 <i class="fa fa-user text-success"></i> host - <a href="">edit</a>

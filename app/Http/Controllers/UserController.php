@@ -73,11 +73,8 @@ class UserController extends Controller {
         $fileFolder = env('APP_FILE_FOLDER');
 
         $rules = array(
-            'firstname' => 'required|alpha',
-            'sexe' => 'required|alpha|size:1',
-            'month' => 'required|integer',
-            'day' => 'required|integer',
-            'year' => 'required|integer',
+            'usr_firstname' => 'required|alpha',
+            'usr_sexe' => 'required|alpha|size:1',
             'interests' => 'array',
             'usr_location' => 'required|string',
         );
@@ -87,8 +84,8 @@ class UserController extends Controller {
         if ($validator->fails()) {
             return Redirect::action('UserController@getAccount')->withErrors($validator)->withInput();
         } else {
-            $firstname = Input::get('firstname');
-            $sexe = Input::get('sexe');
+            $firstname = Input::get('usr_firstname');
+            $sexe = Input::get('usr_sexe');
             $month = Input::get('month');
             $day = Input::get('day');
             $year = Input::get('year');
@@ -100,9 +97,9 @@ class UserController extends Controller {
 
             // update user
             $user = User::findOrFail($usr_id);
-            $user->firstname = $firstname;
-            $user->sexe = $sexe;
-            $user->birthday = strtotime($month.'/'.$day.'/'.$year);
+            $user->usr_firstname = $firstname;
+            $user->usr_sexe = $sexe;
+            $user->usr_birthday = strtotime($month.'/'.$day.'/'.$year);
             $user->usr_location = $location;
 
             // photo
@@ -116,7 +113,6 @@ class UserController extends Controller {
             }
 
             $user->save();
-
 
             // delete then update
             UserLocation::where('user_id', '=', $usr_id)->delete();
@@ -145,7 +141,7 @@ class UserController extends Controller {
                 }
             }
 
-            return Redirect::action('HomeController@getIndex');
+            return Redirect::action('UserController@getProfile', array('user_id' => $usr_id));
         }
 
     }
@@ -178,10 +174,9 @@ class UserController extends Controller {
 
         // get birthday
         $birthday = new \stdClass();
-        $birthday->month = !empty($user->birthday) ? date('n', $user->birthday) : null;
-        $birthday->day = !empty($user->birthday) ? date('j', $user->birthday) : null;
-        $birthday->year = !empty($user->birthday) ? date('Y', $user->birthday) : null;
-
+        $birthday->month = !empty($user->usr_birthday) ? date('n', $user->usr_birthday) : null;
+        $birthday->day = !empty($user->usr_birthday) ? date('j', $user->usr_birthday) : null;
+        $birthday->year = !empty($user->usr_birthday) ? date('Y', $user->usr_birthday) : null;
 
         // params
         $data = new \stdClass();

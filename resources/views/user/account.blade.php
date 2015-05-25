@@ -19,7 +19,7 @@
                 </div>
                 @endif
 
-                {!! Form::model($data->user, array('action' => 'UserController@postStore', 'files' => true)) !!}
+                {!! Form::model($data->user, array('action' => 'UserController@postStore', 'files' => true, 'id' => 'formEditUser')) !!}
 
                 {!! Form::hidden('usr_id', null) !!}
                 {!! Form::hidden('loc_id', $data->location->location_id) !!}

@@ -24,7 +24,7 @@
                     @if (!empty($event->usr_photo))
                     {!! Html::image('files/user/'.$event->usr_photo, '', array('class' => 'img-user30 img-rounded')) !!}
                     @else
-                    <img class="img-circle" src="holder.js/30x30?text={{ $event->usr_first_letter }}" alt="">
+                    <img class="img-rounded" src="holder.js/30x30?text={{ $event->usr_first_letter }}" alt="">
                     @endif
                     <a href="{{action('UserController@getProfile', array('user_id'=> $event->usr_id))}}" class="small">{{ $event->usr_firstname }}</a>
 

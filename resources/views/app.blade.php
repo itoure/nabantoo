@@ -30,7 +30,7 @@
 
 <body>
 
-<div class="container">
+<div class="container bottom15">
     <nav class="navbar navbar-default">
         <div class="container small">
             <div class="navbar-header">
