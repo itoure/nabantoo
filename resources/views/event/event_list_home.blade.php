@@ -18,7 +18,7 @@
                 <p>
                     <i class="fa fa-calendar"></i> <small>{{ $event->eve_start_date }}</small> |
                     <i class="fa fa-map-marker text-danger"></i> <small>{{ $event->short_locality }}</small> |
-                    <i class="fa fa-users text-success"></i> <small>{{ $event->count_people }}</small>
+                    <i class="fa fa-users text-success"></i> <small>{{ $event->count_people }} / {{ $event->eve_people_limit_max }}</small>
                 </p>
                 <p class="marg-bot5">
                     @if (!empty($event->usr_photo))

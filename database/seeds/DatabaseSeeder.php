@@ -10,6 +10,7 @@ use App\Models\Location;
 use App\Models\UserLocation;
 use App\Models\Event;
 use App\Models\UserEvent;
+use App\Models\EventDate;
 
 class DatabaseSeeder extends Seeder {
 
@@ -30,6 +31,7 @@ class DatabaseSeeder extends Seeder {
 		$this->call('UserLocationsTableSeeder');
 		$this->call('EventsTableSeeder');
 		$this->call('UserEventsTableSeeder');
+		$this->call('EventDatesTableSeeder');
 	}
 
 }
@@ -102,6 +104,7 @@ class UsersTableSeeder extends Seeder {
             'usr_firstname' => 'Ibou',
             'usr_location' => 'Lyon, France',
             'usr_sexe' => 'M',
+            'usr_phone' => '0612345678',
             'usr_birthday' => 1066348800,
             'email' => 'ib.toure@gmail.com',
             'password' => bcrypt('123456')
@@ -111,6 +114,7 @@ class UsersTableSeeder extends Seeder {
             'usr_firstname' => 'Zlatan',
             'usr_location' => 'Paris, France',
             'usr_sexe' => 'M',
+            'usr_phone' => '0612345678',
             'usr_birthday' => 1066348800,
             'email' => 'zlatan.ibra@psg.net',
             'password' => bcrypt('123456')
@@ -120,6 +124,7 @@ class UsersTableSeeder extends Seeder {
             'usr_firstname' => 'Sean Carter',
             'usr_location' => 'New York, État de New York, États-Unis',
             'usr_sexe' => 'M',
+            'usr_phone' => '0612345678',
             'usr_birthday' => 1066348800,
             'email' => 'jayz@nyc.net',
             'password' => bcrypt('123456')
@@ -129,6 +134,7 @@ class UsersTableSeeder extends Seeder {
             'usr_firstname' => 'Eva Mendes',
             'usr_location' => 'Lyon, France',
             'usr_sexe' => 'F',
+            'usr_phone' => '0612345678',
             'usr_birthday' => 1066348800,
             'email' => 'eva.mendes@ol.net',
             'password' => bcrypt('123456')
@@ -138,6 +144,7 @@ class UsersTableSeeder extends Seeder {
             'usr_firstname' => 'Rihanna',
             'usr_location' => 'Marseille, France',
             'usr_sexe' => 'F',
+            'usr_phone' => '0612345678',
             'usr_birthday' => 1066348800,
             'email' => 'rihanna@ol.net',
             'password' => bcrypt('123456')
@@ -360,8 +367,12 @@ class EventsTableSeeder extends Seeder {
         Event::create([
             'eve_title' => 'Soccer 5v5',
             'eve_details' => 'Match de foot 5v5 au soccer five de Parilly',
-            'eve_start_date' => time(),
             'eve_location' => 'Lyon, France',
+            'eve_people_limit_min' => '10',
+            'eve_people_limit_max' => '10',
+            'eve_budget' => '7.50',
+            'eve_duration' => '60',
+            'eve_meeting_point' => 'rue de chez moi',
             'interest_id' => '1',
             'user_id' => '1',
             'location_id' => '6',
@@ -370,8 +381,12 @@ class EventsTableSeeder extends Seeder {
         Event::create([
             'eve_title' => 'Soirée disco au Macumba',
             'eve_details' => 'Préparer vous à enflammer la piste de danse sur des sons des années 80',
-            'eve_start_date' => time(),
             'eve_location' => 'Paris, France',
+            'eve_people_limit_min' => '10',
+            'eve_people_limit_max' => '50',
+            'eve_budget' => '17.50',
+            'eve_duration' => '240',
+            'eve_meeting_point' => 'rue de chez moi',
             'interest_id' => '18',
             'user_id' => '2',
             'location_id' => '7',
@@ -380,8 +395,10 @@ class EventsTableSeeder extends Seeder {
         Event::create([
             'eve_title' => 'Shopping sur la 5eme aveneue',
             'eve_details' => 'Salut les filles! Partantes pour une après-midi shopping',
-            'eve_start_date' => time(),
             'eve_location' => 'New York, État de New York, États-Unis',
+            'eve_people_limit_min' => '2',
+            'eve_people_limit_max' => '4',
+            'eve_meeting_point' => 'rue de chez moi',
             'interest_id' => '26',
             'user_id' => '3',
             'location_id' => '8',
@@ -390,8 +407,11 @@ class EventsTableSeeder extends Seeder {
         Event::create([
             'eve_title' => 'Petit jogging aux parc de la tête d\'or',
             'eve_details' => 'Sur un rythme cool biensur...',
-            'eve_start_date' => time(),
             'eve_location' => 'Lyon, France',
+            'eve_people_limit_min' => '2',
+            'eve_people_limit_max' => '10',
+            'eve_duration' => '45',
+            'eve_meeting_point' => 'rue de chez moi',
             'interest_id' => '2',
             'user_id' => '4',
             'location_id' => '10',
@@ -400,8 +420,11 @@ class EventsTableSeeder extends Seeder {
         Event::create([
             'eve_title' => 'Restaurant sur le vieux port',
             'eve_details' => 'Venez decouvrir avec moi le nouveau restaurant branché sur le vieux port',
-            'eve_start_date' => time(),
             'eve_location' => 'Marseille, France',
+            'eve_people_limit_min' => '4',
+            'eve_people_limit_max' => '10',
+            'eve_budget' => '50',
+            'eve_meeting_point' => 'rue de chez moi',
             'interest_id' => '20',
             'user_id' => '5',
             'location_id' => '9',
@@ -446,6 +469,43 @@ class UserEventsTableSeeder extends Seeder {
             'event_id' => 5,
             'user_event_choice' => 'ok'
         ));
+
+    }
+
+}
+
+
+class EventDatesTableSeeder extends Seeder {
+
+    public function run()
+    {
+        DB::table('event_dates')->delete();
+
+        EventDate::create(array(
+            'event_id' => 1,
+            'eve_start_date' => time()
+        ));
+
+        EventDate::create(array(
+            'event_id' => 2,
+            'eve_start_date' => time()
+        ));
+
+        EventDate::create(array(
+            'event_id' => 3,
+            'eve_start_date' => time()
+        ));
+
+        EventDate::create(array(
+            'event_id' => 4,
+            'eve_start_date' => time()
+        ));
+
+        EventDate::create(array(
+            'event_id' => 5,
+            'eve_start_date' => time()
+        ));
+
 
     }
 

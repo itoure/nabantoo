@@ -78,7 +78,7 @@ var RdvApp = {
         }
 
         if ( $('#eventListHome').length ){
-            $( ".default-filter" ).trigger( "click" );
+            //$( ".default-filter" ).trigger( "click" );
         }
 
         // load block myNextEvents
@@ -88,6 +88,8 @@ var RdvApp = {
 
         // validate form
         RdvApp.validateFormEvent();
+
+        RdvApp.fetchEventListHome();
 
     },
 
@@ -99,7 +101,14 @@ var RdvApp = {
 
         var block = $("#eventListHome");
         var url = "/event/fetch-event-list-home";
-        var filter = object.attr('data-filter');
+
+        if(object){
+            var filter = object.attr('data-filter');
+        }
+        else{
+            var filter = 'all';
+        }
+
 
         $.ajax(url,{
             data: {
@@ -201,6 +210,30 @@ var RdvApp = {
                         notEmpty: {
                             message: 'The details is required and cannot be empty'
                         }
+                    }
+                },
+                people_limit_max: {
+                    validators: {
+                        numeric: {
+                            message: 'The people limit must be a number'
+                        }
+
+                    }
+                },
+                budget: {
+                    validators: {
+                        numeric: {
+                            message: 'The budget must be a number'
+                        }
+
+                    }
+                },
+                duration: {
+                    validators: {
+                        numeric: {
+                            message: 'The duration must be a number'
+                        }
+
                     }
                 }
             }

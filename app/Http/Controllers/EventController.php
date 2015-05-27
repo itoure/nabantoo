@@ -12,6 +12,7 @@ use App\Models\UserEvent;
 use App\Models\EventMessage;
 use App\Models\UserLocation;
 use App\Models\UserInterest;
+use App\Models\EventDate;
 
 class EventController extends Controller {
 
@@ -81,6 +82,9 @@ class EventController extends Controller {
             'photo' => 'image',
             'start_date' => 'required|date',
             'interest' => 'required|integer',
+            'people_limit_max' => 'integer',
+            'budget' => 'integer',
+            'duration' => 'integer',
         );
 
         $validator = Validator::make(Input::all(), $rules);
@@ -94,6 +98,9 @@ class EventController extends Controller {
             $photo = Input::file('photo');
             $start_date = Input::get('start_date');
             $interest = Input::get('interest');
+            $people_limit_max = Input::get('people_limit_max');
+            $budget = Input::get('budget');
+            $duration = Input::get('duration');
 
             // photo
             $photoName = null;
@@ -114,7 +121,9 @@ class EventController extends Controller {
                 'eve_details' => $details,
                 'eve_location' => $location,
                 'eve_photo' => $photoName,
-                'eve_start_date' => strtotime($start_date),
+                'eve_people_limit_max' => $people_limit_max,
+                'eve_budget' => $budget,
+                'eve_duration' => $duration,
                 'interest_id' => $interest,
                 'user_id' => $user_id,
                 'location_id' => $location_id,
@@ -125,6 +134,12 @@ class EventController extends Controller {
                 'user_id' => $user_id,
                 'event_id' => $newEvent->eve_id,
                 'user_event_choice' => 'ok'
+            ));
+
+            // create event date
+            EventDate::create(array(
+                'event_id' => $newEvent->eve_id,
+                'eve_start_date' => strtotime($start_date)
             ));
 
             return Redirect::action('HomeController@getIndex');

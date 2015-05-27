@@ -39,6 +39,7 @@ class Event extends Model {
             ->join('users', 'users.usr_id', '=', 'events.user_id')
             ->join('interests', 'interests.int_id', '=', 'events.interest_id')
             ->join('categories', 'interests.category_id', '=', 'categories.cat_id')
+            ->join('event_dates', 'event_dates.event_id', '=', 'events.eve_id')
             ->whereNotIn('events.eve_id', $exludedEventIds)
             ->where('locations.short_country', '=', $arrUserLocation->short_country);
 
@@ -57,6 +58,7 @@ class Event extends Model {
             ->join('users', 'users.usr_id', '=', 'events.user_id')
             ->join('interests', 'interests.int_id', '=', 'events.interest_id')
             ->join('categories', 'interests.category_id', '=', 'categories.cat_id')
+            ->join('event_dates', 'event_dates.event_id', '=', 'events.eve_id')
             ->whereIn('interest_id', $arrUserInterestIds)
             ->whereNotIn('events.eve_id', $exludedEventIds)
             ->where(function($query) use($arrUserLocation)
@@ -81,6 +83,7 @@ class Event extends Model {
             ->join('users', 'users.usr_id', '=', 'events.user_id')
             ->join('interests', 'interests.int_id', '=', 'events.interest_id')
             ->join('categories', 'interests.category_id', '=', 'categories.cat_id')
+            ->join('event_dates', 'event_dates.event_id', '=', 'events.eve_id')
             ->whereNotIn('events.eve_id', $exludedEventIds)
             ->whereIn('interest_id', $arrUserInterestIds);
 
@@ -98,6 +101,7 @@ class Event extends Model {
             ->join('users', 'users.usr_id', '=', 'events.user_id')
             ->join('interests', 'interests.int_id', '=', 'events.interest_id')
             ->join('categories', 'interests.category_id', '=', 'categories.cat_id')
+            ->join('event_dates', 'event_dates.event_id', '=', 'events.eve_id')
             ->whereNotIn('events.eve_id', $exludedEventIds)
             ->where(function($query) use($arrUserLocation)
             {
@@ -154,6 +158,7 @@ class Event extends Model {
             ->join('users', 'users.usr_id', '=', 'events.user_id')
             ->join('interests', 'interests.int_id', '=', 'events.interest_id')
             ->join('categories', 'interests.category_id', '=', 'categories.cat_id')
+            ->join('event_dates', 'event_dates.event_id', '=', 'events.eve_id')
             ->where('user_events.user_id', '=', $user_id)
             ->where('user_events.user_event_choice', '=', 'ok');
 
@@ -170,6 +175,7 @@ class Event extends Model {
             ->join('users', 'users.usr_id', '=', 'events.user_id')
             ->join('interests', 'interests.int_id', '=', 'events.interest_id')
             ->join('categories', 'interests.category_id', '=', 'categories.cat_id')
+            ->join('event_dates', 'event_dates.event_id', '=', 'events.eve_id')
             ->where('events.eve_id', '=', $event_id);
 
         $result = $query->first();
@@ -211,6 +217,7 @@ class Event extends Model {
             ->join('locations', 'locations.loc_id', '=', 'events.location_id')
             ->join('interests', 'interests.int_id', '=', 'events.interest_id')
             ->join('categories', 'interests.category_id', '=', 'categories.cat_id')
+            ->join('event_dates', 'event_dates.event_id', '=', 'events.eve_id')
             ->where('events.user_id', '=', $user_id);
 
         $result = $query->get();
@@ -228,6 +235,7 @@ class Event extends Model {
             ->join('users', 'users.usr_id', '=', 'events.user_id')
             ->join('interests', 'interests.int_id', '=', 'events.interest_id')
             ->join('categories', 'interests.category_id', '=', 'categories.cat_id')
+            ->join('event_dates', 'event_dates.event_id', '=', 'events.eve_id')
             ->whereIn('events.user_id', $membersIds);
 
         $result = $query->get();

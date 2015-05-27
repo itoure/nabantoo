@@ -21,17 +21,19 @@
                 @if (!empty($data->event->eve_photo))
                 {!! Html::image('img/interests/'.$data->event->eve_photo, '', array('class' => 'img-event-item')) !!}
                 @else
-                <img class="" src="holder.js/100px200?text={{ $data->event->int_name }}&theme={{$data->event->cat_color}}" alt="">
+                <img class="" src="holder.js/100px250?text={{ $data->event->int_name }}&theme={{$data->event->cat_color}}" alt="">
                 @endif
 
                 <table class="table table-striped">
                     <tr><td><i class="fa fa-tag fa-2x"></i></td><td>{{$data->event->int_name}}</td></tr>
                     <tr><td><i class="fa fa-calendar fa-2x"></i></td><td>{{$data->event->eve_start_date}}</td></tr>
+                    <tr><td><i class="fa fa-clock-o fa-2x"></i></td><td>{{$data->event->eve_duration == 0 ? 'No limit' : $data->event->eve_duration}}</td></tr>
                     <tr><td><i class="fa fa-map-marker fa-2x text-danger"></i></td><td>{{$data->event->eve_location}}</td></tr>
                     <tr>
                         <td><i class="fa fa-users fa-2x text-success"></i></td>
-                        <td><span id="event-count-participant" class="badge">{{$data->event->count_participants}}</span></td>
+                        <td><span id="event-count-participant" class="badge">{{$data->event->count_participants}} / {{ $data->event->eve_people_limit_max }}</span></td>
                     </tr>
+                    <tr><td><i class="fa fa-money fa-2x"></i></td><td>{{$data->event->eve_budget == 0 ? 'Free' : $data->event->eve_budget}}</td></tr>
                     <tr><td><i class="fa fa-info-circle fa-2x text-warning"></i></td><td>{{$data->event->eve_details}}</td></tr>
                 </table>
 
@@ -154,7 +156,7 @@
 
         <!-- Others moments -->
         <div class="panel panel-default">
-            <div class="panel-heading small">Others moments in <span class="label label-primary">{{$data->event->int_name}}</span></div>
+            <div class="panel-heading small">Related moments in <span class="label label-primary">{{$data->event->int_name}}</span></div>
             <div class="panel-body">
                 <ul class="media-list">
                     @foreach ($data->eventsListByInterest as $event)

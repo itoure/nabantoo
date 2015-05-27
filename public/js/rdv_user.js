@@ -94,7 +94,15 @@ var RdvUser = {
                             message: 'The firstname is required and cannot be empty'
                         }
                     }
+                },
+                usr_phone: {
+                    validators: {
+                        numeric: {
+                            message: 'The mobile must be a number'
+                        }
+                    }
                 }
+
             }
         });
     }

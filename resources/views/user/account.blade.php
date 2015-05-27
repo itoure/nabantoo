@@ -37,7 +37,7 @@
                 <div class="form-group">
                     {!! Form::text('usr_firstname', null, array(
                     'placeholder' => trans('messages.name'),
-                    'class' => 'form-control input-lg',
+                    'class' => 'form-control',
                     'data-toggle' => 'tooltip',
                     'data-placement' => 'left',
                     'title' => trans('messages.help_name')
@@ -47,13 +47,20 @@
                 <div class="form-group">
                     {!! Form::text('usr_location', null, array(
                     'placeholder' => trans('messages.city'),
-                    'class' => 'form-control input-lg',
+                    'class' => 'form-control',
                     'id' => 'search_autocomplete',
                     'autocomplete' => 'off',
                     'data-toggle' => 'tooltip',
                     'data-placement' => 'left',
                     'title' => trans('messages.help_city')
 
+                    )) !!}
+                </div>
+
+                <div class="form-group">
+                    {!! Form::text('usr_phone', null, array(
+                    'placeholder' => 'Mobile',
+                    'class' => 'form-control'
                     )) !!}
                 </div>
 

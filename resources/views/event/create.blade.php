@@ -28,7 +28,7 @@
                 <div class="form-group">
                     {!! Form::text('title', null, array(
                     'placeholder' => trans('messages.title'),
-                    'class' => 'form-control input-lg',
+                    'class' => 'form-control',
                     'data-toggle' => 'tooltip',
                     'data-placement' => 'left',
                     'title' => trans('messages.help_title')
@@ -38,7 +38,7 @@
                 <div class="form-group">
                     {!! Form::text('location', null, array(
                     'placeholder' => trans('messages.where'),
-                    'class' => 'form-control input-lg',
+                    'class' => 'form-control',
                     'id' => 'search_autocomplete',
                     'autocomplete' => 'off',
                     'data-toggle' => 'tooltip',
@@ -65,7 +65,7 @@
                 <div class="form-group">
                     {!! Form::text('start_date', null, array(
                     'placeholder' => trans('messages.when'),
-                    'class' => 'form-control input-lg',
+                    'class' => 'form-control',
                     'id' => 'start_date',
                     'data-toggle' => 'tooltip',
                     'data-placement' => 'left',
@@ -73,20 +73,22 @@
                     )) !!}
                 </div>
 
+
                 <div class="form-group">
                     {!! Form::select('interest',
                     $data->interests,
                     '',
                     array(
-                    'class' => 'form-control input-lg select-interests',
+                    'class' => 'form-control select-interests',
                     'data-toggle' => 'tooltip'
                     )) !!}
                 </div>
 
+
                 <div class="form-group">
                     {!! Form::textarea('details', null, array(
                     'placeholder' => trans('messages.details'),
-                    'class' => 'form-control input-lg',
+                    'class' => 'form-control',
                     'rows' => '5',
                     'data-toggle' => 'tooltip',
                     'data-placement' => 'left',
@@ -94,6 +96,27 @@
                     )) !!}
                 </div>
 
+                <h5>Others Informations</h5>
+                <div class="form-group">
+                    {!! Form::text('people_limit_max', null, array(
+                    'placeholder' => 'People limit',
+                    'class' => 'form-control',
+                    )) !!}
+                </div>
+
+                <div class="form-group">
+                    {!! Form::text('budget', null, array(
+                    'placeholder' => 'Budget',
+                    'class' => 'form-control',
+                    )) !!}
+                </div>
+
+                <div class="form-group">
+                    {!! Form::text('duration', null, array(
+                    'placeholder' => 'Duration',
+                    'class' => 'form-control',
+                    )) !!}
+                </div>
                 <h5>{{trans('messages.add_photo')}}</h5>
                 <div class="form-group">
                     {!! Form::file('photo') !!}

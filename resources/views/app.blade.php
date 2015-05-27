@@ -44,13 +44,14 @@
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="{{action('HomeController@getIndex')}}">Moments List</a></li>
-                    <li><a href="{{action('EventController@getCreate')}}">Create Moment</a></li>
+                    <li><a href="{{action('HomeController@getIndex')}}"><i class="fa fa-list"></i> Moments List</a></li>
+                    <li><a href="{{action('EventController@getCreate')}}"><i class="fa fa-plus-square"></i> Create Moment</a></li>
                 </ul>
                 <div class="navbar-right">
                     <ul class="nav navbar-nav">
-                        <li><a href="{{action('UserController@getProfile', array('user_id' => $user->usr_id))}}">{{trans('messages.my_account')}}</a></li>
-                        <li><a href="{{action('Auth\AuthController@getLogout')}}">{{trans('messages.logout')}}</a></li>
+                        <li><a href=""><i class="fa fa-envelope"></i> Inbox</a></li>
+                        <li><a href="{{action('UserController@getProfile', array('user_id' => $user->usr_id))}}"><i class="fa fa-user"></i> {{trans('messages.my_account')}}</a></li>
+                        <li><a href="{{action('Auth\AuthController@getLogout')}}"><i class="fa fa-power-off"></i> {{trans('messages.logout')}}</a></li>
                     </ul>
                 </div>
             </div><!--/.nav-collapse -->

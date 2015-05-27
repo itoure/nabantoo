@@ -77,6 +77,7 @@ class UserController extends Controller {
             'usr_sexe' => 'required|alpha|size:1',
             'interests' => 'array',
             'usr_location' => 'required|string',
+            'usr_phone' => 'integer',
         );
 
         $validator = Validator::make(Input::all(), $rules);
@@ -92,6 +93,7 @@ class UserController extends Controller {
             $location = Input::get('usr_location');
             $interests = Input::get('interests');
             $photo = Input::file('photo');
+            $phone = Input::get('usr_phone');
             $usr_id = Input::get('usr_id');
             $loc_id = Input::get('loc_id');
 
@@ -101,6 +103,7 @@ class UserController extends Controller {
             $user->usr_sexe = $sexe;
             $user->usr_birthday = strtotime($month.'/'.$day.'/'.$year);
             $user->usr_location = $location;
+            $user->usr_phone = $phone;
 
             // photo
             $photoName = null;

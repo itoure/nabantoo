@@ -37,7 +37,7 @@
                         <dd><i class="fa fa-trophy"></i> <small class="badge">23</small></dd>
 
                         @if ($data->user->usr_id == $data->user_id)
-                        <dd class="small"><a href="{{action('UserController@getAccount')}}">edit profile</a></dd>
+                        <dd class="small"><a href="{{action('UserController@getAccount')}}"><i class="fa fa-pencil"></i> edit profile</a></dd>
                         @endif
                     </dl>
                 </div>
