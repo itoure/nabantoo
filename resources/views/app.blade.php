@@ -30,36 +30,38 @@
 
 <body>
 
-<div class="container bottom15">
-    <nav class="navbar navbar-default">
-        <div class="container small">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="{{action('HomeController@getIndex')}}">Nabantoo</a>
-            </div>
-            <div id="navbar" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="{{action('HomeController@getIndex')}}"><i class="fa fa-list"></i> Moments List</a></li>
-                    <li><a href="{{action('EventController@getCreate')}}"><i class="fa fa-plus-square"></i> Create Moment</a></li>
-                </ul>
-                <div class="navbar-right">
-                    <ul class="nav navbar-nav">
-                        <li><a href=""><i class="fa fa-envelope"></i> Inbox</a></li>
-                        <li><a href="{{action('UserController@getProfile', array('user_id' => $user->usr_id))}}"><i class="fa fa-user"></i> {{trans('messages.my_account')}}</a></li>
-                        <li><a href="{{action('Auth\AuthController@getLogout')}}"><i class="fa fa-power-off"></i> {{trans('messages.logout')}}</a></li>
-                    </ul>
-                </div>
-            </div><!--/.nav-collapse -->
+
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="container-fluid small">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{action('HomeController@getIndex')}}">Nabantoo</a>
         </div>
-    </nav>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="{{action('HomeController@getIndex')}}"><i class="fa fa-list"></i> Moments List</a></li>
+                <li><a href="{{action('EventController@getCreate')}}"><i class="fa fa-plus-square"></i> Create Moment</a></li>
+            </ul>
+            <div class="navbar-right">
+                <ul class="nav navbar-nav">
+                    <li><a href=""><i class="fa fa-envelope"></i> Inbox</a></li>
+                    <li><a href="{{action('UserController@getProfile', array('user_id' => $user->usr_id))}}"><i class="fa fa-user"></i> {{trans('messages.my_account')}}</a></li>
+                    <li><a href="{{action('Auth\AuthController@getLogout')}}"><i class="fa fa-power-off"></i> {{trans('messages.logout')}}</a></li>
+                </ul>
+            </div>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+
+<div class="container">
 
     @yield('content')
-
 
 </div>
 

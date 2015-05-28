@@ -43,9 +43,9 @@ class CategoriesTableSeeder extends Seeder {
     {
         DB::table('categories')->delete();
 
-        Category::create(['cat_name' => 'Sports', 'cat_color' => 'sky']);
-        Category::create(['cat_name' => 'Sorties', 'cat_color' => 'vine']);
-        Category::create(['cat_name' => 'Jeux', 'cat_color' => 'lava']);
+        Category::create(['cat_name' => 'Sports', 'cat_color' => 'industrial']);
+        Category::create(['cat_name' => 'Sorties', 'cat_color' => 'industrial']);
+        Category::create(['cat_name' => 'Jeux', 'cat_color' => 'industrial']);
         Category::create(['cat_name' => 'Enfants', 'cat_color' => 'industrial']);
     }
 

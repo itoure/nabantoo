@@ -17,12 +17,12 @@
         <h4>Moments List</h4>
 
         <div id="filters">
-            <a role="button" class="btn btn-default btn-sm moments-filter default-filter" data-filter="all">{{trans('messages.all')}}</a>
-            <a role="button" class="btn btn-default btn-sm moments-filter" data-filter="fitToMe">{{trans('messages.fit_to_me')}}</a>
-            <a role="button" class="btn btn-default btn-sm moments-filter" data-filter="aroundMe">{{trans('messages.around_me')}}</a>
-            <a role="button" class="btn btn-default btn-sm moments-filter" data-filter="perfectMatch">{{trans('messages.exact_match')}}</a>
-            <a role="button" class="btn btn-default btn-sm moments-filter" data-filter="myNetwork">My Network</a>
-            <a role="button" class="btn btn-default btn-sm moments-filter hide" data-filter="myMoments">My Moments</a>
+            <a role="button" class="btn btn-default btn-xs moments-filter default-filter" data-filter="all">All Upcoming</a>
+            <a role="button" class="btn btn-default btn-xs moments-filter" data-filter="myMoments">My Upcoming Moments</a>
+            <a role="button" class="btn btn-default btn-xs moments-filter" data-filter="myNetwork">My Network</a>
+            <a role="button" class="btn btn-default btn-xs moments-filter hide" data-filter="fitToMe">{{trans('messages.fit_to_me')}}</a>
+            <a role="button" class="btn btn-default btn-xs moments-filter hide" data-filter="aroundMe">{{trans('messages.around_me')}}</a>
+            <a role="button" class="btn btn-default btn-xs moments-filter" data-filter="perfectMatch">Suggested</a>
         </div>
     </div>
 </div>
@@ -39,11 +39,30 @@
 
         <!-- upcoming moments -->
         <div class="panel panel-default">
-            <div class="panel-heading small">My upcoming moments</div>
-            <div id="myNextEvents-loading" class="text-center top20">
+            <div class="panel-heading small">My Upcoming</div>
+            <div id="myUpcomingMoments-loading" class="text-center top20">
                 <i class="fa fa-spinner fa-spin fa-2x"></i>
             </div>
-            <div id="myNextEvents" class="panel-body">
+            <div id="myUpcomingMoments" class="panel-body">
+
+            </div>
+        </div>
+
+
+        <div class="panel panel-default">
+            <div class="panel-heading small">Suggested</div>
+            <div id="mySuggestedMoments-loading" class="text-center top20">
+                <i class="fa fa-spinner fa-spin fa-2x"></i>
+            </div>
+            <div id="mySuggestedMoments" class="panel-body">
+
+            </div>
+        </div>
+
+
+        <div class="panel panel-default hide">
+            <div class="panel-heading small">Popular</div>
+            <div id="" class="panel-body">
 
             </div>
         </div>
@@ -67,7 +86,7 @@
     @for ($i = 1; $i < 9; $i++)
     <div class="col-xs-6 col-sm-4 col-md-3 past-moment">
         <div class="thumbnail">
-            <img src="http://i.imgur.com/6EYMizr.png" alt="">
+            <img src="http://startupstacks.com/wp-content/uploads/2013/12/Everyday_Birthday_Flyer.png" alt="">
             <div class="caption">
                 <h5>Moments {{$i}}</h5>
                 <p><a href="#" class="btn btn-primary btn-xs" role="button">See photos</a></p>

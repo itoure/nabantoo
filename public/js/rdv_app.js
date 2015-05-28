@@ -82,9 +82,14 @@ var RdvApp = {
         }
 
         // load block myNextEvents
-        if ( $('#myNextEvents').length ){
+        if ( $('#myUpcomingMoments').length ){
             RdvApp.fetchMyNextEvents();
         }
+
+        if ( $('#mySuggestedMoments').length ){
+            RdvApp.fetchMySuggestedMoments();
+        }
+
 
         // validate form
         RdvApp.validateFormEvent();
@@ -135,10 +140,10 @@ var RdvApp = {
 
     fetchMyNextEvents: function() {
 
-        $('#myNextEvents-loading').show();
-        $('#myNextEvents').html('');
+        $('#myUpcomingMoments-loading').show();
+        $('#myUpcomingMoments').html('');
 
-        var block = $("#myNextEvents");
+        var block = $("#myUpcomingMoments");
         var url = "/event/fetch-my-next-events";
 
         $.ajax(url,{
@@ -146,7 +151,36 @@ var RdvApp = {
             success:function(data){
                 if(data.response){
 
-                $('#myNextEvents-loading').hide();
+                $('#myUpcomingMoments-loading').hide();
+                    block.html(data.data.html);
+                    Holder.run();
+
+                } else {
+
+                }
+            },
+            error:function(data){
+
+            }
+        });
+
+    },
+
+
+    fetchMySuggestedMoments: function() {
+
+        $('#mySuggestedMoments-loading').show();
+        $('#mySuggestedMoments').html('');
+
+        var block = $("#mySuggestedMoments");
+        var url = "/event/fetch-my-suggested-moments";
+
+        $.ajax(url,{
+            data: {},
+            success:function(data){
+                if(data.response){
+
+                    $('#mySuggestedMoments-loading').hide();
                     block.html(data.data.html);
                     Holder.run();
 

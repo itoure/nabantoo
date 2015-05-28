@@ -1,6 +1,7 @@
 body {
-    padding-top: 10px;
+    background-color: #e9eaed;
 }
+
 .starter-template {
     /*padding: 40px 15px;*/
 }
@@ -57,6 +58,8 @@ body {
 
 .list-group-item {
     margin-bottom: 8px;
+    padding: 0;
+    border: 1px solid #d0d1d5;
 }
 
 .row-list {
@@ -69,10 +72,6 @@ body {
 
 .img-int-admin {
     width: 150px;
-}
-
-.list-group-item {
-    padding: 0;
 }
 
 .marg-top5 {margin-top: 5px}
@@ -102,3 +101,18 @@ div.panel-title {
 .right40 {margin-right: 40px }
 
 .bottom15 {margin-bottom: 15px}
+
+.panel-default > .panel-heading {
+    background-color: #ffffff;
+    border-color: #d0d1d5;
+}
+
+.panel-default {
+    border-color: #d0d1d5;
+}
+
+.profile-well {
+    background-color: #ffffff;
+    border-color: #d0d1d5;
+
+}

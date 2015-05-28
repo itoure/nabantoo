@@ -314,6 +314,49 @@ class EventController extends Controller {
     }
 
 
+    public function getFetchMySuggestedMoments() {
+
+        // get user_id
+        $user_id = $this->request->user()->usr_id;
+
+        // get upcomming events for the current user
+        $modEvent = new Event();
+
+        // get user interests list
+        $modUserInterest = new UserInterest();
+        $arrUserInterestsIds = $modUserInterest->getUserInterestIds($user_id);
+
+        // get user location
+        $modUserLocation = new UserLocation();
+        $arrUserLocations = $modUserLocation->getUserLocation($user_id);
+
+        $arrAnsEventIds = $modEvent->getAnsweredEventsByUser($user_id);
+
+        // get events list
+        $eventsList = $modEvent->getUserEventsByInterestsAndLocation($arrUserInterestsIds, $arrUserLocations[0], $arrAnsEventIds);
+
+        foreach($eventsList as $event) {
+            //dd($event);
+            $event->eve_start_date = date('d M H:i', $event->eve_start_date);
+            $event->usr_first_letter = strtoupper($event->usr_firstname[0]);
+        }
+
+        $data = new \stdClass();
+        $data->suggestedEvents = $eventsList;
+        $html = view('event/my_suggested_events')->with('data', $data)->render();
+        $response = array(
+            'html' => $html
+        );
+        $return = array(
+            'response' => true,
+            'data' => $response
+        );
+
+        return response()->json($return);
+
+    }
+
+
     protected function _fetchParticipantsListByEvent($event_id) {
 
         $modEvent = new Event();
@@ -400,13 +443,8 @@ class EventController extends Controller {
 
         // get upcomming events for the current user
         $modEvent = new Event();
-        $userAnsweredEventsList = $modEvent->getAnsweredEventsByUser($user_id);
-        $arrAnsEventIds = array();
-        foreach($userAnsweredEventsList as $upEvent){
-            $arrAnsEventIds[] = $upEvent->eve_id;
-        }
+        $arrAnsEventIds = $modEvent->getAnsweredEventsByUser($user_id);
 
-        $eventsList = array();
         switch($filter){
 
             case 'fitToMe':
@@ -449,6 +487,7 @@ class EventController extends Controller {
                 break;
 
             case 'myMoments':
+                $eventsList = $modEvent->getUpcommingEventsByUser($user_id);
                 break;
 
             default:
@@ -466,6 +505,8 @@ class EventController extends Controller {
                 //dd($event);
                 $event->eve_start_date = date('d M H:i', $event->eve_start_date);
                 $event->usr_first_letter = strtoupper($event->usr_firstname[0]);
+
+                $event->user_event_choice = $modEvent->getEventStatus($event->eve_id, $user_id);
 
                 // count people for the event
                 $event->count_people = $modEvent->countParticipantsByEvent($event->eve_id);

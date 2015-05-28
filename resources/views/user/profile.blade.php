@@ -6,7 +6,7 @@
     <div class="col-md-offset-1 col-sm-10 col-md-10 col-xs-10">
 
 
-        <ul class="media-list well">
+        <ul class="media-list well profile-well">
             <li class="media">
                 <div class="media-left">
                     @if (!empty($data->user->usr_photo))

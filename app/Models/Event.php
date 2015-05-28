@@ -142,8 +142,8 @@ class Event extends Model {
             ->join('categories', 'interests.category_id', '=', 'categories.cat_id')
             ->where('user_events.user_id', '=', $user_id);
 
-        $result = $query->get();
-        //dd($result->toSql);
+        $result = $query->lists('eve_id');
+        //dd($result);
 
         return $result;
 

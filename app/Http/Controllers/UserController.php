@@ -77,7 +77,7 @@ class UserController extends Controller {
             'usr_sexe' => 'required|alpha|size:1',
             'interests' => 'array',
             'usr_location' => 'required|string',
-            'usr_phone' => 'integer',
+            'usr_phone' => 'numeric',
         );
 
         $validator = Validator::make(Input::all(), $rules);
