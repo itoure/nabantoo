@@ -29,17 +29,18 @@
                     <a href="{{action('UserController@getProfile', array('user_id'=> $event->usr_id))}}" class="small">{{ $event->usr_firstname }}</a>
 
                     <span id="info-item-list" class="pull-right">
+                        <i class="fa fa-spinner fa-spin loading" style="display: none"></i>
 
                         @if ($event->user_event_choice == 'ok')
-                            <i class="fa fa-thumbs-o-up text-success"></i> going - <a href="">cancel</a>
+                            <i class="fa fa-thumbs-o-up text-success"></i> going - <a class="cancel-join-event" href="#" data-event-id="{{ $event->eve_id }}">cancel</a>
                         @elseif($event->user_event_choice == 'ko')
-                            <i class="fa fa-thumbs-o-down text-danger"></i> declined - <a href="">cancel</a>
+                            <i class="fa fa-thumbs-o-down text-danger"></i> declined - <a class="cancel-join-event" href="#" data-event-id="{{ $event->eve_id }}">cancel</a>
+                        @elseif($event->user_event_choice == 'host')
+                            <i class="fa fa-user"></i> host - <a href="#">edit</a>
                         @else
-                            <i id="join-loading" class="fa fa-spinner fa-spin" style="display: none"></i>
                             <a role="button" href="#" class="btn btn-default btn-xs join-event" data-event-id="{{ $event->eve_id }}"><i class="fa fa-user-plus"></i> {{trans('messages.join')}}</a>
                             <a role="button" href="#" class="btn btn-default btn-xs decline-event" data-event-id="{{ $event->eve_id }}"><i class="fa fa-user-times"></i> Decline</a>
                         @endif
-
                     </span>
                 </p>
             </div>

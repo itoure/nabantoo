@@ -35,7 +35,7 @@ var RdvApp = {
             e.preventDefault();
             RdvApp.joinUserToEvent($(this));
         });
-        $("a.join-event-detail").on( "click", function (e) {
+        $("#action-event-detail").on( "click", 'a.join-event-detail', function(e) {
             e.preventDefault();
             RdvApp.joinUserToEventDetail($(this));
         });
@@ -45,7 +45,7 @@ var RdvApp = {
             e.preventDefault();
             RdvApp.declineUserToEvent($(this));
         });
-        $("a.decline-event-detail").on( "click", function (e) {
+        $("#action-event-detail").on( "click", 'a.decline-event-detail', function(e) {
             e.preventDefault();
             RdvApp.declineUserToEventDetail($(this));
         });
@@ -56,6 +56,15 @@ var RdvApp = {
             RdvApp.fetchEventListHome($(this));
         });
 
+        // cancel moment
+        $("#eventListHome").on( "click", 'a.cancel-join-event', function(e) {
+            e.preventDefault();
+            RdvApp.cancelJoinUserToEvent($(this));
+        });
+        $("#action-event-detail").on( "click", 'a.cancel-join-event-detail', function(e) {
+            e.preventDefault();
+            RdvApp.cancelJoinUserToEventDetail($(this));
+        });
 
 
         // init select2
@@ -77,10 +86,6 @@ var RdvApp = {
             RdvApp.fetchEventParticipantsList();
         }
 
-        if ( $('#eventListHome').length ){
-            //$( ".default-filter" ).trigger( "click" );
-        }
-
         // load block myNextEvents
         if ( $('#myUpcomingMoments').length ){
             RdvApp.fetchMyNextEvents();
@@ -94,7 +99,9 @@ var RdvApp = {
         // validate form
         RdvApp.validateFormEvent();
 
-        RdvApp.fetchEventListHome();
+        if ( $('#eventListHome').length ){
+            RdvApp.fetchEventListHome();
+        }
 
     },
 
@@ -281,8 +288,9 @@ var RdvApp = {
         var event_id = object.attr('data-event-id');
         var elm = $('.event_id_'+event_id);
         var panel = elm.find('.panel');
+        var loading = elm.find('.loading');
 
-        elm.find('#join-loading').show();
+        loading.show();
 
         $.ajax(url,{
             data: {
@@ -290,7 +298,7 @@ var RdvApp = {
             },
             context : object,
             success:function(data){
-                elm.find('#join-loading').hide();
+                loading.hide();
                 if(data.response){
 
                     elm.slideUp('slow');
@@ -310,9 +318,10 @@ var RdvApp = {
 
         var url = "/event/decline-user-to-event";
         var event_id = object.attr('data-event-id');
-        var elm = $('.panel-event-detail');
+        var elm = $('#action-event-detail');
+        var loading = elm.find('.loading');
 
-        elm.find('#loading').show();
+        loading.show();
 
         $.ajax(url,{
             data: {
@@ -320,10 +329,10 @@ var RdvApp = {
             },
             context : object,
             success:function(data){
-                elm.find('#loading').hide();
+                loading.hide();
                 if(data.response){
 
-                    elm.find('#info-event-detail').html('<i class="fa fa-thumbs-o-down text-danger"></i> declined - <a href="">cancel?</a>');
+                    elm.html('<i class="fa fa-thumbs-o-down text-danger"></i> declined - <a href="">cancel?</a>');
 
                 } else {
 
@@ -342,8 +351,9 @@ var RdvApp = {
         var event_id = object.attr('data-event-id');
         var elm = $('.event_id_'+event_id);
         var panel = elm.find('.panel');
+        var loading = elm.find('.loading');
 
-        elm.find('#join-loading').show();
+        loading.show();
 
         $.ajax(url,{
             data: {
@@ -351,10 +361,10 @@ var RdvApp = {
             },
             context : object,
             success:function(data){
-                elm.find('#join-loading').hide();
+                loading.hide();
                 if(data.response){
 
-                    elm.slideUp('slow');
+                    //elm.slideUp('slow');
 
                     /*var htmlAlert = '<div id="join-alert-'+event_id+'" class="alert alert-success" role="alert">Votre participation pour a bien été prise en compte.</div>';
                     $('#alerts').append(htmlAlert);
@@ -363,6 +373,7 @@ var RdvApp = {
                         $("#join-alert-"+event_id).alert('close');
                     });*/
 
+                    RdvApp.fetchEventListHome();
                     RdvApp.fetchMyNextEvents();
 
 
@@ -380,9 +391,10 @@ var RdvApp = {
 
         var url = "/event/join-user-to-event";
         var event_id = object.attr('data-event-id');
-        var elm = $('.panel-event-detail');
+        var elm = $('#action-event-detail');
+        var loading = elm.find('.loading');
 
-        elm.find('#loading').show();
+        loading.show();
 
         $.ajax(url,{
             data: {
@@ -390,10 +402,82 @@ var RdvApp = {
             },
             context : object,
             success:function(data){
-                elm.find('#join-loading').hide();
+                loading.hide();
                 if(data.response){
 
-                    elm.find('#info-event-detail').html('<i class="fa fa-thumbs-o-up text-success"></i> going - <a href="">cancel?</a>');
+                    elm.html('<i class="fa fa-thumbs-o-up text-success"></i> going - <a class="cancel-join-event-detail" href="#" data-event-id="'+event_id+'">cancel?</a>');
+
+                    RdvApp.fetchEventParticipantsList();
+                    RdvApp.fetchCountParticipants(event_id);
+
+                } else {
+
+                }
+            },
+            error:function(data){
+
+            }
+        });
+    },
+
+
+    cancelJoinUserToEvent: function(object) {
+
+        var url = "/event/cancel-join-user-to-event";
+        var event_id = object.attr('data-event-id');
+        var elm = $('.event_id_'+event_id);
+        var panel = elm.find('.panel');
+
+        var loading = elm.find('.loading');
+
+        loading.show();
+
+        $.ajax(url,{
+            data: {
+                event_id: event_id
+            },
+            context : object,
+            success:function(data){
+                loading.hide();
+                if(data.response){
+
+                    RdvApp.fetchEventListHome();
+                    RdvApp.fetchMyNextEvents();
+
+                } else {
+
+                }
+            },
+            error:function(data){
+
+            }
+        });
+
+    },
+
+
+    cancelJoinUserToEventDetail: function(object) {
+
+        var url = "/event/cancel-join-user-to-event";
+        var event_id = object.attr('data-event-id');
+        var elm = $('#action-event-detail');
+        var loading = elm.find('.loading');
+
+        loading.show();
+
+        $.ajax(url,{
+            data: {
+                event_id: event_id
+            },
+            context : object,
+            success:function(data){
+                loading.hide();
+                if(data.response){
+
+                    var btnJoin = '<a role="button" href="#" class="btn btn-default btn-xs join-event-detail" data-event-id="'+event_id+'"><i class="fa fa-user-plus"></i> Join</a>';
+                    var btnDecline = '<a role="button" href="#" class="btn btn-default btn-xs decline-event-detail" data-event-id="'+event_id+'"><i class="fa fa-user-times"></i> Decline</a>';
+                    elm.html(btnJoin+' '+btnDecline);
+
 
                     RdvApp.fetchEventParticipantsList();
                     RdvApp.fetchCountParticipants();
@@ -406,7 +490,9 @@ var RdvApp = {
 
             }
         });
+
     },
+
 
     fetchEventParticipantsList: function () {
 

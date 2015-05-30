@@ -207,7 +207,10 @@ class UserController extends Controller {
 
         // get user calendar
         $modEvent = new Event();
-        $upcomingEvents = $modEvent->getUpcommingEventsByUser($user_id);
+
+        $arrHostEventIds = $modEvent->getEventsIdsByUserAndStatus($user_id, 'host');
+
+        $upcomingEvents = $modEvent->getUpcommingEventsByUser($user_id, $arrHostEventIds);
         foreach($upcomingEvents as $event) {
             $event->eve_start_date = date('d M H:i', $event->eve_start_date);
             $event->usr_first_letter = strtoupper($event->usr_firstname[0]);

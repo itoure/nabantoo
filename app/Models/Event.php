@@ -32,7 +32,7 @@ class Event extends Model {
 
     }
 
-    public function getEventsByCountry($arrUserLocation, $exludedEventIds) {
+    public function getEventsByCountry($arrUserLocation, $excludedEventIds = array()) {
 
         $query = DB::table('events')
             ->join('locations', 'locations.loc_id', '=', 'events.location_id')
@@ -40,7 +40,7 @@ class Event extends Model {
             ->join('interests', 'interests.int_id', '=', 'events.interest_id')
             ->join('categories', 'interests.category_id', '=', 'categories.cat_id')
             ->join('event_dates', 'event_dates.event_id', '=', 'events.eve_id')
-            ->whereNotIn('events.eve_id', $exludedEventIds)
+            ->whereNotIn('events.eve_id', $excludedEventIds)
             ->where('locations.short_country', '=', $arrUserLocation->short_country);
 
         $result = $query->get();
@@ -51,7 +51,7 @@ class Event extends Model {
     }
 
 
-    public function getUserEventsByInterestsAndLocation($arrUserInterestIds, $arrUserLocation, $exludedEventIds) {
+    public function getUserEventsByInterestsAndLocation($arrUserInterestIds, $arrUserLocation, $excludedEventIds = array()) {
 
         $query = DB::table('events')
             ->join('locations', 'locations.loc_id', '=', 'events.location_id')
@@ -60,7 +60,7 @@ class Event extends Model {
             ->join('categories', 'interests.category_id', '=', 'categories.cat_id')
             ->join('event_dates', 'event_dates.event_id', '=', 'events.eve_id')
             ->whereIn('interest_id', $arrUserInterestIds)
-            ->whereNotIn('events.eve_id', $exludedEventIds)
+            ->whereNotIn('events.eve_id', $excludedEventIds)
             ->where(function($query) use($arrUserLocation)
             {
                 $query->orWhere('locations.short_locality', '=', $arrUserLocation->short_locality)
@@ -76,7 +76,7 @@ class Event extends Model {
     }
 
 
-    public function getEventsByUserInterests($arrUserInterestIds, $exludedEventIds) {
+    public function getEventsByUserInterests($arrUserInterestIds, $excludedEventIds = array()) {
 
         $query = DB::table('events')
             ->join('locations', 'locations.loc_id', '=', 'events.location_id')
@@ -84,7 +84,7 @@ class Event extends Model {
             ->join('interests', 'interests.int_id', '=', 'events.interest_id')
             ->join('categories', 'interests.category_id', '=', 'categories.cat_id')
             ->join('event_dates', 'event_dates.event_id', '=', 'events.eve_id')
-            ->whereNotIn('events.eve_id', $exludedEventIds)
+            ->whereNotIn('events.eve_id', $excludedEventIds)
             ->whereIn('interest_id', $arrUserInterestIds);
 
         $result = $query->get();
@@ -94,7 +94,7 @@ class Event extends Model {
 
     }
 
-    public function getEventsByUserLocation($arrUserLocation, $exludedEventIds) {
+    public function getEventsByUserLocation($arrUserLocation, $excludedEventIds = array()) {
 
         $query = DB::table('events')
             ->join('locations', 'locations.loc_id', '=', 'events.location_id')
@@ -102,7 +102,7 @@ class Event extends Model {
             ->join('interests', 'interests.int_id', '=', 'events.interest_id')
             ->join('categories', 'interests.category_id', '=', 'categories.cat_id')
             ->join('event_dates', 'event_dates.event_id', '=', 'events.eve_id')
-            ->whereNotIn('events.eve_id', $exludedEventIds)
+            ->whereNotIn('events.eve_id', $excludedEventIds)
             ->where(function($query) use($arrUserLocation)
             {
                 $query->orWhere('locations.short_locality', '=', $arrUserLocation->short_locality)
@@ -123,7 +123,7 @@ class Event extends Model {
         $query = DB::table('user_events')
             ->join('users', 'users.usr_id', '=', 'user_events.user_id')
             ->where('user_events.event_id', '=', $event_id)
-            ->where('user_events.user_event_choice', '=', 'ok');
+            ->whereIn('user_events.user_event_choice', array('ok','host'));
 
         $result = $query->get();
         //dd($result);
@@ -133,7 +133,7 @@ class Event extends Model {
     }
 
 
-    public function getAnsweredEventsByUser($user_id) {
+    public function getEventsIdsByUserAndStatus($user_id, $status = null) {
 
         $query = DB::table('user_events')
             ->join('events', 'user_events.event_id', '=', 'events.eve_id')
@@ -141,6 +141,10 @@ class Event extends Model {
             ->join('interests', 'interests.int_id', '=', 'events.interest_id')
             ->join('categories', 'interests.category_id', '=', 'categories.cat_id')
             ->where('user_events.user_id', '=', $user_id);
+
+        if($status){
+            $query->where('user_events.user_event_choice', '=', $status);
+        }
 
         $result = $query->lists('eve_id');
         //dd($result);
@@ -150,7 +154,7 @@ class Event extends Model {
     }
 
 
-    public function getUpcommingEventsByUser($user_id) {
+    public function getUpcommingEventsByUser($user_id, $excludedEventIds = array()) {
 
         $query = DB::table('user_events')
             ->join('events', 'user_events.event_id', '=', 'events.eve_id')
@@ -160,7 +164,8 @@ class Event extends Model {
             ->join('categories', 'interests.category_id', '=', 'categories.cat_id')
             ->join('event_dates', 'event_dates.event_id', '=', 'events.eve_id')
             ->where('user_events.user_id', '=', $user_id)
-            ->where('user_events.user_event_choice', '=', 'ok');
+            ->whereNotIn('events.eve_id', $excludedEventIds)
+            ->whereIn('user_events.user_event_choice', array('ok', 'host'));
 
         $result = $query->get();
         //dd($result->toSql);
@@ -189,7 +194,7 @@ class Event extends Model {
     public function countParticipantsByEvent($event_id) {
 
         $count = UserEvent::where('event_id', '=', $event_id)
-            ->where('user_events.user_event_choice', '=', 'ok')
+            ->whereIn('user_events.user_event_choice', array('ok', 'host'))
             ->count();
         //dd($count);
 

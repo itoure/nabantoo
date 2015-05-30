@@ -46,9 +46,52 @@
 
     </div>
 
-    <div class="clearfix"></div>
 
     <div class="col-md-offset-2 col-md-8">
+        <h4>Host Moments</h4>
+
+        @foreach ($data->hostEvents as $event)
+        <li class="list-group-item event_id_{{ $event->eve_id }} event-item">
+            <div class="container-fluid">
+                <div class="row row-list">
+                    <div class="col-xs-3 col-sm-3 col-md-3">
+                        @if (!empty($event->eve_photo))
+                        {!! Html::image('img/interests/'.$event->eve_photo, '', array('class' => 'img-event-item')) !!}
+                        @else
+                        <img class="" src="holder.js/100px98?text={{ $event->int_name }}&theme={{$event->cat_color}}" alt="">
+                        @endif
+                    </div>
+                    <div class="col-xs-9 col-sm-9 col-md-9">
+                        <h5 class="list-group-item-heading marg-top5">
+                            <a href="{{action('EventController@getDetails', array('event_id'=> $event->eve_id))}}">
+                                {{ $event->eve_title }}
+                            </a>
+                        </h5>
+                        <p>
+                            <i class="fa fa-calendar"></i> <small>{{ $event->eve_start_date }}</small> |
+                            <i class="fa fa-map-marker text-danger"></i> <small>{{ $event->short_locality }}</small> |
+                            <i class="fa fa-users text-success"></i> <small>{{ $event->count_people }}</small>
+                        </p>
+                        <p class="marg-bot5">
+                            <span id="info-item-list" class="pull-right">
+                                <i id="join-loading" class="fa fa-spinner fa-spin" style="display: none"></i>
+                                <i class="fa fa-user text-success"></i> host - <a href="">edit</a>
+                            </span>
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </li>
+        @endforeach
+
+        @if (empty($data->hostEvents))
+        No host moments. <a href="{{action('EventController@getCreate')}}">Create a moment</a>
+        @endif
+
+    </div>
+
+    <div class="col-md-offset-2 col-md-8 top20 bottom20">
         <h4>Upcoming Moments</h4>
 
         @foreach ($data->upcomingEvents as $event)
@@ -100,49 +143,6 @@
     </div>
 
 
-    <div class="col-md-offset-2 col-md-8 top20">
-        <h4>Host Moments</h4>
-
-        @foreach ($data->hostEvents as $event)
-        <li class="list-group-item event_id_{{ $event->eve_id }} event-item">
-            <div class="container-fluid">
-                <div class="row row-list">
-                    <div class="col-xs-3 col-sm-3 col-md-3">
-                        @if (!empty($event->eve_photo))
-                        {!! Html::image('img/interests/'.$event->eve_photo, '', array('class' => 'img-event-item')) !!}
-                        @else
-                        <img class="" src="holder.js/100px98?text={{ $event->int_name }}&theme={{$event->cat_color}}" alt="">
-                        @endif
-                    </div>
-                    <div class="col-xs-9 col-sm-9 col-md-9">
-                        <h5 class="list-group-item-heading marg-top5">
-                            <a href="{{action('EventController@getDetails', array('event_id'=> $event->eve_id))}}">
-                                {{ $event->eve_title }}
-                            </a>
-                        </h5>
-                        <p>
-                            <i class="fa fa-calendar"></i> <small>{{ $event->eve_start_date }}</small> |
-                            <i class="fa fa-map-marker text-danger"></i> <small>{{ $event->short_locality }}</small> |
-                            <i class="fa fa-users text-success"></i> <small>{{ $event->count_people }}</small>
-                        </p>
-                        <p class="marg-bot5">
-                            <span id="info-item-list" class="pull-right">
-                                <i id="join-loading" class="fa fa-spinner fa-spin" style="display: none"></i>
-                                <i class="fa fa-user text-success"></i> host - <a href="">edit</a>
-                            </span>
-                        </p>
-                    </div>
-
-                </div>
-            </div>
-        </li>
-        @endforeach
-
-        @if (empty($data->hostEvents))
-        No host moments. <a href="{{action('EventController@getCreate')}}">Create a moment</a>
-        @endif
-
-    </div>
 
 
 </div>

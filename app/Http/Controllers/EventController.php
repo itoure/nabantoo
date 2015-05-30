@@ -133,7 +133,7 @@ class EventController extends Controller {
             UserEvent::create(array(
                 'user_id' => $user_id,
                 'event_id' => $newEvent->eve_id,
-                'user_event_choice' => 'ok'
+                'user_event_choice' => 'host'
             ));
 
             // create event date
@@ -144,6 +144,25 @@ class EventController extends Controller {
 
             return Redirect::action('HomeController@getIndex');
         }
+
+    }
+
+
+    public function getCancelJoinUserToEvent(){
+
+        $params = $this->request->all();
+        $user = $this->request->user();
+
+        if(!empty($params['event_id'])){
+
+            UserEvent::where('user_id', '=', $user->usr_id)->where('event_id', '=', $params['event_id'])->delete();
+
+            $return = array('response' => true);
+            return response()->json($return);
+        }
+
+        $return = array('response' => false);
+        return response()->json($return);
 
     }
 
@@ -330,7 +349,7 @@ class EventController extends Controller {
         $modUserLocation = new UserLocation();
         $arrUserLocations = $modUserLocation->getUserLocation($user_id);
 
-        $arrAnsEventIds = $modEvent->getAnsweredEventsByUser($user_id);
+        $arrAnsEventIds = $modEvent->getEventsIdsByUserAndStatus($user_id);
 
         // get events list
         $eventsList = $modEvent->getUserEventsByInterestsAndLocation($arrUserInterestsIds, $arrUserLocations[0], $arrAnsEventIds);
@@ -443,7 +462,7 @@ class EventController extends Controller {
 
         // get upcomming events for the current user
         $modEvent = new Event();
-        $arrAnsEventIds = $modEvent->getAnsweredEventsByUser($user_id);
+        $arrAnsEventIds = $modEvent->getEventsIdsByUserAndStatus($user_id);
 
         switch($filter){
 
@@ -491,12 +510,15 @@ class EventController extends Controller {
                 break;
 
             default:
+
+                $arrDeclinedEventIds = $modEvent->getEventsIdsByUserAndStatus($user_id, 'ko');
+
                 // get user location
                 $modUserLocation = new UserLocation();
                 $arrUserLocations = $modUserLocation->getUserLocation($user_id);
 
                 // get events list
-                $eventsList = $modEvent->getEventsByCountry($arrUserLocations[0], $arrAnsEventIds);
+                $eventsList = $modEvent->getEventsByCountry($arrUserLocations[0], $arrDeclinedEventIds);
         }
 
         if(!empty($eventsList)) {
@@ -518,7 +540,7 @@ class EventController extends Controller {
         //$data->userInterestsList = $arrUserInterests;
         $data->user_firstname = $user_firstname;
 
-        $html = view('event/event_list_home')->with('data', $data)->render();
+        $html = view('event/event_items')->with('data', $data)->render();
         $response = array(
             'html' => $html
         );

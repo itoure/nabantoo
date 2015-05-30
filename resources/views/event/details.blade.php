@@ -31,7 +31,7 @@
                     <tr><td><i class="fa fa-map-marker fa-2x text-danger"></i></td><td>{{$data->event->eve_location}}</td></tr>
                     <tr>
                         <td><i class="fa fa-users fa-2x text-success"></i></td>
-                        <td><span id="event-count-participant" class="badge">{{$data->event->count_participants}} / {{ $data->event->eve_people_limit_max }}</span></td>
+                        <td><span class="badge"><span id="event-count-participant" data-event-id="{{ $data->event->eve_id }}">{{$data->event->count_participants}}</span> / {{ $data->event->eve_people_limit_max }}</span></td>
                     </tr>
                     <tr><td><i class="fa fa-money fa-2x"></i></td><td>{{$data->event->eve_budget == 0 ? 'Free' : $data->event->eve_budget}}</td></tr>
                     <tr><td><i class="fa fa-info-circle fa-2x text-warning"></i></td><td>{{$data->event->eve_details}}</td></tr>
@@ -39,16 +39,19 @@
 
                 <div class="fb-share-button pull-left" data-href="{{Request::url()}}" data-layout="button"></div>
 
-                <div id="info-event-detail" class="small pull-right">
-                @if ($data->event->user_event_choice == 'ok')
-                    <i class="fa fa-thumbs-o-up text-success"></i> going - <a href="">cancel</a>
-                @elseif($data->event->user_event_choice == 'ko')
-                    <i class="fa fa-thumbs-o-down text-danger"></i> declined - <a href="">cancel</a>
-                @else
-                    <i id="loading" class="fa fa-spinner fa-spin" style="display: none"></i>
-                    <a role="button" href="#" class="btn btn-default btn-xs join-event-detail" data-event-id="{{ $data->event->eve_id }}"><i class="fa fa-user-plus"></i> {{trans('messages.join')}}</a>
-                    <a role="button" href="#" class="btn btn-default btn-xs decline-event-detail" data-event-id="{{ $data->event->eve_id }}"><i class="fa fa-user-times"></i> Decline</a>
-                @endif
+                <div id="action-event-detail" class="small pull-right">
+                    <i class="fa fa-spinner fa-spin loading" style="display: none"></i>
+
+                    @if ($data->event->user_event_choice == 'ok')
+                        <i class="fa fa-thumbs-o-up text-success"></i> going - <a class="cancel-join-event-detail" href="#" data-event-id="{{ $data->event->eve_id }}">cancel</a>
+                    @elseif($data->event->user_event_choice == 'ko')
+                        <i class="fa fa-thumbs-o-down text-danger"></i> declined - <a class="cancel-join-event-detail" href="#" data-event-id="{{ $data->event->eve_id }}">cancel</a>
+                    @elseif($data->event->user_event_choice == 'host')
+                        <i class="fa fa-user"></i> host - <a href="#">edit</a>
+                    @else
+                        <a role="button" href="#" class="btn btn-default btn-xs join-event-detail" data-event-id="{{ $data->event->eve_id }}"><i class="fa fa-user-plus"></i> {{trans('messages.join')}}</a>
+                        <a role="button" href="#" class="btn btn-default btn-xs decline-event-detail" data-event-id="{{ $data->event->eve_id }}"><i class="fa fa-user-times"></i> Decline</a>
+                    @endif
                 </div>
 
             </div>
@@ -156,7 +159,7 @@
 
         <!-- Others moments -->
         <div class="panel panel-default">
-            <div class="panel-heading small">Related moments in <span class="label label-primary">{{$data->event->int_name}}</span></div>
+            <div class="panel-heading small">Related moments</div>
             <div class="panel-body">
                 <ul class="media-list">
                     @foreach ($data->eventsListByInterest as $event)

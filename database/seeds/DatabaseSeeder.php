@@ -443,31 +443,31 @@ class UserEventsTableSeeder extends Seeder {
         UserEvent::create(array(
             'user_id' => 1,
             'event_id' => 1,
-            'user_event_choice' => 'ok'
+            'user_event_choice' => 'host'
         ));
 
         UserEvent::create(array(
             'user_id' => 2,
             'event_id' => 2,
-            'user_event_choice' => 'ok'
+            'user_event_choice' => 'host'
         ));
 
         UserEvent::create(array(
             'user_id' => 3,
             'event_id' => 3,
-            'user_event_choice' => 'ok'
+            'user_event_choice' => 'host'
         ));
 
         UserEvent::create(array(
             'user_id' => 4,
             'event_id' => 4,
-            'user_event_choice' => 'ok'
+            'user_event_choice' => 'host'
         ));
 
         UserEvent::create(array(
             'user_id' => 5,
             'event_id' => 5,
-            'user_event_choice' => 'ok'
+            'user_event_choice' => 'host'
         ));
 
     }
