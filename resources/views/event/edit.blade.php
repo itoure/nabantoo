@@ -5,8 +5,9 @@
 <div class="row">
     <div class="col-md-offset-2 col-md-8">
         <div class="panel panel-default">
-            <div class="panel-heading">{{trans('messages.my_account')}}</div>
+            <div class="panel-heading">Edit the event</div>
             <div class="panel-body">
+
 
                 @if (count($errors) > 0)
                 <div class="alert alert-danger">
@@ -19,53 +20,32 @@
                 </div>
                 @endif
 
-                {!! Form::model($data->user, array('action' => 'UserController@postStore', 'files' => true, 'id' => 'formEditUser')) !!}
+                {!! Form::model($data->event, array('action' => 'EventController@postEditStore', 'files' => true, 'id' => 'formEditEvent')) !!}
 
-                {!! Form::hidden('usr_id') !!}
-                {!! Form::hidden('location_id', $data->location->location_id) !!}
-
-                <div class="form-group">
-                    <label>Gender</label>
-                    <div>
-                        <label class="radio-inline">
-                            {!! Form::radio('usr_sexe', 'F') !!} {{trans('messages.female')}}
-                        </label>
-                        <label class="radio-inline">
-                            {!! Form::radio('usr_sexe', 'M') !!} {{trans('messages.male')}}
-                        </label>
-                    </div>
-                </div>
+                {!! Form::hidden('eve_id') !!}
+                {!! Form::hidden('location_id', $data->event->location_id) !!}
 
                 <div class="form-group">
-                    <label>Firtsname</label>
-                    {!! Form::text('usr_firstname', null, array(
-                    'placeholder' => trans('messages.name'),
+                    <label>{{trans('messages.title')}}</label>
+                    {!! Form::text('eve_title', null, array(
+                    'placeholder' => trans('messages.title'),
                     'class' => 'form-control',
                     'data-toggle' => 'tooltip',
                     'data-placement' => 'left',
-                    'title' => trans('messages.help_name')
+                    'title' => trans('messages.help_title')
                     )) !!}
                 </div>
 
                 <div class="form-group">
-                    <label>Location</label>
-                    {!! Form::text('usr_location', null, array(
-                    'placeholder' => trans('messages.city'),
+                    <label>{{trans('messages.where')}}</label>
+                    {!! Form::text('eve_location', null, array(
+                    'placeholder' => trans('messages.where'),
                     'class' => 'form-control',
                     'id' => 'search_autocomplete',
                     'autocomplete' => 'off',
                     'data-toggle' => 'tooltip',
                     'data-placement' => 'left',
-                    'title' => trans('messages.help_city')
-
-                    )) !!}
-                </div>
-
-                <div class="form-group">
-                    <label>Phone</label>
-                    {!! Form::text('usr_phone', null, array(
-                    'placeholder' => 'Mobile',
-                    'class' => 'form-control'
+                    'title' => trans('messages.help_where')
                     )) !!}
                 </div>
 
@@ -84,32 +64,77 @@
                 {!! Form::hidden('short_country', $data->location->short_country, array('id' => 'short_country')) !!}
                 {!! Form::hidden('long_country', $data->location->long_country, array('id' => 'long_country')) !!}
 
-
                 <div class="form-group">
-                    <label>{{trans('messages.birthday')}}</label>
-                    <div>
-                    {{trans('messages.month')}} {!! Form::select('month', array('' => '') + array_combine(range(1,12),range(1,12)), $data->birthday->month, array('class' => 'form-inline')) !!}
-                    {{trans('messages.day')}} {!! Form::select('day', array('' => '') + array_combine(range(1,31),range(1,31)), $data->birthday->day, array('class' => 'form-inline')) !!}
-                    {{trans('messages.year')}} {!! Form::select('year', array('' => '') + array_combine(range(2015, 1915),range(2015, 1915)), $data->birthday->year, array('class' => 'form-inline')) !!}
-                    </div>
+                    <label>{{trans('messages.when')}}</label>
+                    {!! Form::text('eve_start_date', null, array(
+                    'placeholder' => trans('messages.when'),
+                    'class' => 'form-control',
+                    'id' => 'start_date',
+                    'data-toggle' => 'tooltip',
+                    'data-placement' => 'left',
+                    'title' => trans('messages.help_when')
+                    )) !!}
                 </div>
 
-                <div class="form-group">
-                    <label>{{trans('messages.your_photo')}}</label>
-                    {!! Form::file('photo') !!}
-                </div>
 
                 <div class="form-group">
-                    <label>Interests</label>
-                    {!! Form::select('interests[]',
+                    <label>Interest</label>
+                    {!! Form::select('interest',
                     $data->interests,
-                    $data->interestIds,
-                    array('class' => 'form-control input-lg multiselect-interests-user', 'multiple' => 'multiple')) !!}
+                    $data->event->int_id,
+                    array(
+                    'class' => 'form-control select-interests',
+                    'data-toggle' => 'tooltip'
+                    )) !!}
+                </div>
+
+
+                <div class="form-group">
+                    <label>Details</label>
+                    {!! Form::textarea('eve_details', null, array(
+                    'placeholder' => trans('messages.details'),
+                    'class' => 'form-control',
+                    'rows' => '5',
+                    'data-toggle' => 'tooltip',
+                    'data-placement' => 'left',
+                    'title' => trans('messages.help_details')
+                    )) !!}
+                </div>
+
+                <span class="lead">Others Informations</span>
+
+                <div class="form-group">
+                    <label>People limit</label>
+                    {!! Form::text('eve_people_limit_max', null, array(
+                    'placeholder' => 'People limit',
+                    'class' => 'form-control',
+                    )) !!}
+                </div>
+
+                <div class="form-group">
+                    <label>Budget</label>
+                    {!! Form::text('eve_budget', null, array(
+                    'placeholder' => 'Budget',
+                    'class' => 'form-control',
+                    )) !!}
+                </div>
+
+                <div class="form-group">
+                    <label>Duration</label>
+                    {!! Form::text('eve_duration', null, array(
+                    'placeholder' => 'Duration',
+                    'class' => 'form-control',
+                    )) !!}
+                </div>
+
+                <label>{{trans('messages.add_photo')}}</label>
+                <div class="form-group">
+                    {!! Form::file('photo') !!}
                 </div>
 
                 <div class="form-group pull-right">
                     <a class="btn btn-default" href="{{action('HomeController@getIndex')}}" role="button">Annuler</a>
-                    {!! Form::submit(trans('messages.update_account'), array(
+                    {!! Form::submit('Edit the event', array(
                     'class' => 'btn btn-primary'
                     )); !!}
                 </div>

@@ -14,7 +14,7 @@ class Location extends Model {
      * @param array $locations
      * @return static
      */
-    public function saveLocation(array $inputs){
+    public function saveLocation(array $inputs) {
 
         $arrLocations = array();
         $arrLocations['short_sublocality_level_1'] = $inputs['short_sublocality_level_1'];

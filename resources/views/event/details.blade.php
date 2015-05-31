@@ -47,7 +47,7 @@
                     @elseif($data->event->user_event_choice == 'ko')
                         <i class="fa fa-thumbs-o-down text-danger"></i> declined - <a class="cancel-join-event-detail" href="#" data-event-id="{{ $data->event->eve_id }}">cancel</a>
                     @elseif($data->event->user_event_choice == 'host')
-                        <i class="fa fa-user"></i> host - <a href="#">edit</a>
+                        <i class="fa fa-user"></i> host - <a href="{{action('EventController@getEdit', array('event_id'=> $data->event->eve_id))}}">edit</a>
                     @else
                         <a role="button" href="#" class="btn btn-default btn-xs join-event-detail" data-event-id="{{ $data->event->eve_id }}"><i class="fa fa-user-plus"></i> {{trans('messages.join')}}</a>
                         <a role="button" href="#" class="btn btn-default btn-xs decline-event-detail" data-event-id="{{ $data->event->eve_id }}"><i class="fa fa-user-times"></i> Decline</a>

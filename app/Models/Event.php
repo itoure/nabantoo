@@ -21,6 +21,7 @@ class Event extends Model {
             ->join('users', 'users.usr_id', '=', 'events.user_id')
             ->join('interests', 'interests.int_id', '=', 'events.interest_id')
             ->join('categories', 'interests.category_id', '=', 'categories.cat_id')
+            ->join('event_dates', 'event_dates.event_id', '=', 'events.eve_id')
             ->where('locations.short_country', '=', $arrUserLocation->short_country)
             ->where('interests.int_id', '=', $interest_id)
             ->where('events.eve_id', '<>', $event_id);

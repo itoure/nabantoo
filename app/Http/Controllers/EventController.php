@@ -63,6 +63,39 @@ class EventController extends Controller {
 		return view('event/create')->with('data', $data);
 	}
 
+
+    /**
+     * Show form to edit a event
+     *
+     * @return Response
+     */
+    public function getEdit($event_id)
+    {
+        // get complete event
+        $modEvent = new Event();
+        $event = $modEvent->getCompleteEventById($event_id);
+
+        $event->eve_start_date = date('d M H:i', $event->eve_start_date);
+
+        // get all interests from db
+        $db_interests = Interest::with('category')->get();
+        $arrInterests = array('' => 'What is the plan ?');
+        foreach($db_interests as $interest){
+            $arrInterests[$interest->category->cat_name][$interest->int_id] = $interest->int_name;
+        }
+
+        // get location
+        $eventLocation = Location::findOrFail($event->location_id);
+
+        $data = new \stdClass();
+        $data->event = $event;
+        $data->interests = $arrInterests;
+        $data->location = $eventLocation;
+
+        return view('event/edit')->with('data', $data);
+    }
+
+
     /**
      * Valid create rdv form and store datas in the DB
      *
@@ -147,6 +180,82 @@ class EventController extends Controller {
 
     }
 
+
+    public function postEditStore(){
+
+        $fileFolder = env('APP_FILE_FOLDER');
+
+        $rules = array(
+            'eve_title' => 'required|string',
+            'eve_details' => 'required|string',
+            'eve_location' => 'required|string',
+            'photo' => 'image',
+            'eve_start_date' => 'required',
+            'interest' => 'required|integer',
+            'eve_people_limit_max' => 'integer',
+            'eve_budget' => 'numeric',
+            'eve_duration' => 'integer',
+        );
+
+        $validator = Validator::make(Input::all(), $rules);
+
+        if ($validator->fails()) {
+            return Redirect::action('EventController@getEdit', array('event_id' => Input::get('eve_id')))->withErrors($validator)->withInput();
+        } else {
+            $title = Input::get('eve_title');
+            $details = Input::get('eve_details');
+            $location = Input::get('eve_location');
+            $photo = Input::file('photo');
+            $start_date = Input::get('eve_start_date');
+            $interest = Input::get('interest');
+            $people_limit_max = Input::get('eve_people_limit_max');
+            $budget = Input::get('eve_budget');
+            $duration = Input::get('eve_duration');
+            $event_id = Input::get('eve_id');
+            $location_id = Input::get('location_id');
+
+
+            // update event
+            $event = Event::findOrFail($event_id);
+            $event->eve_title = $title;
+            $event->eve_details = $details;
+            $event->eve_location = $location;
+            $event->eve_people_limit_max = $people_limit_max;
+            $event->eve_budget = $budget;
+            $event->eve_duration = $duration;
+            $event->interest_id = $interest;
+
+            // photo
+            $photoName = null;
+            if($photo){
+                if ($photo->isValid()) {
+                    $photo->move($fileFolder.'/event/', $photo->getClientOriginalName());
+                    $photoName = $photo->getClientOriginalName();
+                    $event->eve_photo = $photoName;
+                }
+            }
+
+            // create new location
+            $modelLocation = new Location();
+            $location_id_new = $modelLocation->saveLocation(Input::all());
+            $event->location_id = $location_id_new;
+
+            // update event date
+            $event_date = EventDate::where('event_id', '=', $event_id)->first();
+            //$event_date->eve_start_date = strtotime($start_date);
+            $event_date->save();
+
+
+            // save event
+            $event->save();
+
+
+            Location::findOrFail($location_id)->delete();
+
+            return Redirect::action('HomeController@getIndex');
+        }
+
+    }
 
     public function getCancelJoinUserToEvent(){
 
@@ -402,7 +511,6 @@ class EventController extends Controller {
         $eventsList = $modEvent->getEventsByInterest($interest_id, $event_id, $arrUserLocations[0]);
 
         foreach($eventsList as $event) {
-            //dd($event);
             $event->eve_start_date = date('d M H:i', $event->eve_start_date);
         }
 
