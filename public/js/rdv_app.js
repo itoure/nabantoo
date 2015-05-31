@@ -53,6 +53,12 @@ var RdvApp = {
 
         $(".moments-filter").on( "click", function(e) {
             e.preventDefault();
+
+            $(".moments-filter").removeClass('btn-info');
+            $(".moments-filter").addClass('btn-default');
+
+            $(this).addClass('btn-info');
+
             RdvApp.fetchEventListHome($(this));
         });
 

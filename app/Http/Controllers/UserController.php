@@ -225,6 +225,8 @@ class UserController extends Controller {
             $event->eve_start_date = date('d M H:i', $event->eve_start_date);
             $event->usr_first_letter = strtoupper($event->usr_firstname[0]);
 
+            $event->user_event_choice = $modEvent->getEventStatus($event->eve_id, $user_id);
+
             // count people for the event
             $event->count_people = $modEvent->countParticipantsByEvent($event->eve_id);
         }

@@ -2,8 +2,16 @@
 
 @section('content')
 
-<div class="row">
-    <div class="col-md-offset-1 col-md-10">
+<div class="" style="border-bottom: 1px solid #d0d1d5">
+    <ul class="list-inline text-right">
+        <li><a href="">action 1</a></li>
+        <li><a href="">action 2</a></li>
+        <li><a href="">action 3</a></li>
+    </ul>
+</div>
+
+<div class="row top20">
+    <div class="col-md-12">
         <div id="alerts">
             @if (session('welcome'))
             <div id="welcome-alert" class="alert alert-success" role="alert">Welcome to Nabantoo <a class="alert-link" href="{{action('UserController@getAccount')}}">{{$data->user_firstname}}</a> !</div>
@@ -14,10 +22,8 @@
             @endif
         </div>
 
-        <h4>Moments List</h4>
-
         <div id="filters">
-            <a role="button" class="btn btn-default btn-xs moments-filter default-filter" data-filter="all">All Upcoming</a>
+            <a role="button" class="btn btn-info btn-xs moments-filter" data-filter="all">All Upcoming</a>
             <a role="button" class="btn btn-default btn-xs moments-filter" data-filter="myMoments">My Upcoming Moments</a>
             <a role="button" class="btn btn-default btn-xs moments-filter" data-filter="myNetwork">My Network</a>
             <a role="button" class="btn btn-default btn-xs moments-filter hide" data-filter="fitToMe">{{trans('messages.fit_to_me')}}</a>
@@ -28,14 +34,14 @@
 </div>
 
 <div class="row top20">
-    <div class="col-md-offset-1 col-md-7">
+    <div class="col-md-8">
         <div id="eventListHome-loading" class="text-center">
             <i class="fa fa-spinner fa-spin fa-4x"></i>
         </div>
         <ul class="list-group" id="eventListHome"></ul>
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-4">
 
         <!-- upcoming moments -->
         <div class="panel panel-default">

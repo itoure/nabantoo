@@ -317,9 +317,8 @@ class EventController extends Controller {
             $event->usr_first_letter = strtoupper($event->usr_firstname[0]);
         }
 
-        $data = new \stdClass();
-        $data->upcomingEvents = $eventsList;
-        $html = view('event/my_next_events')->with('data', $data)->render();
+        $html = view('event/event_items_sidebar')->with('events', $eventsList)->render();
+
         $response = array(
             'html' => $html
         );
@@ -360,9 +359,8 @@ class EventController extends Controller {
             $event->usr_first_letter = strtoupper($event->usr_firstname[0]);
         }
 
-        $data = new \stdClass();
-        $data->suggestedEvents = $eventsList;
-        $html = view('event/my_suggested_events')->with('data', $data)->render();
+        $html = view('event/event_items_sidebar')->with('events', $eventsList)->render();
+
         $response = array(
             'html' => $html
         );
@@ -537,10 +535,8 @@ class EventController extends Controller {
 
         $data = new \stdClass();
         $data->events = $eventsList;
-        //$data->userInterestsList = $arrUserInterests;
-        $data->user_firstname = $user_firstname;
 
-        $html = view('event/event_items')->with('data', $data)->render();
+        $html = view('event/event_items')->with('events', $data->events)->render();
         $response = array(
             'html' => $html
         );

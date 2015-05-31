@@ -1,5 +1,9 @@
+@if (empty($events))
+Nothing found. <a href="{{action('EventController@getCreate')}}">Create a moment</a>
+@else
+
 <ul class="media-list">
-    @foreach ($data->upcomingEvents as $event)
+    @foreach ($events as $event)
     <li class="media">
         <div class="media-left">
             @if (!empty($event->eve_photo))
@@ -18,7 +22,4 @@
     @endforeach
 </ul>
 
-@if (empty($data->upcomingEvents))
-No moments.
-<div><a href="{{action('EventController@getCreate')}}">Create a moment</a></div>
 @endif

@@ -13,7 +13,7 @@
 
 <div class="row">
 
-    <div class="col-md-offset-1 col-md-7">
+    <div class="col-md-8">
         <div class="panel panel-default panel-event-detail">
             <div class="panel-heading panel-title">{{$data->event->eve_title}}</div>
             <div class="panel-body">
@@ -105,7 +105,7 @@
     </div>
 
 
-    <div class="col-md-3">
+    <div class="col-md-4">
 
         <!-- Host -->
         <div class="panel panel-default">

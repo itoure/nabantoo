@@ -1,4 +1,4 @@
-@foreach ($data->events as $event)
+@foreach ($events as $event)
 <li class="list-group-item event_id_{{ $event->eve_id }} event-item">
     <div class="container-fluid">
         <div class="row row-list">
@@ -50,6 +50,6 @@
 </li>
 @endforeach
 
-@if (empty($data->events))
-No moments found. <a href="{{action('EventController@getCreate')}}">Create a moment</a>
+@if (empty($events))
+Nothing found. <a href="{{action('EventController@getCreate')}}">Create a moment</a>
 @endif
